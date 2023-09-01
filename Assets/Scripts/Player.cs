@@ -15,8 +15,15 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        foreach (Tile city in City.Neighbours) {
-            city.Neighbour = true;
+        foreach (GameObject city in GameObject.FindGameObjectsWithTag("Tile")) {
+            city.GetComponent<Tile>().Highlight = false;
         }
+
+        foreach (Tile city in City.Neighbours) {
+            city.Highlight = true;
+        }
+
+
+        transform.position = City.transform.position;
     }
 }

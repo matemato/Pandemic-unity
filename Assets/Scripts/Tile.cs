@@ -6,7 +6,7 @@ public class Tile : MonoBehaviour
 {
     public string Color;
     public Tile[] Neighbours;
-    public bool Neighbour;
+    public bool Highlight;
 
     static private int ID = 0;
     private int Id;
@@ -17,17 +17,20 @@ public class Tile : MonoBehaviour
     {
         Id = ID++;
 
-        Neighbour = false;
+        Highlight = false;
         _spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Neighbour) {
-            Color currentColor = _spriteRenderer.color;
+        Color currentColor = _spriteRenderer.color;
+        if (Highlight) {    
             currentColor.a = 1f;
-            _spriteRenderer.color = currentColor;
         }
+        else {
+            currentColor.a = 0f;
+        }
+        _spriteRenderer.color = currentColor;
     }
 }
