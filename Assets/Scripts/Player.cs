@@ -1,21 +1,22 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class Player : MonoBehaviour
 {
-    private Vector2 position;
+    public Tile City;
     // Start is called before the first frame update
-    public Player(Vector2 initialPosition)
+    void Start()
     {
-        position = initialPosition;
+        transform.position = City.transform.position;
     }
 
-    // Property to get and set the position
-    public Vector2 Position
+    // Update is called once per frame
+    void Update()
     {
-        get { return position; }
-        set { position = value; }
+        foreach (Tile city in City.Neighbours) {
+            city.Neighbour = true;
+        }
     }
 }
