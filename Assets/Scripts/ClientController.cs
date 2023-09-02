@@ -17,12 +17,19 @@ public class ClientController : MonoBehaviour
     private int _id;
     private int _numPlayers;
 
+    [SerializeField]
+    private GameObject _playerPrefab;
+    [SerializeField]
+    private GameObject _otherPlayerPrefab;
+
     private GameObject _player;
-    private GameObject _otherPlayer;
-    private int _otherId;
+    private GameObject[] _otherPlayers;
+    private GameObject[] _tiles;
 
     [SerializeField]
     private Text _debugText;
+
+    private float nextIdleTime = 0.0f;
 
     void Start()
     {
@@ -31,9 +38,6 @@ public class ClientController : MonoBehaviour
         _msgManager = new MsgManager(_tcpClient);
         _opcodeManager = new OpcodeManager(_msgManager,_serverInput);
         SetCState(ClientState.CSTATE_UNCONNECTED);
-
-        _player = GameObject.Find("Player");
-        _otherPlayer = GameObject.Find("OtherPlayer");
     }
 
     public void SetCState(ClientState newState)
@@ -100,11 +104,34 @@ public class ClientController : MonoBehaviour
         }
     }
 
-    private float nextActionTime = 0.0f;
-    public float period = 1.0f;
+    private void UpdatePlayerPositions()
+    {
+        byte[] positions = _serverInput.PlayerUpdateHolder.Get();
+        if (positions != null)
+        {
+            foreach (GameObject city in _tiles)
+            {
+                if (city.GetComponent<Tile>().GetId() == positions[_id])
+                {
+                    _player.GetComponent<Player>().City = city.GetComponent<Tile>();
+                }
+
+                foreach (GameObject otherPlayer in _otherPlayers)
+                {
+                    if (city.GetComponent<Tile>().GetId() == positions[otherPlayer.GetComponent<OtherPlayer>().GetId()])
+                    {
+                        otherPlayer.GetComponent<OtherPlayer>().City = city.GetComponent<Tile>();
+                    }
+                }
+
+            }
+        }
+    }
 
     private void UpdateIngame()
     {
+        const float idleSendPeriod = 1.0f;
+
         _opcodeManager.ReceiveAll();
 
         string serverText = _serverInput.MessageHolder.GetNext();
@@ -114,26 +141,7 @@ public class ClientController : MonoBehaviour
             _debugText.text = serverText;
         }
 
-        byte[] positions = _serverInput.PlayerUpdateHolder.Get();
-        if(positions != null)
-        {
-            if(positions.Length == 2)
-            {
-                Debug.Log("positions length == 2");
-            }
-            foreach (GameObject city in GameObject.FindGameObjectsWithTag("Tile"))
-            {
-                if(city.GetComponent<Tile>().GetId() == positions[_id])
-                {
-                    _player.GetComponent<Player>().City = city.GetComponent<Tile>();
-                }
-
-                if (city.GetComponent<Tile>().GetId() == positions[_otherId])
-                {
-                    _otherPlayer.GetComponent<OtherPlayer>().City = city.GetComponent<Tile>();
-                }
-            }
-        }
+        UpdatePlayerPositions();
 
         if(_player.GetComponent<Player>().Click != null)
         {
@@ -142,13 +150,37 @@ public class ClientController : MonoBehaviour
             _player.GetComponent<Player>().Click = null;
         }
 
-        if (Time.time > nextActionTime)
+        if (Time.time > nextIdleTime)
         {
-            nextActionTime += period;
-            Debug.Log("test");
+            nextIdleTime += idleSendPeriod;
             OutIdle idle = new OutIdle();
             _opcodeManager.Send(idle);
         }
+    }
+
+    private void BeginGame()
+    {
+        _id = _serverInput.BeginGameHolder._playerId;
+        _numPlayers = _serverInput.BeginGameHolder._numPlayers;
+        _clientState = ClientState.CSTATE_GAME;
+
+        for (int i = 0; i < _numPlayers; i++)
+        {
+            if (i == _id)
+            {
+                var player = Instantiate(_playerPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+                player.GetComponent<Player>().SetId(i);
+            }
+            else
+            {
+                var otherPlayer = Instantiate(_otherPlayerPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+                otherPlayer.GetComponent<OtherPlayer>().SetId(i);
+            }
+        }
+
+        _otherPlayers = GameObject.FindGameObjectsWithTag("OtherPlayer");
+        _player = GameObject.FindGameObjectWithTag("Player");
+        _tiles = GameObject.FindGameObjectsWithTag("Tile");
     }
 
     private void UpdateLobby()
@@ -164,10 +196,7 @@ public class ClientController : MonoBehaviour
 
         if(_serverInput.BeginGameHolder.HasGameStarted())
         {
-            _id = _serverInput.BeginGameHolder._playerId;
-            _numPlayers = _serverInput.BeginGameHolder._numPlayers;
-            _clientState = ClientState.CSTATE_GAME;
-            _otherId = 1 - _id;
+            BeginGame();
         }
     }
 

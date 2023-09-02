@@ -42,10 +42,8 @@ public class TCPClient
     {
         try
         {
-            Debug.Log("a");
             socketConnection = new TcpClient();
             socketConnection.ConnectAsync("localhost", 43594);
-            Debug.Log("b");
             return true;
         }
         catch (SocketException socketException)
@@ -60,16 +58,12 @@ public class TCPClient
     public void ReadInput()
     {
         Byte[] bytes = new Byte[1024];
-        Debug.Log("f");
         if(socketConnection != null && socketConnection.Connected)
         {
-            Debug.Log("g");
             // Get a stream object for reading 				
             NetworkStream stream = socketConnection.GetStream();
-            Debug.Log("h");
             if (stream.DataAvailable)
             {
-                Debug.Log("i");
                 int length;
                 // Read incomming stream into byte arrary. 					
                 if ((length = stream.Read(bytes, 0, bytes.Length)) != 0)
