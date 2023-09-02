@@ -9,33 +9,21 @@ using System.Text;
 using System.Threading;
 using UnityEngine;
 
-public class TCPClient : MonoBehaviour
+public class TCPClient
 {
     public Queue<byte> input;
     public Queue<byte> output;
 
     private TcpClient socketConnection;
-    private Thread clientReceiveThread;
     private float tempTime;
     private const float outputTime = 0.1f;
 
-    // Use this for initialization 	
-    void Start()
+    public TCPClient()
     {
         input = new Queue<byte>();
         output = new Queue<byte>();
-        ConnectToTcpServer();
     }
-    // Update is called once per frame
-    void Update()
-    {
-        tempTime += Time.deltaTime;
-        if (tempTime > outputTime)
-        {
-            tempTime = 0;
-            SendOutput();
-        }
-    }
+   
     private void PrintByteArray(byte[] bytes, string Type)
     {
         var sb = new StringBuilder(Type + ": { ");
@@ -50,68 +38,69 @@ public class TCPClient : MonoBehaviour
     /// <summary> 	
     /// Setup socket connection. 	
     /// </summary> 	
-    private void ConnectToTcpServer()
+    public bool ConnectToTcpServer()
     {
         try
         {
-            clientReceiveThread = new Thread(new ThreadStart(ListenForData));
-            clientReceiveThread.IsBackground = true;
-            clientReceiveThread.Start();
+            Debug.Log("a");
+            socketConnection = new TcpClient();
+            socketConnection.ConnectAsync("localhost", 43594);
+            Debug.Log("b");
+            return true;
         }
-        catch (Exception e)
+        catch (SocketException socketException)
         {
-            Debug.Log("On client connect exception " + e);
+            Debug.Log("On client connect exception " + socketException);
+            return false;
         }
     }
     /// <summary> 	
     /// Runs in background clientReceiveThread; Listens for incomming data. 	
     /// </summary>     
-    private void ListenForData()
+    public void ReadInput()
     {
-        try
+        Byte[] bytes = new Byte[1024];
+        Debug.Log("f");
+        if(socketConnection != null && socketConnection.Connected)
         {
-            socketConnection = new TcpClient("localhost", 43594);
-            Byte[] bytes = new Byte[1024];
-            while (true)
+            Debug.Log("g");
+            // Get a stream object for reading 				
+            NetworkStream stream = socketConnection.GetStream();
+            Debug.Log("h");
+            if (stream.DataAvailable)
             {
-                // Get a stream object for reading 				
-                using (NetworkStream stream = socketConnection.GetStream())
+                Debug.Log("i");
+                int length;
+                // Read incomming stream into byte arrary. 					
+                if ((length = stream.Read(bytes, 0, bytes.Length)) != 0)
                 {
-                    int length;
-                    // Read incomming stream into byte arrary. 					
-                    while ((length = stream.Read(bytes, 0, bytes.Length)) != 0)
+                    var incommingData = new byte[length];
+                    Array.Copy(bytes, 0, incommingData, 0, length);
+                    // Convert byte array to string message.
+                    for (int i = 0; i < length; i++)
                     {
-                        var incommingData = new byte[length];
-                        Array.Copy(bytes, 0, incommingData, 0, length);
-                        // Convert byte array to string message.
-                        for(int i = 0; i < length; i++)
-                        {
-                            input.Enqueue(incommingData[i]);
-                        }
-                        PrintByteArray(incommingData, "received");
+                        input.Enqueue(incommingData[i]);
                     }
+                    PrintByteArray(incommingData, "received");
                 }
             }
         }
-        catch (SocketException socketException)
-        {
-            Debug.Log("Socket exception: " + socketException);
-        }
     }
+
     /// <summary> 	
     /// Send message to server using socket connection. 	
     /// </summary> 	
-    private void SendOutput()
+    public void SendOutput()
     {
-        if (socketConnection == null)
+        if (socketConnection == null || !socketConnection.Connected)
         {
             return;
         }
         try
         {
-            // Get a stream object for writing. 			
+            // Get a stream object for writing.	
             NetworkStream stream = socketConnection.GetStream();
-            if (stream.CanWrite)
+            if (stream.CanWrite && output.Count > 0)
             {
                 //string clientMessage = "This is a message from one of your clients.";
                 // Convert string message to byte array.                 

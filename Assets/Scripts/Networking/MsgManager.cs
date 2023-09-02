@@ -2,21 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MsgManager : MonoBehaviour
+public class MsgManager
 {
     // Start is called before the first frame update
-    private TCPClient TcpClient;
+    private TCPClient _tcpClient;
 
-    void Start()
+    public MsgManager(TCPClient tcpClient)
     {
-        TcpClient = GameObject.Find("Client").GetComponent<TCPClient>();
+        _tcpClient = tcpClient;
     }
 
     public byte ReadByte()
     {
-        if (TcpClient.input.Count != 0)
+        if (_tcpClient.input.Count != 0)
         {
-            var ret = (byte)TcpClient.input.Dequeue();
+            var ret = (byte)_tcpClient.input.Dequeue();
             return ret;
         }
         else
@@ -54,14 +54,13 @@ public class MsgManager : MonoBehaviour
         return (ulong)((a << 32) + b);
     }
 
-    public string ReadString()
+    public string ReadString(byte length)
     {
         string str = "";
-        char c = (char)ReadByte();
-        while (c != '\n')
+        for(int i = 0; i < length;i++)
         {
+            char c = (char)ReadByte();
             str += c;
-            c = (char)ReadByte();
         }
         return str;
     }
@@ -70,16 +69,16 @@ public class MsgManager : MonoBehaviour
     {
         for (int i = 0; i < num; i++)
         {
-            if (TcpClient.input.Count != 0)
+            if (_tcpClient.input.Count != 0)
             {
-                TcpClient.input.Dequeue();
+                _tcpClient.input.Dequeue();
             }
         }
     }
 
     public void WriteByte(byte value)
     {
-        TcpClient.output.Enqueue(value);
+        _tcpClient.output.Enqueue(value);
     }
 
     public void WriteOpcode(byte op)
@@ -128,9 +127,8 @@ public class MsgManager : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
+    public bool PendingInput()
     {
-        
+        return _tcpClient.input.Count != 0;
     }
 }
