@@ -7,12 +7,14 @@ public class ServerInput
     
     public SMessageHolder MessageHolder;
     public PlayerUpdateHolder PlayerUpdateHolder;
+    public BeginGameHolder BeginGameHolder;
     public bool InvalidOpcode;
-    
+
     public ServerInput()
     {
         InvalidOpcode = false;
         MessageHolder = new SMessageHolder();
         PlayerUpdateHolder = new PlayerUpdateHolder();
+        BeginGameHolder = new BeginGameHolder();
     }
 }

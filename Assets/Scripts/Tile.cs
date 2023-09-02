@@ -9,16 +9,21 @@ public class Tile : MonoBehaviour
     public bool Highlight;
 
     static private int ID = 0;
-    private int Id;
+    private int _id;
 
     private SpriteRenderer _spriteRenderer;
     // Start is called before the first frame update
     void Start()
     {
-        Id = ID++;
+        _id = ID++;
 
         Highlight = false;
         _spriteRenderer = GetComponent<SpriteRenderer>();
+    }
+
+    public int GetId()
+    {
+        return _id;
     }
 
     // Update is called once per frame

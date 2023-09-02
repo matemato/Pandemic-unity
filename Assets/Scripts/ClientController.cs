@@ -11,9 +11,15 @@ public class ClientController : MonoBehaviour
     private TCPClient _tcpClient;
     private MsgManager _msgManager;
     private OpcodeManager _opcodeManager;
+
     private ClientState _clientState = ClientState.CSTATE_UNCONNECTED;
     private int _awaitingSubstate = 0;
-    private string test = "sadfsdfdsfdsf";
+    private int _id;
+    private int _numPlayers;
+
+    private GameObject _player;
+    private GameObject _otherPlayer;
+    private int _otherId;
 
     [SerializeField]
     private Text _debugText;
@@ -25,6 +31,9 @@ public class ClientController : MonoBehaviour
         _msgManager = new MsgManager(_tcpClient);
         _opcodeManager = new OpcodeManager(_msgManager,_serverInput);
         SetCState(ClientState.CSTATE_UNCONNECTED);
+
+        _player = GameObject.Find("Player");
+        _otherPlayer = GameObject.Find("OtherPlayer");
     }
 
     public void SetCState(ClientState newState)
@@ -91,9 +100,55 @@ public class ClientController : MonoBehaviour
         }
     }
 
+    private float nextActionTime = 0.0f;
+    public float period = 1.0f;
+
     private void UpdateIngame()
     {
-        throw new NotImplementedException();
+        _opcodeManager.ReceiveAll();
+
+        string serverText = _serverInput.MessageHolder.GetNext();
+        if (serverText != null)
+        {
+            Debug.Log(serverText);
+            _debugText.text = serverText;
+        }
+
+        byte[] positions = _serverInput.PlayerUpdateHolder.Get();
+        if(positions != null)
+        {
+            if(positions.Length == 2)
+            {
+                Debug.Log("positions length == 2");
+            }
+            foreach (GameObject city in GameObject.FindGameObjectsWithTag("Tile"))
+            {
+                if(city.GetComponent<Tile>().GetId() == positions[_id])
+                {
+                    _player.GetComponent<Player>().City = city.GetComponent<Tile>();
+                }
+
+                if (city.GetComponent<Tile>().GetId() == positions[_otherId])
+                {
+                    _otherPlayer.GetComponent<OtherPlayer>().City = city.GetComponent<Tile>();
+                }
+            }
+        }
+
+        if(_player.GetComponent<Player>().Click != null)
+        {
+            OutMove move = new OutMove((byte)_player.GetComponent<Player>().Click._cityId);
+            _opcodeManager.Send(move);
+            _player.GetComponent<Player>().Click = null;
+        }
+
+        if (Time.time > nextActionTime)
+        {
+            nextActionTime += period;
+            Debug.Log("test");
+            OutIdle idle = new OutIdle();
+            _opcodeManager.Send(idle);
+        }
     }
 
     private void UpdateLobby()
@@ -105,6 +160,14 @@ public class ClientController : MonoBehaviour
         {
             Debug.Log(serverText);
             _debugText.text = serverText;
+        }
+
+        if(_serverInput.BeginGameHolder.HasGameStarted())
+        {
+            _id = _serverInput.BeginGameHolder._playerId;
+            _numPlayers = _serverInput.BeginGameHolder._numPlayers;
+            _clientState = ClientState.CSTATE_GAME;
+            _otherId = 1 - _id;
         }
     }
 

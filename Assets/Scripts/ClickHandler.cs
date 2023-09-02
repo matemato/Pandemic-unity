@@ -6,11 +6,11 @@ using UnityEngine;
 
 public class ClickHandler : MonoBehaviour
 {
-    private GameObject Player; // Reference to the object you want to change.
+    private GameObject _player; // Reference to the object you want to change.
 
     void Start()
     {
-        Player = GameObject.Find("Player");
+        _player = GameObject.Find("Player");
     }
 
     private void OnMouseDown()
@@ -18,7 +18,7 @@ public class ClickHandler : MonoBehaviour
         bool neighbouringCity = gameObject.GetComponent<Tile>().Highlight;
 
         if (neighbouringCity) {
-            Player.GetComponent<Player>().City = gameObject.GetComponent<Tile>();
+            _player.GetComponent<Player>().Click = new Click(gameObject.GetComponent<Tile>().GetId());
         }
 
         

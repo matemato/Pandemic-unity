@@ -24,6 +24,7 @@ public class OpcodeManager
         {
             case 0: return new InMessage();
             case 1: return new InUpdatePlayers();
+            case 2: return new InBeginGame();
             default: return new InError();
         }
     }
