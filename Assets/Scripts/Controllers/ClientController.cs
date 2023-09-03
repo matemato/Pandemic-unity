@@ -207,24 +207,73 @@ public class ClientController : MonoBehaviour
 
     private void UpdateAwaiting()
     {
-        if(_awaitingSubstate == 0)
+        if (_awaitingSubstate == 0)
         {
-            Debug.Log("waiting for 17");
-            if(_msgManager.PendingInput())
+            Debug.Log("waiting for 11");
+            if (_msgManager.PendingInput())
             {
-                if(_msgManager.ReadByte() == 17)
+                if (_msgManager.ReadByte() == 11)
                 {
-                    Debug.Log("got 17 - setting substate to 1");
+                    Debug.Log("got 11 - setting substate to 1");
                     _awaitingSubstate = 1;
                 }
             }
         }
-        else if(_awaitingSubstate == 1)
+        else if (_awaitingSubstate == 1)
         {
-            if (Input.GetKeyDown(KeyCode.W))
+            if (Input.GetKeyDown(KeyCode.F1))
             {
-                _msgManager.WriteByte(14);
-                _clientState = ClientState.CSTATE_LOBBY;
+                _msgManager.WriteByte(12); //join lobby
+                _msgManager.WriteByte(0); //lobby id
+                _awaitingSubstate = 2;
+            }
+            else if (Input.GetKeyDown(KeyCode.F2))
+            {
+                _msgManager.WriteByte(12);
+                _msgManager.WriteByte(1); //lobby id
+                _awaitingSubstate = 2;
+            }
+            else if (Input.GetKeyDown(KeyCode.F3))
+            {
+                _msgManager.WriteByte(12);
+                _msgManager.WriteByte(2); //lobby id
+                _awaitingSubstate = 2;
+            }
+            else if (Input.GetKeyDown(KeyCode.F4))
+            {
+                _msgManager.WriteByte(12);
+                _msgManager.WriteByte(3); //lobby id
+                _awaitingSubstate = 2;
+            }
+        }
+        else if (_awaitingSubstate == 2)
+        {
+            if(_msgManager.PendingInput())
+            {
+                var ret = _msgManager.ReadByte();
+                switch(ret)
+                {
+                    case 0: //joined lobby
+                    {
+                        _clientState = ClientState.CSTATE_LOBBY;
+                        break;
+                    }
+                    case 1: //game is full
+                    {
+                        _awaitingSubstate = 1;
+                        break;
+                    }
+                    case 2: //game does not exist
+                    {
+                        _awaitingSubstate = 1;
+                        break;
+                    }
+                    default:
+                    {
+                        Debug.LogError("Invalid byte received from server during handshake");
+                        break;
+                    }
+                }
             }
         }
     }
