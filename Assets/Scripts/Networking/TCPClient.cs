@@ -15,8 +15,6 @@ public class TCPClient
     public Queue<byte> output;
 
     private TcpClient socketConnection;
-    private float tempTime;
-    private const float outputTime = 0.1f;
 
     public TCPClient()
     {
@@ -38,12 +36,12 @@ public class TCPClient
     /// <summary> 	
     /// Setup socket connection. 	
     /// </summary> 	
-    public bool ConnectToTcpServer()
+    public bool ConnectToTcpServer(string ip)
     {
         try
         {
             socketConnection = new TcpClient();
-            socketConnection.ConnectAsync("localhost", 43594);
+            socketConnection.ConnectAsync(ip, 43594);
             return true;
         }
         catch (SocketException socketException)

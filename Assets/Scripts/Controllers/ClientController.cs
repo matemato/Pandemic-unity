@@ -30,6 +30,8 @@ public class ClientController : MonoBehaviour
 
     [SerializeField]
     private Text _debugText;
+    [SerializeField]
+    private string _ip = "localhost";
 
     private float nextIdleTime = 0.0f;
 
@@ -97,7 +99,7 @@ public class ClientController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Q))
         {
             Debug.Log("abc");
-            if (_tcpClient.ConnectToTcpServer())
+            if (_tcpClient.ConnectToTcpServer(_ip))
             {
                 _clientState = ClientState.CSTATE_AWAITING;
             }

@@ -8612,6 +8612,10 @@ PrefabInstance:
       value: Client
       objectReference: {fileID: 0}
     - target: {fileID: 8722808849906412921, guid: 716453eef6a613b48a193dfe5553c47a, type: 3}
+      propertyPath: _ip
+      value: localhost
+      objectReference: {fileID: 0}
+    - target: {fileID: 8722808849906412921, guid: 716453eef6a613b48a193dfe5553c47a, type: 3}
       propertyPath: _debugText
       value: 
       objectReference: {fileID: 1943130744}
