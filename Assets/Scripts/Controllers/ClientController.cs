@@ -190,6 +190,7 @@ public class ClientController : MonoBehaviour
 
     private void UpdateLobby()
     {
+        const float idleSendPeriod = 1.0f;
         _opcodeManager.ReceiveAll();
 
         string serverText = _serverInput.MessageHolder.GetNext();
@@ -199,7 +200,22 @@ public class ClientController : MonoBehaviour
             _debugText.text = serverText;
         }
 
-        if(_serverInput.BeginGameHolder.HasGameStarted())
+        if (Input.GetKeyDown(KeyCode.F5)) //exit lobby, need to add opcode for disconnect
+        {
+            _msgManager.WriteByte(255);
+            //_clientState = ClientState.CSTATE_UNCONNECTED;
+            //_awaitingSubstate = 0;
+            return;
+        }
+
+        if (Time.time > nextIdleTime)
+        {
+            nextIdleTime += idleSendPeriod;
+            OutIdle idle = new OutIdle();
+            _opcodeManager.Send(idle);
+        }
+
+        if (_serverInput.BeginGameHolder.HasGameStarted())
         {
             BeginGame();
         }
