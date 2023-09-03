@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class Click
 {
-    public int _cityId;
-
-    public Click(int cityId)
+    // add attributes that any click should have
+    // cant think of any atm
+    public Click()
     {
-        _cityId = cityId;
+
     }
 }

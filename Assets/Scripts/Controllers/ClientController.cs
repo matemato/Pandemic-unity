@@ -12,6 +12,8 @@ public class ClientController : MonoBehaviour
     private MsgManager _msgManager;
     private OpcodeManager _opcodeManager;
 
+    private ClickManager _clickManager;
+
     private ClientState _clientState = ClientState.CSTATE_UNCONNECTED;
     private int _awaitingSubstate = 0;
     private int _id;
@@ -38,6 +40,8 @@ public class ClientController : MonoBehaviour
         _msgManager = new MsgManager(_tcpClient);
         _opcodeManager = new OpcodeManager(_msgManager,_serverInput);
         SetCState(ClientState.CSTATE_UNCONNECTED);
+
+        _clickManager = GameObject.Find("ClickController").GetComponent<ClickManager>();
     }
 
     public void SetCState(ClientState newState)
@@ -143,9 +147,10 @@ public class ClientController : MonoBehaviour
 
         UpdatePlayerPositions();
 
-        if(_player.GetComponent<Player>().Click != null)
+        if(_clickManager.MovePending())
         {
-            OutMove move = new OutMove((byte)_player.GetComponent<Player>().Click._cityId);
+            ClickMove clickMove = (ClickMove)_clickManager.Handle();
+            OutMove move = new OutMove((byte)clickMove.CityDest);
             _opcodeManager.Send(move);
             _player.GetComponent<Player>().Click = null;
         }
