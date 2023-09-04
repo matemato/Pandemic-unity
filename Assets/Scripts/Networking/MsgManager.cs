@@ -54,7 +54,7 @@ public class MsgManager
         return (ulong)((a << 32) + b);
     }
 
-    public string ReadString(byte length)
+    public string ReadString(ushort length)
     {
         string str = "";
         for(int i = 0; i < length;i++)

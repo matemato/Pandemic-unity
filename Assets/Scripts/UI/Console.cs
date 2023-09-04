@@ -9,7 +9,7 @@ public class Console : MonoBehaviour
     [SerializeField]
     private TMP_Text _consoleText;
 
-    public TMP_Text SendingText;
+    public TMP_InputField SendingText;
 
     public void Start()
     {
@@ -20,7 +20,8 @@ public class Console : MonoBehaviour
 
     public void AddText(ServerMessageType serverMessageType, string newText) 
     {
-        _consoleText.text += newText + '\n';
+        string cleanText = newText + '\n';
+        _consoleText.text += cleanText;
     }
 
     public string GetSendingMessage()
@@ -30,7 +31,8 @@ public class Console : MonoBehaviour
 
     public void ClearSendingMessage()
     {
-        SendingText.text = String.Empty;
+        SendingText.Select();
+        SendingText.text = "";
     }
 
 }
