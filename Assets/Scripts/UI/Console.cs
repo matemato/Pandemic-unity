@@ -1,18 +1,23 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class Console : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField]
+    private TMP_Text _consoleText;
+
+    public void Start()
     {
-        
+        // _consoleText.text = "YOYOO ROZMAN IN THE HOUSE\n";
+        AddText(ServerMessageType.SMESSAGE_CHAT, "yoyo staniè is trash");
+        AddText(ServerMessageType.SMESSAGE_CHAT, "yoyo 123 is trash");
     }
 
-    // Update is called once per frame
-    void Update()
+    public void AddText(ServerMessageType serverMessageType, string newText) 
     {
-        
+        _consoleText.text += newText + '\n';
     }
 }

@@ -35,6 +35,8 @@ public class ClientController : MonoBehaviour
 
     private float nextIdleTime = 0.0f;
 
+    private Console _console;
+
     void Start()
     {
         _serverInput = new ServerInput();
@@ -44,6 +46,7 @@ public class ClientController : MonoBehaviour
         SetCState(ClientState.CSTATE_UNCONNECTED);
 
         _clickManager = GameObject.Find("ClickController").GetComponent<ClickManager>();
+        _console = GameObject.Find("Console").GetComponent<Console>();
     }
 
     public void SetCState(ClientState newState)
@@ -140,11 +143,11 @@ public class ClientController : MonoBehaviour
 
         _opcodeManager.ReceiveAll();
 
-        string serverText = _serverInput.MessageHolder.GetNext();
+        var serverText = _serverInput.MessageHolder.GetNext();
         if (serverText != null)
         {
-            Debug.Log(serverText);
-            _debugText.text = serverText;
+            Debug.Log(serverText.Item2);
+            _console.AddText(serverText.Item1, serverText.Item2);
         }
 
         UpdatePlayerPositions();
@@ -195,11 +198,11 @@ public class ClientController : MonoBehaviour
         const float idleSendPeriod = 1.0f;
         _opcodeManager.ReceiveAll();
 
-        string serverText = _serverInput.MessageHolder.GetNext();
+        var serverText = _serverInput.MessageHolder.GetNext();
         if (serverText != null)
         {
-            Debug.Log(serverText);
-            _debugText.text = serverText;
+            Debug.Log(serverText.Item2);
+            _console.AddText(serverText.Item1, serverText.Item2);
         }
 
         if (Input.GetKeyDown(KeyCode.F5)) //exit lobby, need to add opcode for disconnect

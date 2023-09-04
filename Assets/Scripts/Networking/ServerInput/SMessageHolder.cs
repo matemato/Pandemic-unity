@@ -1,22 +1,23 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class SMessageHolder
 {
-    private Queue<string> _messages;
+    private Queue<Tuple<ServerMessageType, string>> _messages;
 
     public SMessageHolder()
     {
-        _messages = new Queue<string>();
+        _messages = new Queue<Tuple<ServerMessageType, string>>();
     }
 
-    public void Add(string msg)
+    public void Add(Tuple<ServerMessageType, string> msg)
     {
         _messages.Enqueue(msg);
     }
 
-    public string GetNext()
+    public Tuple<ServerMessageType, string> GetNext()
     {
         if (_messages.Count > 0)
         {

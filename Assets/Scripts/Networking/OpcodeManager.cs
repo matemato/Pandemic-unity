@@ -22,7 +22,7 @@ public class OpcodeManager
     {
         switch(opcodeId)
         {
-            case 0: return new InMessage();
+            case 0: return new InServerMessage();
             case 1: return new InUpdatePlayers();
             case 2: return new InBeginGame();
             default: return new InError();
