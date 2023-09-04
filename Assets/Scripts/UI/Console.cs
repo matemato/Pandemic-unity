@@ -9,6 +9,8 @@ public class Console : MonoBehaviour
     [SerializeField]
     private TMP_Text _consoleText;
 
+    public TMP_Text SendingText;
+
     public void Start()
     {
         // _consoleText.text = "YOYOO ROZMAN IN THE HOUSE\n";
@@ -20,4 +22,15 @@ public class Console : MonoBehaviour
     {
         _consoleText.text += newText + '\n';
     }
+
+    public string GetSendingMessage()
+    {
+        return SendingText.text;
+    }
+
+    public void ClearSendingMessage()
+    {
+        SendingText.text = String.Empty;
+    }
+
 }

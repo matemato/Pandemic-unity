@@ -150,6 +150,11 @@ public class ClientController : MonoBehaviour
             _console.AddText(serverText.Item1, serverText.Item2);
         }
 
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            SendChatMessage();
+        }
+
         UpdatePlayerPositions();
 
         if(_clickManager.MovePending())
@@ -193,6 +198,16 @@ public class ClientController : MonoBehaviour
         _tiles = GameObject.FindGameObjectsWithTag("Tile");
     }
 
+    private void SendChatMessage()
+    {
+        if(_console.SendingText.text.Length > 0)
+        {
+             OutClientMessage msg = new OutClientMessage(ClientMessageType.CMESSAGE_CHAT, _console.GetSendingMessage());
+            _opcodeManager.Send(msg);
+            _console.ClearSendingMessage();
+        }
+    }
+
     private void UpdateLobby()
     {
         const float idleSendPeriod = 1.0f;
@@ -203,6 +218,11 @@ public class ClientController : MonoBehaviour
         {
             Debug.Log(serverText.Item2);
             _console.AddText(serverText.Item1, serverText.Item2);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            SendChatMessage();
         }
 
         if (Input.GetKeyDown(KeyCode.F5)) //exit lobby, need to add opcode for disconnect
