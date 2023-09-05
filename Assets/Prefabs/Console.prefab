@@ -1864,7 +1864,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bbd5769fed49f34ea467d713caff908, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _consoleText: {fileID: 3535827693406389459}
+  _allText: {fileID: 3535827693406389459}
+  _chatText: {fileID: 1397709712701108696}
+  _consoleText: {fileID: 1631883642126610683}
   SendingText: {fileID: 4815797793714494464}
   Container: {fileID: 3849402878024905575}
   Input: {fileID: 3913599123435150626}
