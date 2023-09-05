@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Windows;
 
 public class Console : MonoBehaviour
 {
@@ -14,13 +15,27 @@ public class Console : MonoBehaviour
     public void Start()
     {
         // _consoleText.text = "YOYOO ROZMAN IN THE HOUSE\n";
-        AddText(ServerMessageType.SMESSAGE_CHAT, "yoyo staniè is trash");
-        AddText(ServerMessageType.SMESSAGE_CHAT, "yoyo 123 is trash");
+        AddText(ServerMessageType.SMESSAGE_CHAT, "staniè: you nigga", "green");
+        AddText(ServerMessageType.SMESSAGE_CHAT, "mièo: you gay", "yellow");
     }
 
-    public void AddText(ServerMessageType serverMessageType, string newText) 
+    public void AddText(ServerMessageType serverMessageType, string newText, string color) 
     {
         string cleanText = newText + '\n';
+
+        // < color = green > green </ color >
+
+        if (serverMessageType == ServerMessageType.SMESSAGE_CHAT)
+        {
+            cleanText = "<color=" + color + ">" + cleanText;
+            int indexOfColon = cleanText.IndexOf(":");
+            Debug.Log(indexOfColon);
+            if (indexOfColon >= 0)
+            {
+                cleanText = cleanText.Insert(indexOfColon, "</color>");
+            }      
+        }
+
         _consoleText.text += cleanText;
     }
 

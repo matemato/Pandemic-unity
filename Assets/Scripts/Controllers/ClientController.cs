@@ -147,7 +147,7 @@ public class ClientController : MonoBehaviour
         if (serverText != null)
         {
             Debug.Log(serverText.Item2);
-            _console.AddText(serverText.Item1, serverText.Item2);
+            _console.AddText(serverText.Item1, serverText.Item2, "yellow");
         }
 
         if (Input.GetKeyDown(KeyCode.Return))
@@ -217,7 +217,7 @@ public class ClientController : MonoBehaviour
         if (serverText != null)
         {
             Debug.Log(serverText.Item2);
-            _console.AddText(serverText.Item1, serverText.Item2);
+            _console.AddText(serverText.Item1, serverText.Item2, "yellow");
         }
 
         if (Input.GetKeyDown(KeyCode.Return))
