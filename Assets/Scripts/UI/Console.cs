@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Windows;
 
 public class Console : MonoBehaviour
@@ -11,6 +12,7 @@ public class Console : MonoBehaviour
     private TMP_Text _consoleText;
 
     public TMP_InputField SendingText;
+    public GameObject Container;
 
     public void Start()
     {
@@ -37,6 +39,7 @@ public class Console : MonoBehaviour
         }
 
         _consoleText.text += cleanText;
+        Container.GetComponent<ScrollRect>().velocity = new Vector2(0f, 1000f);
     }
 
     public string GetSendingMessage()
