@@ -13,6 +13,7 @@ public class Console : MonoBehaviour
 
     public TMP_InputField SendingText;
     public GameObject Container;
+    public GameObject Input;
 
     public void Start()
     {
@@ -40,6 +41,8 @@ public class Console : MonoBehaviour
 
         _consoleText.text += cleanText;
         Container.GetComponent<ScrollRect>().velocity = new Vector2(0f, 1000f);
+
+     
     }
 
     public string GetSendingMessage()
@@ -51,6 +54,8 @@ public class Console : MonoBehaviour
     {
         SendingText.Select();
         SendingText.text = "";
+        Input.GetComponent<TMP_InputField>().ActivateInputField();
+        Input.GetComponent<TMP_InputField>().Select();
     }
 
 }
