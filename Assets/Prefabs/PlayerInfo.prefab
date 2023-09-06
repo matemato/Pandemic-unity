@@ -441,7 +441,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Scientist
+  m_text: Contingency planner
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -468,7 +468,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 179
+  m_fontSize: 152.55
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -693,6 +693,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3605179900416339086}
+  - component: {fileID: 3764980017771734265}
   m_Layer: 0
   m_Name: PlayerInfo
   m_TagString: Untagged
@@ -720,6 +721,29 @@ Transform:
   - {fileID: 6903340878932604932}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3764980017771734265
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4283358498178329327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b855a0c00bf95a9498807251802e418e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerName: {fileID: 3936723105197166198}
+  _playerRole: {fileID: 3982600289669590457}
+  _playerRolePic: {fileID: 4630284947978899406}
+  _rolePics:
+  - {fileID: 21300000, guid: 52f25609c67d8e643b2c99ea730006ca, type: 3}
+  - {fileID: 21300000, guid: 6cbaf3f99201c24459f5f4ad939b55e1, type: 3}
+  - {fileID: 21300000, guid: 5c90793a9cdb47142bd007e917711b5e, type: 3}
+  - {fileID: 21300000, guid: 957a51dbf0db61744806ce45e08e827e, type: 3}
+  - {fileID: 21300000, guid: ed243ed7c5228e0459cbbd62125a361a, type: 3}
+  - {fileID: 21300000, guid: 79b663417c21dfb43b2883b7926b0c4c, type: 3}
+  - {fileID: 21300000, guid: e780eb960cfc94e44861599b65be2025, type: 3}
 --- !u!1 &4630284947978899406
 GameObject:
   m_ObjectHideFlags: 0

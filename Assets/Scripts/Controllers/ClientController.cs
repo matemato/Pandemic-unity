@@ -30,12 +30,16 @@ public class ClientController : MonoBehaviour
     private GameObject[] _otherPlayers;
     private GameObject[] _tiles;
 
+    private GameObject _playerInfoManager;
+
+    // main menu
     [SerializeField]
     private GameObject _connectButton;
     [SerializeField]
     private GameObject _joinLobbyButton;
     [SerializeField]
     private GameObject _usernameInput;
+
     [SerializeField]
     private string _ip = "localhost";
 
@@ -57,6 +61,7 @@ public class ClientController : MonoBehaviour
     {
         _clickManager = GameObject.Find("ClickController").GetComponent<ClickManager>();
         _console = GameObject.Find("Console").GetComponent<Console>();
+        _playerInfoManager = GameObject.Find("PlayerInfoManager");
     }
     void Awake()
     {
@@ -197,6 +202,7 @@ public class ClientController : MonoBehaviour
         _id = _serverInput.BeginGameHolder._playerId;
         _numPlayers = _serverInput.BeginGameHolder._numPlayers;
         _clientState = ClientState.CSTATE_GAME;
+        var playerInfoManager = _playerInfoManager.GetComponent<PlayerInfoManager>();
 
         for (int i = 0; i < _numPlayers; i++)
         {
@@ -210,6 +216,10 @@ public class ClientController : MonoBehaviour
                 var otherPlayer = Instantiate(_otherPlayerPrefab, new Vector3(0, 0, 0), Quaternion.identity);
                 otherPlayer.GetComponent<OtherPlayer>().SetId(i);
             }
+
+            playerInfoManager.InstantiatePlayerInfo();
+            playerInfoManager.SetPlayerName(i, _serverInput.BeginGameHolder._playerNames[i]);
+            playerInfoManager.SetPlayerRole(i, _serverInput.BeginGameHolder._playerRoles[i]);
         }
 
         _otherPlayers = GameObject.FindGameObjectsWithTag("OtherPlayer");
