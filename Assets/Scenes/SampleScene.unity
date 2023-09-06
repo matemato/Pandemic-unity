@@ -282,6 +282,8 @@ MonoBehaviour:
   - {fileID: 583493319}
   - {fileID: 2015923859}
   Highlight: 0
+  _id: 0
+  _name: 
 --- !u!212 &9650843
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -443,6 +445,8 @@ MonoBehaviour:
   - {fileID: 1319906822}
   - {fileID: 790769664}
   Highlight: 0
+  _id: 0
+  _name: 
 --- !u!212 &13762033
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -590,6 +594,8 @@ MonoBehaviour:
   - {fileID: 1396256477}
   - {fileID: 2090981519}
   Highlight: 0
+  _id: 0
+  _name: 
 --- !u!212 &35174239
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -751,6 +757,8 @@ MonoBehaviour:
   - {fileID: 1535921504}
   - {fileID: 1591261610}
   Highlight: 0
+  _id: 0
+  _name: 
 --- !u!212 &159618976
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -913,6 +921,8 @@ MonoBehaviour:
   - {fileID: 481123372}
   - {fileID: 1396256477}
   Highlight: 0
+  _id: 0
+  _name: 
 --- !u!212 &264391265
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1077,6 +1087,8 @@ MonoBehaviour:
   - {fileID: 1269327827}
   - {fileID: 698360018}
   Highlight: 0
+  _id: 0
+  _name: 
 --- !u!212 &306822541
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1239,6 +1251,8 @@ MonoBehaviour:
   - {fileID: 1591261610}
   - {fileID: 698360018}
   Highlight: 0
+  _id: 0
+  _name: 
 --- !u!212 &387275603
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1404,6 +1418,8 @@ MonoBehaviour:
   - {fileID: 35174238}
   - {fileID: 1404593602}
   Highlight: 0
+  _id: 0
+  _name: 
 --- !u!212 &481123373
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1674,6 +1690,8 @@ MonoBehaviour:
   - {fileID: 1353091840}
   - {fileID: 1907963483}
   Highlight: 0
+  _id: 0
+  _name: 
 --- !u!212 &583493320
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1837,6 +1855,8 @@ MonoBehaviour:
   - {fileID: 1984483866}
   - {fileID: 2015923859}
   Highlight: 0
+  _id: 0
+  _name: 
 --- !u!212 &589059056
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1985,6 +2005,8 @@ MonoBehaviour:
   - {fileID: 1369642239}
   - {fileID: 866929542}
   Highlight: 0
+  _id: 0
+  _name: 
 --- !u!212 &590667200
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2182,6 +2204,8 @@ MonoBehaviour:
   - {fileID: 1058936992}
   - {fileID: 2015923859}
   Highlight: 0
+  _id: 0
+  _name: 
 --- !u!212 &634096950
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2346,6 +2370,8 @@ MonoBehaviour:
   - {fileID: 763092234}
   - {fileID: 1360323246}
   Highlight: 0
+  _id: 0
+  _name: 
 --- !u!212 &657370729
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2506,6 +2532,8 @@ MonoBehaviour:
   Neighbours:
   - {fileID: 2089316564}
   Highlight: 0
+  _id: 0
+  _name: 
 --- !u!212 &680378607
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2670,6 +2698,8 @@ MonoBehaviour:
   - {fileID: 1269327827}
   - {fileID: 2089316564}
   Highlight: 0
+  _id: 0
+  _name: 
 --- !u!212 &698360019
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2831,6 +2861,8 @@ MonoBehaviour:
   - {fileID: 1360323246}
   - {fileID: 1812514151}
   Highlight: 0
+  _id: 0
+  _name: 
 --- !u!212 &717546109
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2994,6 +3026,8 @@ MonoBehaviour:
   - {fileID: 481123372}
   - {fileID: 657370728}
   Highlight: 0
+  _id: 0
+  _name: 
 --- !u!212 &763092235
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3172,6 +3206,8 @@ MonoBehaviour:
   - {fileID: 1412506317}
   - {fileID: 1994024332}
   Highlight: 0
+  _id: 0
+  _name: 
 --- !u!212 &790769665
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3336,6 +3372,8 @@ MonoBehaviour:
   - {fileID: 1984483866}
   - {fileID: 1994024332}
   Highlight: 0
+  _id: 0
+  _name: 
 --- !u!212 &813406339
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3526,6 +3564,8 @@ MonoBehaviour:
   - {fileID: 1369642239}
   - {fileID: 306822540}
   Highlight: 0
+  _id: 0
+  _name: 
 --- !u!212 &866929543
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3702,6 +3742,8 @@ MonoBehaviour:
   - {fileID: 1926789037}
   - {fileID: 1412506317}
   Highlight: 0
+  _id: 0
+  _name: 
 --- !u!212 &954339160
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3851,6 +3893,8 @@ MonoBehaviour:
   - {fileID: 634096949}
   - {fileID: 1404593602}
   Highlight: 0
+  _id: 0
+  _name: 
 --- !u!212 &1058936993
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4013,6 +4057,8 @@ MonoBehaviour:
   - {fileID: 1812514151}
   - {fileID: 1535921504}
   Highlight: 0
+  _id: 0
+  _name: 
 --- !u!212 &1100092197
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4175,6 +4221,8 @@ MonoBehaviour:
   - {fileID: 698360018}
   - {fileID: 1984483866}
   Highlight: 0
+  _id: 0
+  _name: 
 --- !u!212 &1269327828
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4353,6 +4401,8 @@ MonoBehaviour:
   - {fileID: 1907963483}
   - {fileID: 813406338}
   Highlight: 0
+  _id: 0
+  _name: 
 --- !u!212 &1319906823
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4501,6 +4551,8 @@ MonoBehaviour:
   - {fileID: 1396256477}
   - {fileID: 2090981519}
   Highlight: 0
+  _id: 0
+  _name: 
 --- !u!212 &1347731754
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4665,6 +4717,8 @@ MonoBehaviour:
   - {fileID: 1058936992}
   - {fileID: 2029773439}
   Highlight: 0
+  _id: 0
+  _name: 
 --- !u!212 &1353091841
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4828,6 +4882,8 @@ MonoBehaviour:
   - {fileID: 717546108}
   - {fileID: 657370728}
   Highlight: 0
+  _id: 0
+  _name: 
 --- !u!212 &1360323247
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4991,6 +5047,8 @@ MonoBehaviour:
   - {fileID: 387275602}
   - {fileID: 1684176303}
   Highlight: 0
+  _id: 0
+  _name: 
 --- !u!212 &1369642240
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -5154,6 +5212,8 @@ MonoBehaviour:
   - {fileID: 2090981519}
   - {fileID: 1347731753}
   Highlight: 0
+  _id: 0
+  _name: 
 --- !u!212 &1396256478
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -5318,6 +5378,8 @@ MonoBehaviour:
   - {fileID: 657370728}
   - {fileID: 481123372}
   Highlight: 0
+  _id: 0
+  _name: 
 --- !u!212 &1404593603
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -5496,6 +5558,8 @@ MonoBehaviour:
   - {fileID: 790769664}
   - {fileID: 1319906822}
   Highlight: 0
+  _id: 0
+  _name: 
 --- !u!212 &1412506318
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -5829,6 +5893,8 @@ MonoBehaviour:
   - {fileID: 9650842}
   - {fileID: 589059055}
   Highlight: 0
+  _id: 0
+  _name: 
 --- !u!212 &1531747529
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -5977,6 +6043,8 @@ MonoBehaviour:
   - {fileID: 159618975}
   - {fileID: 1100092196}
   Highlight: 0
+  _id: 0
+  _name: 
 --- !u!212 &1535921505
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -6184,6 +6252,8 @@ MonoBehaviour:
   - {fileID: 1535921504}
   - {fileID: 159618975}
   Highlight: 0
+  _id: 0
+  _name: 
 --- !u!212 &1591261611
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -6346,6 +6416,8 @@ MonoBehaviour:
   - {fileID: 1369642239}
   - {fileID: 306822540}
   Highlight: 0
+  _id: 0
+  _name: 
 --- !u!212 &1684176304
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -6508,6 +6580,8 @@ MonoBehaviour:
   - {fileID: 481123372}
   - {fileID: 2029773439}
   Highlight: 0
+  _id: 0
+  _name: 
 --- !u!212 &1710673806
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -6672,6 +6746,8 @@ MonoBehaviour:
   - {fileID: 763092234}
   - {fileID: 1535921504}
   Highlight: 0
+  _id: 0
+  _name: 
 --- !u!212 &1762369509
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -6833,6 +6909,8 @@ MonoBehaviour:
   - {fileID: 1100092196}
   - {fileID: 717546108}
   Highlight: 0
+  _id: 0
+  _name: 
 --- !u!212 &1812514152
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -7013,6 +7091,8 @@ MonoBehaviour:
   - {fileID: 9650842}
   - {fileID: 583493319}
   Highlight: 0
+  _id: 0
+  _name: 
 --- !u!212 &1907963484
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -7175,6 +7255,8 @@ MonoBehaviour:
   - {fileID: 954339159}
   - {fileID: 1412506317}
   Highlight: 0
+  _id: 0
+  _name: 
 --- !u!212 &1926789038
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -7401,6 +7483,8 @@ MonoBehaviour:
   - {fileID: 1404593602}
   - {fileID: 1058936992}
   Highlight: 0
+  _id: 0
+  _name: 
 --- !u!212 &1962378716
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -7578,6 +7662,8 @@ MonoBehaviour:
   - {fileID: 589059055}
   - {fileID: 1269327827}
   Highlight: 0
+  _id: 0
+  _name: 
 --- !u!212 &1984483867
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -7726,6 +7812,8 @@ MonoBehaviour:
   - {fileID: 813406338}
   - {fileID: 790769664}
   Highlight: 0
+  _id: 0
+  _name: 
 --- !u!212 &1994024333
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -7889,6 +7977,8 @@ MonoBehaviour:
   - {fileID: 9650842}
   - {fileID: 589059055}
   Highlight: 0
+  _id: 0
+  _name: 
 --- !u!212 &2015923860
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -8052,6 +8142,8 @@ MonoBehaviour:
   - {fileID: 1058936992}
   - {fileID: 1353091840}
   Highlight: 0
+  _id: 0
+  _name: 
 --- !u!212 &2029773440
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -8214,6 +8306,8 @@ MonoBehaviour:
   - {fileID: 1591261610}
   - {fileID: 680378606}
   Highlight: 0
+  _id: 0
+  _name: 
 --- !u!212 &2089316565
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -8378,6 +8472,8 @@ MonoBehaviour:
   - {fileID: 1347731753}
   - {fileID: 1762369508}
   Highlight: 0
+  _id: 0
+  _name: 
 --- !u!212 &2090981520
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -8610,6 +8706,10 @@ PrefabInstance:
     - target: {fileID: 8064733353520394980, guid: 716453eef6a613b48a193dfe5553c47a, type: 3}
       propertyPath: m_Name
       value: Client
+      objectReference: {fileID: 0}
+    - target: {fileID: 8064733353520394980, guid: 716453eef6a613b48a193dfe5553c47a, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 8722808849906412921, guid: 716453eef6a613b48a193dfe5553c47a, type: 3}
       propertyPath: _ip

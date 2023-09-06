@@ -29,10 +29,7 @@ public class Tile : MonoBehaviour
     [HideInInspector]
     public TileData TileData;
 
-    static private int ID = 0;
-
-    [HideInInspector]
-    public int _id;
+    private int _id;
     [HideInInspector]
     public string _name;
 
@@ -40,7 +37,6 @@ public class Tile : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _id = ID++;
         _name = new string(gameObject.name);
         Highlight = false;
         _spriteRenderer = GetComponent<SpriteRenderer>();
@@ -59,6 +55,11 @@ public class Tile : MonoBehaviour
     public int GetId()
     {
         return _id;
+    }
+
+    public void SetId(int id)
+    {
+        _id = id;
     }
 
     // Update is called once per frame

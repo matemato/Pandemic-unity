@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class ClientController : MonoBehaviour
@@ -29,7 +31,9 @@ public class ClientController : MonoBehaviour
     private GameObject[] _tiles;
 
     [SerializeField]
-    private Text _debugText;
+    private GameObject _connectButton;
+    [SerializeField]
+    private GameObject _joinLobbyButton;
     [SerializeField]
     private string _ip = "localhost";
 
@@ -37,16 +41,27 @@ public class ClientController : MonoBehaviour
 
     private Console _console;
 
+    private int _loaded = 0;
+    
     void Start()
     {
         _serverInput = new ServerInput();
         _tcpClient = new TCPClient();
         _msgManager = new MsgManager(_tcpClient);
-        _opcodeManager = new OpcodeManager(_msgManager,_serverInput);
+        _opcodeManager = new OpcodeManager(_msgManager, _serverInput);
         SetCState(ClientState.CSTATE_UNCONNECTED);
 
+        _connectButton.GetComponent<Button>().onClick.AddListener(ConnectButtonClicked);
+    }
+
+    void InitilizeGameObjects() 
+    {
         _clickManager = GameObject.Find("ClickController").GetComponent<ClickManager>();
         _console = GameObject.Find("Console").GetComponent<Console>();
+    }
+    void Awake()
+    {
+        DontDestroyOnLoad(transform.gameObject);
     }
 
     public void SetCState(ClientState newState)
@@ -65,45 +80,48 @@ public class ClientController : MonoBehaviour
         if (_clientState != ClientState.CSTATE_UNCONNECTED)
             _tcpClient.ReadInput();
 
-        switch(_clientState)
+        switch (_clientState)
         {
             case ClientState.CSTATE_UNCONNECTED:
-            {
-                UpdateUnconnected();
-                break;
-            }
+                {
+                    UpdateUnconnected();
+                    break;
+                }
             case ClientState.CSTATE_AWAITING:
-            {
-                UpdateAwaiting();
-                break;
-            }
+                {
+                    UpdateAwaiting();
+                    break;
+                }
             case ClientState.CSTATE_LOBBY:
-            {
-                UpdateLobby();
-                break;
-            }
+                {
+                    UpdateLobby();
+                    break;
+                }
             case ClientState.CSTATE_GAME:
-            {
-                UpdateIngame();
-                break;
-            }
+                {
+                    UpdateIngame();
+                    break;
+                }
             default:
-            {
-                Debug.LogError("Invalid cstate");
-                break;
-            }
+                {
+                    Debug.LogError("Invalid cstate");
+                    break;
+                }
         }
         if (_clientState != ClientState.CSTATE_UNCONNECTED)
             _tcpClient.SendOutput();
     }
 
-    private void UpdateUnconnected()
+    private void ConnectButtonClicked()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (_clientState == ClientState.CSTATE_UNCONNECTED)
         {
             Debug.Log("abc");
             if (_tcpClient.ConnectToTcpServer(_ip))
             {
+                _connectButton.GetComponent<Button>().interactable = false;
+                _connectButton.GetComponentInChildren<TMP_Text>().text = "Connected";
+                _joinLobbyButton.SetActive(true);
                 _clientState = ClientState.CSTATE_AWAITING;
             }
             else
@@ -111,6 +129,11 @@ public class ClientController : MonoBehaviour
                 Debug.LogError("Failed to connect to server");
             }
         }
+    }
+
+    private void UpdateUnconnected()
+    {
+
     }
 
     private void UpdatePlayerPositions()
@@ -246,6 +269,26 @@ public class ClientController : MonoBehaviour
         }
     }
 
+    IEnumerator LoadYourAsyncScene()
+    {
+        // The Application loads the Scene in the background as the current Scene runs.
+        // This is particularly good for creating loading screens.
+        // You could also load the Scene by using sceneBuildIndex. In this case Scene2 has
+        // a sceneBuildIndex of 1 as shown in Build Settings.
+
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("Matemato");
+
+        // Wait until the asynchronous scene fully loads
+        while (!asyncLoad.isDone)
+        {   
+            yield return null;
+        }
+
+        _loaded = 2;
+
+        Debug.Log("Scene changed.");
+    }
+
     private void UpdateAwaiting()
     {
         if (_awaitingSubstate == 0)
@@ -289,14 +332,21 @@ public class ClientController : MonoBehaviour
         }
         else if (_awaitingSubstate == 2)
         {
-            if(_msgManager.PendingInput())
+            if (_msgManager.PendingInput())
             {
                 var ret = _msgManager.ReadByte();
+
                 switch(ret)
                 {
                     case 0: //joined lobby
                     {
-                        _clientState = ClientState.CSTATE_LOBBY;
+                        if (_loaded == 0)
+                        {
+                            _awaitingSubstate = 3;
+                            _loaded = 1;
+                            StartCoroutine(LoadYourAsyncScene());
+                        }
+                        
                         break;
                     }
                     case 1: //game is full
@@ -315,6 +365,16 @@ public class ClientController : MonoBehaviour
                         break;
                     }
                 }
+            }
+        }
+        else if (_awaitingSubstate == 3)
+        {
+            if (_loaded == 2)
+            {
+                _loaded = 3;
+                _clientState = ClientState.CSTATE_LOBBY;
+                InitilizeGameObjects();
+                Debug.Log("Ne izvede");
             }
         }
     }
