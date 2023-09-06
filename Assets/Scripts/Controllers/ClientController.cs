@@ -35,14 +35,15 @@ public class ClientController : MonoBehaviour
     [SerializeField]
     private GameObject _joinLobbyButton;
     [SerializeField]
+    private GameObject _usernameInput;
+    [SerializeField]
     private string _ip = "localhost";
 
     private float nextIdleTime = 0.0f;
 
     private Console _console;
 
-    private int _loaded = 0;
-    
+    private int _loaded = 0;    
     void Start()
     {
         _serverInput = new ServerInput();
@@ -131,6 +132,7 @@ public class ClientController : MonoBehaviour
         }
     }
 
+   
     private void UpdateUnconnected()
     {
 
@@ -305,28 +307,11 @@ public class ClientController : MonoBehaviour
         }
         else if (_awaitingSubstate == 1)
         {
-            if (Input.GetKeyDown(KeyCode.F1))
+            var lobbyChoice = _joinLobbyButton.GetComponent<JoinLobbyClicked>().GetLobbyChoice();
+            if (lobbyChoice != -1)
             {
                 _msgManager.WriteByte(12); //join lobby
-                _msgManager.WriteByte(0); //lobby id
-                _awaitingSubstate = 2;
-            }
-            else if (Input.GetKeyDown(KeyCode.F2))
-            {
-                _msgManager.WriteByte(12);
-                _msgManager.WriteByte(1); //lobby id
-                _awaitingSubstate = 2;
-            }
-            else if (Input.GetKeyDown(KeyCode.F3))
-            {
-                _msgManager.WriteByte(12);
-                _msgManager.WriteByte(2); //lobby id
-                _awaitingSubstate = 2;
-            }
-            else if (Input.GetKeyDown(KeyCode.F4))
-            {
-                _msgManager.WriteByte(12);
-                _msgManager.WriteByte(3); //lobby id
+                _msgManager.WriteByte((byte)lobbyChoice); //lobby id
                 _awaitingSubstate = 2;
             }
         }
