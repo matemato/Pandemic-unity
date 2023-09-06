@@ -271,24 +271,15 @@ public class ClientController : MonoBehaviour
         }
     }
 
-    IEnumerator LoadYourAsyncScene()
+    IEnumerator LoadMainScene()
     {
-        // The Application loads the Scene in the background as the current Scene runs.
-        // This is particularly good for creating loading screens.
-        // You could also load the Scene by using sceneBuildIndex. In this case Scene2 has
-        // a sceneBuildIndex of 1 as shown in Build Settings.
-
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("Matemato");
 
-        // Wait until the asynchronous scene fully loads
         while (!asyncLoad.isDone)
         {   
             yield return null;
         }
-
         _loaded = 2;
-
-        Debug.Log("Scene changed.");
     }
 
     private void UpdateAwaiting()
@@ -308,10 +299,14 @@ public class ClientController : MonoBehaviour
         else if (_awaitingSubstate == 1)
         {
             var lobbyChoice = _joinLobbyButton.GetComponent<JoinLobbyClicked>().GetLobbyChoice();
+            
             if (lobbyChoice != -1)
             {
+                var name = _joinLobbyButton.GetComponent<JoinLobbyClicked>().GetName();
                 _msgManager.WriteByte(12); //join lobby
                 _msgManager.WriteByte((byte)lobbyChoice); //lobby id
+                _msgManager.WriteByte((byte)name.Length);
+                _msgManager.WriteString(name);
                 _awaitingSubstate = 2;
             }
         }
@@ -329,7 +324,7 @@ public class ClientController : MonoBehaviour
                         {
                             _awaitingSubstate = 3;
                             _loaded = 1;
-                            StartCoroutine(LoadYourAsyncScene());
+                            StartCoroutine(LoadMainScene());
                         }
                         
                         break;
@@ -359,7 +354,6 @@ public class ClientController : MonoBehaviour
                 _loaded = 3;
                 _clientState = ClientState.CSTATE_LOBBY;
                 InitilizeGameObjects();
-                Debug.Log("Ne izvede");
             }
         }
     }
