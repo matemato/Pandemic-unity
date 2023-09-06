@@ -269,6 +269,7 @@ GameObject:
   - component: {fileID: 32314091}
   - component: {fileID: 32314090}
   - component: {fileID: 32314089}
+  - component: {fileID: 32314092}
   m_Layer: 5
   m_Name: ConnectButton
   m_TagString: Untagged
@@ -390,6 +391,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 32314087}
   m_CullTransparentMesh: 1
+--- !u!114 &32314092
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 32314087}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0892648eed4f0e46a80a63150f003cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsConnectButtonClicked: 0
+  JoinLobby: {fileID: 1065438774}
+  Dropdown: {fileID: 213978137}
+  InputField: {fileID: 278159924}
 --- !u!1 &37716159
 GameObject:
   m_ObjectHideFlags: 0
@@ -514,7 +531,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &213978138
 RectTransform:
   m_ObjectHideFlags: 0
@@ -691,7 +708,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &278159925
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1810,7 +1827,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1065438775
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1938,6 +1955,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LobbyDropdown: {fileID: 213978139}
+  InputField: {fileID: 278159926}
 --- !u!1 &1083066609
 GameObject:
   m_ObjectHideFlags: 0

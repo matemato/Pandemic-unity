@@ -21,11 +21,6 @@ public class Console : MonoBehaviour
 
     public void Start()
     {
-        // _consoleText.text = "YOYOO ROZMAN IN THE HOUSE\n";
-        AddText(ServerMessageType.SMESSAGE_CHAT, "staniè: you nigga", "green");
-        AddText(ServerMessageType.SMESSAGE_CHAT, "mièo: you gay", "yellow");
-
-        AddText(ServerMessageType.SMESSAGE_INFO, "Server says you gay", "");
     }
 
     public void AddText(ServerMessageType serverMessageType, string newText, string color) 

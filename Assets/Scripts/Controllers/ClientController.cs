@@ -51,8 +51,6 @@ public class ClientController : MonoBehaviour
         _msgManager = new MsgManager(_tcpClient);
         _opcodeManager = new OpcodeManager(_msgManager, _serverInput);
         SetCState(ClientState.CSTATE_UNCONNECTED);
-
-        _connectButton.GetComponent<Button>().onClick.AddListener(ConnectButtonClicked);
     }
 
     void InitilizeGameObjects() 
@@ -84,39 +82,41 @@ public class ClientController : MonoBehaviour
         switch (_clientState)
         {
             case ClientState.CSTATE_UNCONNECTED:
-                {
-                    UpdateUnconnected();
-                    break;
-                }
+            {
+                UpdateUnconnected();
+                break;
+            }
             case ClientState.CSTATE_AWAITING:
-                {
-                    UpdateAwaiting();
-                    break;
-                }
+            {
+                UpdateAwaiting();
+                break;
+            }
             case ClientState.CSTATE_LOBBY:
-                {
-                    UpdateLobby();
-                    break;
-                }
+            {
+                UpdateLobby();
+                break;
+            }
             case ClientState.CSTATE_GAME:
-                {
-                    UpdateIngame();
-                    break;
-                }
+            {
+                UpdateIngame();
+                break;
+            }
             default:
-                {
-                    Debug.LogError("Invalid cstate");
-                    break;
-                }
+            {
+                Debug.LogError("Invalid cstate");
+                break;
+            }
         }
         if (_clientState != ClientState.CSTATE_UNCONNECTED)
             _tcpClient.SendOutput();
     }
 
-    private void ConnectButtonClicked()
+    private void UpdateUnconnected()
     {
-        if (_clientState == ClientState.CSTATE_UNCONNECTED)
+        var connectButton = _connectButton.GetComponent<ConnectButtonClicked>();
+        if (_clientState == ClientState.CSTATE_UNCONNECTED && connectButton.IsConnectButtonClicked)
         {
+            connectButton.IsConnectButtonClicked = true;
             Debug.Log("abc");
             if (_tcpClient.ConnectToTcpServer(_ip))
             {
@@ -130,12 +130,6 @@ public class ClientController : MonoBehaviour
                 Debug.LogError("Failed to connect to server");
             }
         }
-    }
-
-   
-    private void UpdateUnconnected()
-    {
-
     }
 
     private void UpdatePlayerPositions()
