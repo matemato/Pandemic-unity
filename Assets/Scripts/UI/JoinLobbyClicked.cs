@@ -50,4 +50,9 @@ public class JoinLobbyClicked : MonoBehaviour
     {
         return _lobbyChoice;
     }
+
+    public void ClearLobbyChoice()
+    {
+        _lobbyChoice = -1;
+    }
 }

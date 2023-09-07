@@ -25,20 +25,14 @@ public class ClientController : MonoBehaviour
     private GameObject _playerPrefab;
     [SerializeField]
     private GameObject _otherPlayerPrefab;
+    [SerializeField]
+    private MainMenuController _mainMenuController;
 
     private GameObject _player;
     private GameObject[] _otherPlayers;
     private GameObject[] _tiles;
 
     private GameObject _playerInfoManager;
-
-    // main menu
-    [SerializeField]
-    private GameObject _connectButton;
-    [SerializeField]
-    private GameObject _joinLobbyButton;
-    [SerializeField]
-    private GameObject _usernameInput;
 
     [SerializeField]
     private string _ip = "localhost";
@@ -55,6 +49,7 @@ public class ClientController : MonoBehaviour
         _msgManager = new MsgManager(_tcpClient);
         _opcodeManager = new OpcodeManager(_msgManager, _serverInput);
         SetCState(ClientState.CSTATE_UNCONNECTED);
+        _mainMenuController.GetComponent<MainMenuController>();
     }
 
     void InitilizeGameObjects() 
@@ -118,16 +113,12 @@ public class ClientController : MonoBehaviour
 
     private void UpdateUnconnected()
     {
-        var connectButton = _connectButton.GetComponent<ConnectButtonClicked>();
-        if (_clientState == ClientState.CSTATE_UNCONNECTED && connectButton.IsConnectButtonClicked)
+        if (_clientState == ClientState.CSTATE_UNCONNECTED && _mainMenuController.IsConnectButtonClicked())
         {
-            connectButton.IsConnectButtonClicked = true;
-            Debug.Log("abc");
             if (_tcpClient.ConnectToTcpServer(_ip))
             {
-                _connectButton.GetComponent<Button>().interactable = false;
-                _connectButton.GetComponentInChildren<TMP_Text>().text = "Connected";
-                _joinLobbyButton.SetActive(true);
+                _mainMenuController.ShowLobby(true);
+                _mainMenuController.ShowConnect(false);
                 _clientState = ClientState.CSTATE_AWAITING;
             }
             else
@@ -302,16 +293,17 @@ public class ClientController : MonoBehaviour
         }
         else if (_awaitingSubstate == 1)
         {
-            var lobbyChoice = _joinLobbyButton.GetComponent<JoinLobbyClicked>().GetLobbyChoice();
+            var lobbyChoice = _mainMenuController.GetLobbyChoice();
             
             if (lobbyChoice != -1)
             {
-                var name = _joinLobbyButton.GetComponent<JoinLobbyClicked>().GetName();
+                var name = _mainMenuController.GetName();
                 _msgManager.WriteByte(12); //join lobby
                 _msgManager.WriteByte((byte)lobbyChoice); //lobby id
                 _msgManager.WriteByte((byte)name.Length);
                 _msgManager.WriteString(name);
                 _awaitingSubstate = 2;
+                _mainMenuController.ClearLobbyChoice();
             }
         }
         else if (_awaitingSubstate == 2)
@@ -326,6 +318,7 @@ public class ClientController : MonoBehaviour
                     {
                         if (_loaded == 0)
                         {
+                            _mainMenuController.SetLobbyText("Lobby joined.");
                             _awaitingSubstate = 3;
                             _loaded = 1;
                             StartCoroutine(LoadMainScene());
@@ -336,11 +329,13 @@ public class ClientController : MonoBehaviour
                     case 1: //game is full
                     {
                         _awaitingSubstate = 1;
+                        _mainMenuController.SetLobbyText("Game is already full.");
                         break;
                     }
                     case 2: //game does not exist
                     {
                         _awaitingSubstate = 1;
+                        _mainMenuController.SetLobbyText("Game does not exist.");
                         break;
                     }
                     default:

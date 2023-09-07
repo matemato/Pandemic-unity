@@ -20,9 +20,6 @@ public class ConnectButtonClicked : MonoBehaviour
     private void ConnectButtonClickedListener()
     {
         IsConnectButtonClicked = true;
-        JoinLobby.SetActive(true);
-        Dropdown.SetActive(true);
-        InputField.SetActive(true);
     }
 
     // Update is called once per frame

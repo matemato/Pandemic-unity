@@ -513,6 +513,87 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1001 &101774037
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2683697000429967855, guid: e4a1e7ecc1c7d1a4aa709f19c25c92d4, type: 3}
+      propertyPath: m_Name
+      value: MainMenuController
+      objectReference: {fileID: 0}
+    - target: {fileID: 6813161040639526282, guid: e4a1e7ecc1c7d1a4aa709f19c25c92d4, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6813161040639526282, guid: e4a1e7ecc1c7d1a4aa709f19c25c92d4, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6813161040639526282, guid: e4a1e7ecc1c7d1a4aa709f19c25c92d4, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6813161040639526282, guid: e4a1e7ecc1c7d1a4aa709f19c25c92d4, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6813161040639526282, guid: e4a1e7ecc1c7d1a4aa709f19c25c92d4, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6813161040639526282, guid: e4a1e7ecc1c7d1a4aa709f19c25c92d4, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6813161040639526282, guid: e4a1e7ecc1c7d1a4aa709f19c25c92d4, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6813161040639526282, guid: e4a1e7ecc1c7d1a4aa709f19c25c92d4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6813161040639526282, guid: e4a1e7ecc1c7d1a4aa709f19c25c92d4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6813161040639526282, guid: e4a1e7ecc1c7d1a4aa709f19c25c92d4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2683697000429967855, guid: e4a1e7ecc1c7d1a4aa709f19c25c92d4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 101774039}
+  m_SourcePrefab: {fileID: 100100000, guid: e4a1e7ecc1c7d1a4aa709f19c25c92d4, type: 3}
+--- !u!1 &101774038 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2683697000429967855, guid: e4a1e7ecc1c7d1a4aa709f19c25c92d4, type: 3}
+  m_PrefabInstance: {fileID: 101774037}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &101774039
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 101774038}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8ddfbd5c644bc64889ea8095b7a2c28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _connectButton: {fileID: 32314087}
+  _joinLobbyButton: {fileID: 1065438774}
+  _usernameInput: {fileID: 278159924}
+  _dropdownLobby: {fileID: 213978137}
 --- !u!1 &213978137
 GameObject:
   m_ObjectHideFlags: 0
@@ -526,7 +607,7 @@ GameObject:
   - component: {fileID: 213978140}
   - component: {fileID: 213978139}
   m_Layer: 5
-  m_Name: Dropdown
+  m_Name: LobbyDropdown
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -703,7 +784,7 @@ GameObject:
   - component: {fileID: 278159927}
   - component: {fileID: 278159926}
   m_Layer: 5
-  m_Name: InputField (TMP)
+  m_Name: NameInputField
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1012,6 +1093,10 @@ PrefabInstance:
       propertyPath: _joinLobbyButton
       value: 
       objectReference: {fileID: 1065438774}
+    - target: {fileID: 8722808849906412921, guid: 716453eef6a613b48a193dfe5553c47a, type: 3}
+      propertyPath: _mainMenuController
+      value: 
+      objectReference: {fileID: 101774039}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2589,7 +2674,7 @@ GameObject:
   - component: {fileID: 1845730366}
   - component: {fileID: 1845730365}
   m_Layer: 0
-  m_Name: Pandemic-main-menu
+  m_Name: PandemicMainMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2832,3 +2917,4 @@ SceneRoots:
   - {fileID: 1834748724}
   - {fileID: 932064830}
   - {fileID: 509152533}
+  - {fileID: 101774037}
