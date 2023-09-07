@@ -22,11 +22,9 @@ public class ClientController : MonoBehaviour
     private int _numPlayers;
 
     [SerializeField]
-    private GameObject _playerPrefab;
-    [SerializeField]
-    private GameObject _otherPlayerPrefab;
-    [SerializeField]
     private MainMenuController _mainMenuController;
+    [SerializeField]
+    private GameController _gameController;
 
     private GameObject _player;
     private GameObject[] _otherPlayers;
@@ -52,7 +50,7 @@ public class ClientController : MonoBehaviour
         _mainMenuController.GetComponent<MainMenuController>();
     }
 
-    void InitilizeGameObjects() 
+    void InitializeGameObjects() 
     {
         _clickManager = GameObject.Find("ClickController").GetComponent<ClickManager>();
         _console = GameObject.Find("Console").GetComponent<Console>();
@@ -117,7 +115,7 @@ public class ClientController : MonoBehaviour
         {
             if (_tcpClient.ConnectToTcpServer(_ip))
             {
-                _mainMenuController.ShowLobby(true);
+                _mainMenuController.ShowLobbyJoin(true);
                 _mainMenuController.ShowConnect(false);
                 _clientState = ClientState.CSTATE_AWAITING;
             }
@@ -199,12 +197,12 @@ public class ClientController : MonoBehaviour
         {
             if (i == _id)
             {
-                var player = Instantiate(_playerPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+                var player = Instantiate(_gameController.PlayerPrefab, new Vector3(0, 0, 0), Quaternion.identity);
                 player.GetComponent<Player>().SetId(i);
             }
             else
             {
-                var otherPlayer = Instantiate(_otherPlayerPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+                var otherPlayer = Instantiate(_gameController.OtherPlayerPrefab, new Vector3(0, 0, 0), Quaternion.identity);
                 otherPlayer.GetComponent<OtherPlayer>().SetId(i);
             }
 
@@ -237,20 +235,12 @@ public class ClientController : MonoBehaviour
         if (serverText != null)
         {
             Debug.Log(serverText.Item2);
-            _console.AddText(serverText.Item1, serverText.Item2, "yellow");
+            _mainMenuController.Console.GetComponent<Console>().AddText(serverText.Item1, serverText.Item2, "yellow");
         }
 
         if (Input.GetKeyDown(KeyCode.Return))
         {
             SendChatMessage();
-        }
-
-        if (Input.GetKeyDown(KeyCode.F5)) //exit lobby, need to add opcode for disconnect
-        {
-            _msgManager.WriteByte(255);
-            //_clientState = ClientState.CSTATE_UNCONNECTED;
-            //_awaitingSubstate = 0;
-            return;
         }
 
         if (Time.time > nextIdleTime)
@@ -262,7 +252,17 @@ public class ClientController : MonoBehaviour
 
         if (_serverInput.BeginGameHolder.HasGameStarted())
         {
-            BeginGame();
+            if(_loaded == 0)
+            {
+                _loaded = 1;
+                StartCoroutine(LoadMainScene());
+            }
+            else if(_loaded == 2)
+            {
+                _loaded = 3;
+                InitializeGameObjects();
+                BeginGame();
+            }
         }
     }
 
@@ -316,14 +316,10 @@ public class ClientController : MonoBehaviour
                 {
                     case 0: //joined lobby
                     {
-                        if (_loaded == 0)
-                        {
-                            _mainMenuController.SetLobbyText("Lobby joined.");
-                            _awaitingSubstate = 3;
-                            _loaded = 1;
-                            StartCoroutine(LoadMainScene());
-                        }
-                        
+                        _clientState = ClientState.CSTATE_LOBBY;
+                        _mainMenuController.Console.SetActive(true);
+                        _mainMenuController.SetLobbyText("Lobby joined.");
+                        _mainMenuController.ShowLobbyJoin(false);
                         break;
                     }
                     case 1: //game is full
@@ -344,15 +340,6 @@ public class ClientController : MonoBehaviour
                         break;
                     }
                 }
-            }
-        }
-        else if (_awaitingSubstate == 3)
-        {
-            if (_loaded == 2)
-            {
-                _loaded = 3;
-                _clientState = ClientState.CSTATE_LOBBY;
-                InitilizeGameObjects();
             }
         }
     }

@@ -17,6 +17,8 @@ public class MainMenuController : MonoBehaviour
     private GameObject _dropdownLobby;
     [SerializeField]
     private TMP_Text _lobbyText;
+    [SerializeField]
+    public GameObject Console;
 
     public bool IsConnectButtonClicked()
     {
@@ -58,7 +60,7 @@ public class MainMenuController : MonoBehaviour
         return _joinLobbyButton.GetComponent<JoinLobbyClicked>().GetLobbyChoice();
     }
 
-    public void ShowLobby(bool v)
+    public void ShowLobbyJoin(bool v)
     {
         _joinLobbyButton.SetActive(v);
         _usernameInput.SetActive(v);
