@@ -23,7 +23,6 @@ public class ClientController : MonoBehaviour
 
     [SerializeField]
     private MainMenuController _mainMenuController;
-    [SerializeField]
     private GameController _gameController;
 
     private GameObject _player;
@@ -55,6 +54,7 @@ public class ClientController : MonoBehaviour
         _clickManager = GameObject.Find("ClickController").GetComponent<ClickManager>();
         _console = GameObject.Find("Console").GetComponent<Console>();
         _playerInfoManager = GameObject.Find("PlayerInfoManager");
+        _gameController = GameObject.Find("GameController").GetComponent<GameController>();
     }
     void Awake()
     {
