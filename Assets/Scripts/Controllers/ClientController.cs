@@ -47,6 +47,7 @@ public class ClientController : MonoBehaviour
         _opcodeManager = new OpcodeManager(_msgManager, _serverInput);
         SetCState(ClientState.CSTATE_UNCONNECTED);
         _mainMenuController.GetComponent<MainMenuController>();
+        _console = _mainMenuController.Console.GetComponent<Console>();
     }
 
     void InitializeGameObjects() 
@@ -218,11 +219,18 @@ public class ClientController : MonoBehaviour
 
     private void SendChatMessage()
     {
-        if(_console.SendingText.text.Length > 0)
+        if(_console != null)
         {
-             OutClientMessage msg = new OutClientMessage(ClientMessageType.CMESSAGE_CHAT, _console.GetSendingMessage());
-            _opcodeManager.Send(msg);
-            _console.ClearSendingMessage();
+            if (_console.SendingText.text.Length > 0)
+            {
+                OutClientMessage msg = new OutClientMessage(ClientMessageType.CMESSAGE_CHAT, _console.GetSendingMessage());
+                _opcodeManager.Send(msg);
+                _console.ClearSendingMessage();
+            }
+        }
+        else
+        {
+            Debug.Log("SendChatMessage(): console not initialized");
         }
     }
 
