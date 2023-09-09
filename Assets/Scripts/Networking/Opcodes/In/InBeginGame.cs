@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class InBeginGame : OpcodeIn
 {
-    public InBeginGame() : base(2)
+    public InBeginGame() : base(ServerOpcode.BEGIN_GAME)
     {
 
     }

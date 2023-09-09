@@ -114,6 +114,7 @@ public class ClientController : MonoBehaviour
     {
         if (_clientState == ClientState.CSTATE_UNCONNECTED && _mainMenuController.IsConnectButtonClicked())
         {
+            _mainMenuController.SetConnectInteractable(false);
             if (_tcpClient.ConnectToTcpServer(_ip))
             {
                 _mainMenuController.ShowLobbyJoin(true);
@@ -122,6 +123,7 @@ public class ClientController : MonoBehaviour
             }
             else
             {
+                _mainMenuController.SetConnectInteractable(true);
                 Debug.LogError("Failed to connect to server");
             }
         }
@@ -160,8 +162,10 @@ public class ClientController : MonoBehaviour
         var serverText = _serverInput.MessageHolder.GetNext();
         if (serverText != null)
         {
-            Debug.Log(serverText.Item2);
-            _console.AddText(serverText.Item1, serverText.Item2, "yellow");
+            if (serverText.Item1 == ServerMessageType.SMESSAGE_CHAT || serverText.Item1 == ServerMessageType.SMESSAGE_INFO)
+            {
+                _console.AddText(serverText.Item1, serverText.Item2, "yellow");
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.Return))
@@ -240,10 +244,12 @@ public class ClientController : MonoBehaviour
         _opcodeManager.ReceiveAll();
 
         var serverText = _serverInput.MessageHolder.GetNext();
-        if (serverText != null)
+        if (serverText != null && _mainMenuController != null)
         {
-            Debug.Log(serverText.Item2);
-            _mainMenuController.Console.GetComponent<Console>().AddText(serverText.Item1, serverText.Item2, "yellow");
+            if (serverText.Item1 == ServerMessageType.SMESSAGE_CHAT || serverText.Item1 == ServerMessageType.SMESSAGE_INFO)
+                _mainMenuController.Console.GetComponent<Console>().AddText(serverText.Item1, serverText.Item2, "yellow");
+            else
+                _mainMenuController.SetLobbyText(serverText.Item2);
         }
 
         if (Input.GetKeyDown(KeyCode.Return))

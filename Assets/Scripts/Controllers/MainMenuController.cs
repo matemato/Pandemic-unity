@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MainMenuController : MonoBehaviour
 {
@@ -70,5 +71,10 @@ public class MainMenuController : MonoBehaviour
     public void ShowConnect(bool v)
     {
         _connectButton.SetActive(v);
+    }
+
+    public void SetConnectInteractable(bool v)
+    {
+        _connectButton.GetComponent<Button>().interactable = v;
     }
 }

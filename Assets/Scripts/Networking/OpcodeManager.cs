@@ -20,11 +20,12 @@ public class OpcodeManager
 
     private OpcodeIn GetOpcode(byte opcodeId)
     {
-        switch(opcodeId)
+        var opcode = (ServerOpcode)opcodeId;
+        switch(opcode)
         {
-            case 0: return new InServerMessage();
-            case 1: return new InUpdatePlayers();
-            case 2: return new InBeginGame();
+            case ServerOpcode.SERVER_MESSAGE: return new InServerMessage();
+            case ServerOpcode.UPDATE_PLAYERS: return new InUpdatePlayers();
+            case ServerOpcode.BEGIN_GAME: return new InBeginGame();
             default: return new InError();
         }
     }

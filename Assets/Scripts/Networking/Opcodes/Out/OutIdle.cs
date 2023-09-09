@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class OutIdle : OpcodeOut
 {
-    public OutIdle() : base(0)
+    public OutIdle() : base(ClientOpcode.IDLE)
     {
 
     }

@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class OpcodeIn
 {
-    private readonly byte _id;
+    private readonly ServerOpcode _id;
 
-    public OpcodeIn(byte id)
+    public OpcodeIn(ServerOpcode id)
     {
         _id = id;
     }

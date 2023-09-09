@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class InError : OpcodeIn
 {
-    public InError() : base(0)
+    public InError() : base((ServerOpcode)0)
     {
 
     }

@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class TCPClient
@@ -38,15 +39,27 @@ public class TCPClient
     /// </summary> 	
     public bool ConnectToTcpServer(string ip)
     {
-        try
+        const int connectTimeoutMilliseconds = 2000;
+
+        socketConnection = new TcpClient();
+        var connectionTask = socketConnection
+            .ConnectAsync(ip, 43594).ContinueWith(task => {
+                return task.IsFaulted ? null : socketConnection;
+            }, TaskContinuationOptions.ExecuteSynchronously);
+        var timeoutTask = Task.Delay(connectTimeoutMilliseconds)
+            .ContinueWith<TcpClient>(task => null, TaskContinuationOptions.ExecuteSynchronously);
+        var resultTask = Task.WhenAny(connectionTask, timeoutTask).Unwrap();
+
+        var resultTcpClient = resultTask.GetAwaiter().GetResult();
+        // Or by using `await`:
+        // var resultTcpClient = await resultTask.ConfigureAwait(false);
+
+        if (resultTcpClient != null)
         {
-            socketConnection = new TcpClient();
-            socketConnection.ConnectAsync(ip, 43594);
             return true;
         }
-        catch (SocketException socketException)
+        else
         {
-            Debug.Log("On client connect exception " + socketException);
             return false;
         }
     }

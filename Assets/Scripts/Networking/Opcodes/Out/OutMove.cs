@@ -5,7 +5,7 @@ using UnityEngine;
 public class OutMove : OpcodeOut
 {
     private byte _targetCity;
-    public OutMove(byte target_city) : base(1)
+    public OutMove(byte target_city) : base(ClientOpcode.MOVE)
     {
         _targetCity = target_city;
     }

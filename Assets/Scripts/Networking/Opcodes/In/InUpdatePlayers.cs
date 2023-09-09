@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class InUpdatePlayers : OpcodeIn
 {
-    public InUpdatePlayers() : base(1)
+    public InUpdatePlayers() : base(ServerOpcode.UPDATE_PLAYERS)
     {
 
     }

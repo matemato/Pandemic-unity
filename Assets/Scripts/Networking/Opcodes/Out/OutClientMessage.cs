@@ -7,7 +7,7 @@ public class OutClientMessage : OpcodeOut
 {
     private ClientMessageType _messageType;
     private string _chatMessage;
-    public OutClientMessage(ClientMessageType message_type, string chat_message) : base(2)
+    public OutClientMessage(ClientMessageType message_type, string chat_message) : base(ClientOpcode.CLIENT_MESSAGE)
     {
         _messageType = message_type;
         _chatMessage = chat_message;

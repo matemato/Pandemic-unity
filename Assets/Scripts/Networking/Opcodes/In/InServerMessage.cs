@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class InServerMessage : OpcodeIn
 {
-    public InServerMessage() : base(0)
+    public InServerMessage() : base(ServerOpcode.SERVER_MESSAGE)
     {
 
     }

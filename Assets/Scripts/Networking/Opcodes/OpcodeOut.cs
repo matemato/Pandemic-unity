@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class OpcodeOut
 {
-    private readonly byte id;
+    private readonly ClientOpcode id;
 
-    public OpcodeOut(byte id)
+    public OpcodeOut(ClientOpcode id)
     {
         this.id = id;
     }
 
     public virtual void Send(MsgManager msgManager)
     {
-        msgManager.WriteByte(id);
+        msgManager.WriteByte((byte)id);
     }
 }

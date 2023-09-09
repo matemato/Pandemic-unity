@@ -5,5 +5,6 @@ using UnityEngine;
 public enum ServerMessageType
 {
     SMESSAGE_CHAT,
-    SMESSAGE_INFO
+    SMESSAGE_INFO,
+    SMESSAGE_LOBBY
 }
