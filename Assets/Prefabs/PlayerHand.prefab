@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1128739684362982495}
   - component: {fileID: 5754919167635543655}
   m_Layer: 0
-  m_Name: Bogota
+  m_Name: Card3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 7380751798882700012}
   - component: {fileID: 7211676916123843317}
   m_Layer: 0
-  m_Name: Chicago
+  m_Name: Card5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -177,6 +177,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3130329736791992904}
+  - component: {fileID: 364170328343564076}
   m_Layer: 0
   m_Name: PlayerHand
   m_TagString: Untagged
@@ -198,15 +199,84 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5322112170852298704}
-  - {fileID: 4139403528422260603}
   - {fileID: 3039627776942432979}
   - {fileID: 1128739684362982495}
   - {fileID: 1287190783509964178}
   - {fileID: 7380751798882700012}
   - {fileID: 4550155922815849506}
   - {fileID: 8306873696135057543}
+  - {fileID: 4139403528422260603}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &364170328343564076
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1489617365488683345}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93a6a8fcc592eb845a4e541426d96819, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerCards:
+  - {fileID: 6253630346990736583}
+  - {fileID: 1839734579206294909}
+  - {fileID: 774610411301512018}
+  - {fileID: 2864663937135504950}
+  - {fileID: 932922737311554577}
+  - {fileID: 7719894314894692530}
+  - {fileID: 8983908261452826246}
+  _cardPics:
+  - {fileID: 21300000, guid: 50025e8120f84cf46968105bde4b7c65, type: 3}
+  - {fileID: 21300000, guid: 5e50dc3af31b3fb46b93f3e930428711, type: 3}
+  - {fileID: 21300000, guid: 3eb09bb2c3e85194cb9aa50fbdf0ef75, type: 3}
+  - {fileID: 21300000, guid: 8c36b50561c6917439900527930efeb8, type: 3}
+  - {fileID: 21300000, guid: 375194ad26d1fc744a865622e0b05f7b, type: 3}
+  - {fileID: 21300000, guid: a8cec7f67f5d79a4d99a39fe25786642, type: 3}
+  - {fileID: 21300000, guid: fb0b22f2808c08b4992569a5f4b2ef87, type: 3}
+  - {fileID: 21300000, guid: 7dc14d137b7d9464f841e8c876d71e70, type: 3}
+  - {fileID: 21300000, guid: 47b3070a6aa9c1d4ebd1b3cc160ffbea, type: 3}
+  - {fileID: 21300000, guid: dfedaa6116039344482caac733701708, type: 3}
+  - {fileID: 21300000, guid: 77e62919e3218bd4d8082c0d9cb77763, type: 3}
+  - {fileID: 21300000, guid: a416d3e7f67c949409e301fd49cf3c0e, type: 3}
+  - {fileID: 21300000, guid: 3dc897d9847b40c4b86910d7eae7f9cd, type: 3}
+  - {fileID: 21300000, guid: a100b9cd77c286f4eb58527376e2f7cf, type: 3}
+  - {fileID: 21300000, guid: 4a775027ab1e3314facf35afca4a4175, type: 3}
+  - {fileID: 21300000, guid: 360b538a2382acc4da6bb0cf3f622caf, type: 3}
+  - {fileID: 21300000, guid: ee167cce54aab2343aa41f9a459a0a2a, type: 3}
+  - {fileID: 21300000, guid: 9b4ee17a8e22cf444a4731b35d14dbb1, type: 3}
+  - {fileID: 21300000, guid: b7578938c58bd2245911204e907698e1, type: 3}
+  - {fileID: 21300000, guid: 23d84156021f9e54aa37981fc9c4acaa, type: 3}
+  - {fileID: 21300000, guid: ab2115aafb9ca5a4f98bfb69a827a5ee, type: 3}
+  - {fileID: 21300000, guid: d0476fe797cd40240927a10768c97467, type: 3}
+  - {fileID: 21300000, guid: 0d58d630b3c25a94f8a42637e044a1a6, type: 3}
+  - {fileID: 21300000, guid: d65c610aff1520a429a97c89ea8dcc36, type: 3}
+  - {fileID: 21300000, guid: 31900126f91abc64483b9f23c2cd2f56, type: 3}
+  - {fileID: 21300000, guid: da1477ce3c1030c49821d908362d5d50, type: 3}
+  - {fileID: 21300000, guid: 69566b0e20be47044a42e5fcdbe81924, type: 3}
+  - {fileID: 21300000, guid: 75a7701d7ef83db4d82bb3d62feeda8c, type: 3}
+  - {fileID: 21300000, guid: 8b6b71522f4e498479f641e6933979ca, type: 3}
+  - {fileID: 21300000, guid: 2ac2f57f7e2e61148a02e3d691b14b27, type: 3}
+  - {fileID: 21300000, guid: deaa10a2e9031864cbe0de8c4981602c, type: 3}
+  - {fileID: 21300000, guid: e8444718d23dd9f44882555a73f2d912, type: 3}
+  - {fileID: 21300000, guid: fb6f512abf0121c45b62669371662062, type: 3}
+  - {fileID: 21300000, guid: f786a9e8676d2d84e8bc29d48179aba0, type: 3}
+  - {fileID: 21300000, guid: a39a3e1f96ea41d46ad4e075b971ecf6, type: 3}
+  - {fileID: 21300000, guid: c732f4dac3ed2e84ca7f3c9b9ea70b2c, type: 3}
+  - {fileID: 21300000, guid: 66061b29718933340a03d0bd3c5332bf, type: 3}
+  - {fileID: 21300000, guid: cfaf5b5437497c04584b1bcbf5544603, type: 3}
+  - {fileID: 21300000, guid: 63154a06f7276684e8c3bc2cf93d5b9a, type: 3}
+  - {fileID: 21300000, guid: d9d0f16687dc0054496d9264ab6261db, type: 3}
+  - {fileID: 21300000, guid: 8ecc400e9ec51a84e862f4d5145ca502, type: 3}
+  - {fileID: 21300000, guid: 2f44b13918e1d1e45b04b71fcf694ef1, type: 3}
+  - {fileID: 21300000, guid: 4bef5946e80190c41bf39f146686980f, type: 3}
+  - {fileID: 21300000, guid: c5ba431b34df2d841a62b10ab39ccc7c, type: 3}
+  - {fileID: 21300000, guid: ff97fb7b6681c814785769b518bc77dd, type: 3}
+  - {fileID: 21300000, guid: d24bb8d8ff021ad44858e4f898ae945a, type: 3}
+  - {fileID: 21300000, guid: c5fa32e226c20a34d954f36ab627bf1b, type: 3}
+  - {fileID: 21300000, guid: 6f816a1a0eabd454eb81df95009823e4, type: 3}
 --- !u!1 &1839734579206294909
 GameObject:
   m_ObjectHideFlags: 0
@@ -218,7 +288,7 @@ GameObject:
   - component: {fileID: 3039627776942432979}
   - component: {fileID: 2244842206733950315}
   m_Layer: 0
-  m_Name: Bangkok
+  m_Name: Card2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -302,7 +372,7 @@ GameObject:
   - component: {fileID: 1287190783509964178}
   - component: {fileID: 904626640390691419}
   m_Layer: 0
-  m_Name: Cairo
+  m_Name: Card4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -317,7 +387,7 @@ Transform:
   m_GameObject: {fileID: 2864663937135504950}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -180, y: -4.5, z: 0}
+  m_LocalPosition: {x: -180.00003, y: -4.5, z: 0}
   m_LocalScale: {x: 70, y: 70, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -470,7 +540,7 @@ GameObject:
   - component: {fileID: 5322112170852298704}
   - component: {fileID: 5361318462482482523}
   m_Layer: 0
-  m_Name: Algiers
+  m_Name: Card1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -554,7 +624,7 @@ GameObject:
   - component: {fileID: 4550155922815849506}
   - component: {fileID: 4854568241652965953}
   m_Layer: 0
-  m_Name: Riyadh
+  m_Name: Card6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -638,7 +708,7 @@ GameObject:
   - component: {fileID: 8306873696135057543}
   - component: {fileID: 8797446578165089599}
   m_Layer: 0
-  m_Name: Buenos Aires
+  m_Name: Card7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
