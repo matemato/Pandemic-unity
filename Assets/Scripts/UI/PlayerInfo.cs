@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 
@@ -13,6 +15,16 @@ public class PlayerInfo : MonoBehaviour
     private GameObject _playerRolePic;
     [SerializeField]
     private Sprite[] _rolePics;
+    [SerializeField]
+    private TMP_Text[] _playerCards;
+
+    private void Start()
+    {
+        foreach (TMP_Text card in _playerCards)
+        {
+            card.text = String.Empty;
+        }
+    }
 
     public void SetPlayerName(string playerName)
     {
@@ -35,5 +47,23 @@ public class PlayerInfo : MonoBehaviour
 
         //_playerRolePic.sprite = 
 
+    }
+
+    public void AddPlayerCard(int cardNumber, string cardName)
+    {
+        _playerCards[cardNumber].text = cardName;
+    }
+
+    public void RemovePlayerCard(int cardNumber)
+    {
+        _playerCards[cardNumber].text = String.Empty;
+    }
+
+    public void ReorderPlayerCards(string[] names)
+    {
+        for (int i = 0; i < names.Length; i++)
+        {
+            _playerCards[i].text = names[i];
+        }
     }
 }

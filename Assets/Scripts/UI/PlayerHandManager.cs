@@ -6,13 +6,16 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Windows;
 
-public class PlayerCardManager : MonoBehaviour
+public class PlayerHandManager : MonoBehaviour
 {
     [SerializeField]
     private List<GameObject> _playerCards = new List<GameObject>();
 
     [SerializeField]
     private Sprite[] _cardPics;
+
+    [SerializeField]
+    private GameObject _playerInfoManager;
 
     private int _numOfCards = 0;
 
@@ -24,9 +27,11 @@ public class PlayerCardManager : MonoBehaviour
             card.SetActive(false);
         }
 
-        AddPlayerCard(0, PlayerCard.CCARD_ATLANTA);
-        AddPlayerCard(0, PlayerCard.CCARD_BANGKOK);
-        AddPlayerCard(0, PlayerCard.CCARD_LAGOS);
+        //_playerInfoManager.GetComponent<PlayerInfoManager>()._playerInfos[0].GetComponent<PlayerInfo>().SetPlayerName("gekki");
+
+        //AddPlayerCard(0, PlayerCard.CCARD_ATLANTA);
+        //AddPlayerCard(0, PlayerCard.CCARD_BANGKOK);
+        //AddPlayerCard(0, PlayerCard.CCARD_LAGOS);
     }
 
     void Update()
@@ -39,7 +44,8 @@ public class PlayerCardManager : MonoBehaviour
 
         if (UnityEngine.Input.GetKeyDown(KeyCode.R))
         {
-            RemovePlayerCard(0, PlayerCard.CCARD_ATLANTA);
+            //RemovePlayerCard(0, PlayerCard.CCARD_ATLANTA);
+            RemoveTest(0);
         }
     }
 
@@ -58,6 +64,7 @@ public class PlayerCardManager : MonoBehaviour
         string playerCardName = EnumToString(playerCard);
 
         _playerCards[_numOfCards].name = playerCardName;
+        _playerInfoManager.GetComponent<PlayerInfoManager>()._playerInfos[id].GetComponent<PlayerInfo>().AddPlayerCard(_numOfCards, playerCardName);
 
         foreach (Sprite cardPic in _cardPics)
         {
@@ -75,19 +82,32 @@ public class PlayerCardManager : MonoBehaviour
     {
         string playerCardName = EnumToString(playerCard);
 
+        var i = 0;
         foreach (GameObject card in _playerCards)
         {
             if (card.name == playerCardName)
             {
                 card.name = String.Empty;
                 card.SetActive(false);
+
+                _playerInfoManager.GetComponent<PlayerInfoManager>()._playerInfos[id].GetComponent<PlayerInfo>().RemovePlayerCard(i);
             } 
+            i++;
         }
         _numOfCards--;
-        ReorderCards();
+        ReorderCards(id);
     }
 
-    public void ReorderCards()
+    public void RemoveTest(int id)
+    {
+        _numOfCards--;
+        _playerCards[0].name = String.Empty;
+        _playerCards[0].SetActive(false);
+
+        ReorderCards(0);
+    }
+
+    public void ReorderCards(int id)
     {
         string[] names = new string[_playerCards.Count];
         for (int i = 0; i < _playerCards.Count; i++)
@@ -97,6 +117,8 @@ public class PlayerCardManager : MonoBehaviour
 
         Array.Sort(names);
         Array.Reverse(names);
+
+        _playerInfoManager.GetComponent<PlayerInfoManager>()._playerInfos[id].GetComponent<PlayerInfo>().ReorderPlayerCards(names);
 
         for (int i = 0; i < _playerCards.Count; i++)
         {

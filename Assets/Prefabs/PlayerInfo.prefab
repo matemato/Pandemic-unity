@@ -744,6 +744,14 @@ MonoBehaviour:
   - {fileID: 21300000, guid: ed243ed7c5228e0459cbbd62125a361a, type: 3}
   - {fileID: 21300000, guid: 79b663417c21dfb43b2883b7926b0c4c, type: 3}
   - {fileID: 21300000, guid: e780eb960cfc94e44861599b65be2025, type: 3}
+  _playerCards:
+  - {fileID: 3049599623755490807}
+  - {fileID: 541333715252719288}
+  - {fileID: 6979681187730838844}
+  - {fileID: 5292212273005283739}
+  - {fileID: 7278436833688702580}
+  - {fileID: 8375148081548791069}
+  - {fileID: 3795723099035121336}
 --- !u!1 &4630284947978899406
 GameObject:
   m_ObjectHideFlags: 0
