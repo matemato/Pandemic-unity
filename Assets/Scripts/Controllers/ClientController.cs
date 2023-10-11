@@ -193,8 +193,8 @@ public class ClientController : MonoBehaviour
 
     private void BeginGame()
     {
-        _id = _serverInput.BeginGameHolder._playerId;
-        _numPlayers = _serverInput.BeginGameHolder._numPlayers;
+        _id = _serverInput.BeginGameHolder.PlayerId;
+        _numPlayers = _serverInput.BeginGameHolder.NumPlayers;
         _clientState = ClientState.CSTATE_GAME;
         var playerInfoManager = _playerInfoManager.GetComponent<PlayerInfoManager>();
 
@@ -212,8 +212,8 @@ public class ClientController : MonoBehaviour
             }
 
             playerInfoManager.InstantiatePlayerInfo();
-            playerInfoManager.SetPlayerName(i, _serverInput.BeginGameHolder._playerNames[i]);
-            playerInfoManager.SetPlayerRole(i, _serverInput.BeginGameHolder._playerRoles[i]);
+            playerInfoManager.SetPlayerName(i, _serverInput.BeginGameHolder.PlayerNames[i]);
+            playerInfoManager.SetPlayerRole(i, _serverInput.BeginGameHolder.PlayerRoles[i]);
         }
 
         _otherPlayers = GameObject.FindGameObjectsWithTag("OtherPlayer");

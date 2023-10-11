@@ -26,6 +26,7 @@ public class OpcodeManager
             case ServerOpcode.SERVER_MESSAGE: return new InServerMessage();
             case ServerOpcode.UPDATE_PLAYERS: return new InUpdatePlayers();
             case ServerOpcode.BEGIN_GAME: return new InBeginGame();
+            case ServerOpcode.UPDATE_PLAYER_CARD: return new InUpdatePlayerCard();
             default: return new InError();
         }
     }

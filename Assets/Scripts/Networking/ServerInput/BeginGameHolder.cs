@@ -5,10 +5,10 @@ using UnityEngine;
 public class BeginGameHolder
 {
     private bool _gameStarted = false;
-    public byte _numPlayers;
-    public byte _playerId;
-    public List<string> _playerNames;
-    public List<PlayerRole> _playerRoles;
+    public byte NumPlayers;
+    public byte PlayerId;
+    public List<string> PlayerNames;
+    public List<PlayerRole> PlayerRoles;
 
     public BeginGameHolder()
     {
@@ -23,9 +23,9 @@ public class BeginGameHolder
     public void BeginGame(byte numPlayers, byte playerId, List<string> playerNames, List<PlayerRole> playerRoles)
     {
         _gameStarted = true;
-        _numPlayers = numPlayers;
-        _playerId = playerId;
-        _playerNames = playerNames;
-        _playerRoles = playerRoles;
+        NumPlayers = numPlayers;
+        PlayerId = playerId;
+        PlayerNames = playerNames;
+        PlayerRoles = playerRoles;
     }
 }

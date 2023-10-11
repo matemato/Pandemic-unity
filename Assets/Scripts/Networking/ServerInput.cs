@@ -8,6 +8,7 @@ public class ServerInput
     public SMessageHolder MessageHolder;
     public PlayerUpdateHolder PlayerUpdateHolder;
     public BeginGameHolder BeginGameHolder;
+    public PlayerCardUpdateHolder PlayerCardUpdateHolder;
     public bool InvalidOpcode;
 
     public ServerInput()
@@ -16,5 +17,6 @@ public class ServerInput
         MessageHolder = new SMessageHolder();
         PlayerUpdateHolder = new PlayerUpdateHolder();
         BeginGameHolder = new BeginGameHolder();
+        PlayerCardUpdateHolder = new PlayerCardUpdateHolder();
     }
 }
