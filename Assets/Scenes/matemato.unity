@@ -819,9 +819,17 @@ PrefabInstance:
     m_TransformParent: {fileID: 7971045}
     m_Modifications:
     - target: {fileID: 364170328343564076, guid: 6aca16c5484fe1241bc509816cf30d6c, type: 3}
+      propertyPath: _gameController
+      value: 
+      objectReference: {fileID: 1525714547}
+    - target: {fileID: 364170328343564076, guid: 6aca16c5484fe1241bc509816cf30d6c, type: 3}
       propertyPath: _playerInfoManager
       value: 
       objectReference: {fileID: 494189103}
+    - target: {fileID: 364170328343564076, guid: 6aca16c5484fe1241bc509816cf30d6c, type: 3}
+      propertyPath: _gameControllerObject
+      value: 
+      objectReference: {fileID: 1525714547}
     - target: {fileID: 1489617365488683345, guid: 6aca16c5484fe1241bc509816cf30d6c, type: 3}
       propertyPath: m_Name
       value: PlayerHand

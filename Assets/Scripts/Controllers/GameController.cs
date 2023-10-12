@@ -10,6 +10,9 @@ public class GameController : MonoBehaviour
     public GameObject PlayerPrefab;
     [SerializeField]
     public GameObject OtherPlayerPrefab;
+
+    public ServerInput ServerInput;
+
     void Start()
     {
         
@@ -20,4 +23,5 @@ public class GameController : MonoBehaviour
     {
         
     }
+
 }

@@ -17,6 +17,11 @@ public class PlayerHandManager : MonoBehaviour
     [SerializeField]
     private GameObject _playerInfoManager;
 
+    [SerializeField]
+    private GameObject _gameControllerObject;
+
+    private GameController _gameController;
+
     private int _numOfCards = 0;
 
     void Start()
@@ -27,7 +32,7 @@ public class PlayerHandManager : MonoBehaviour
             card.SetActive(false);
         }
 
-        //_playerInfoManager.GetComponent<PlayerInfoManager>()._playerInfos[0].GetComponent<PlayerInfo>().SetPlayerName("gekki");
+        _gameController =_gameControllerObject.GetComponent<GameController>();
 
         //AddPlayerCard(0, PlayerCard.CCARD_ATLANTA);
         //AddPlayerCard(0, PlayerCard.CCARD_BANGKOK);
@@ -36,6 +41,26 @@ public class PlayerHandManager : MonoBehaviour
 
     void Update()
     {
+        if (_gameController.ServerInput != null)
+        {
+            var request = _gameController.ServerInput.PlayerCardUpdateHolder.GetNext();
+
+            if (request != null)
+            {
+                int id = (int)request.Item1;
+                bool remove = request.Item2;
+                PlayerCard playerCard = request.Item3;
+
+                if (remove)
+                {
+                    RemovePlayerCard(id, playerCard);
+                }
+                else
+                {
+                    AddPlayerCard(id, playerCard);
+                }
+            }
+        }
 
         if (UnityEngine.Input.GetKeyDown(KeyCode.A))
         {
@@ -61,25 +86,31 @@ public class PlayerHandManager : MonoBehaviour
 
     public void AddPlayerCard(int id, PlayerCard playerCard)
     {
-        string playerCardName = EnumToString(playerCard);
+        var playerId = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().GetId();
 
+        string playerCardName = EnumToString(playerCard);
         _playerCards[_numOfCards].name = playerCardName;
         _playerInfoManager.GetComponent<PlayerInfoManager>()._playerInfos[id].GetComponent<PlayerInfo>().AddPlayerCard(_numOfCards, playerCardName);
 
-        foreach (Sprite cardPic in _cardPics)
+        if (playerId == id)
         {
-            if (cardPic.name == playerCardName)
+            foreach (Sprite cardPic in _cardPics)
             {
-                _playerCards[_numOfCards].GetComponent<SpriteRenderer>().sprite = cardPic;
+                if (cardPic.name == playerCardName)
+                {
+                    _playerCards[_numOfCards].GetComponent<SpriteRenderer>().sprite = cardPic;
+                }
             }
-        }
 
-        _playerCards[_numOfCards].SetActive(true);
-        _numOfCards++;
+            _playerCards[_numOfCards].SetActive(true);
+            _numOfCards++;
+        }
     }
 
     public void RemovePlayerCard(int id, PlayerCard playerCard)
     {
+        var playerId = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().GetId();
+
         string playerCardName = EnumToString(playerCard);
 
         var i = 0;

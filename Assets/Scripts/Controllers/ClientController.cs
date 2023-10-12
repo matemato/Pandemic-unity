@@ -56,6 +56,7 @@ public class ClientController : MonoBehaviour
         _console = GameObject.Find("Console").GetComponent<Console>();
         _playerInfoManager = GameObject.Find("PlayerInfoManager");
         _gameController = GameObject.Find("GameController").GetComponent<GameController>();
+        _gameController.ServerInput = _serverInput;
     }
     void Awake()
     {

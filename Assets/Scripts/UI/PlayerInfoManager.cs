@@ -24,9 +24,9 @@ public class PlayerInfoManager : MonoBehaviour
         RoleDict[PlayerRole.ROLE_SPECIALIST] = "Quarantine specialist";
         RoleDict[PlayerRole.ROLE_PLANNER] = "Contingency planner";
 
-        InstantiatePlayerInfo();
-        SetPlayerName(0, "5Keni5");
-        SetPlayerRole(0, PlayerRole.ROLE_PLANNER);
+        //InstantiatePlayerInfo();
+        //SetPlayerName(0, "5Keni5");
+        //SetPlayerRole(0, PlayerRole.ROLE_PLANNER);
     }
 
     // Update is called once per frame
