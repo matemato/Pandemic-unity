@@ -18,7 +18,7 @@ public class PlayerInfo : MonoBehaviour
     [SerializeField]
     private TMP_Text[] _playerCards;
 
-    private int _numberOfPlayerCards = 0;
+    //private int _numberOfPlayerCards = 0;
 
     private void Start()
     {

@@ -108,7 +108,7 @@ public class PlayerHandManager : MonoBehaviour
              
         if (playerId == id)
         {
-            var newCard = Instantiate(_playerCardPrefab, new Vector3(-670 + (playerHandSize * 160), 0, 0), Quaternion.identity);
+            var newCard = Instantiate(_playerCardPrefab, new Vector3(-740, 300, -1), Quaternion.identity);
             newCard.transform.SetParent(gameObject.transform, false);
             newCard = newCard.transform.GetChild(0).gameObject;     
             newCard.GetComponent<PlayerCardScript>().SetPlayerCard(playerCard);
@@ -162,25 +162,30 @@ public class PlayerHandManager : MonoBehaviour
             switch (color) 
             {
                 case CityColor.CITY_COLOR_BLUE:
-                    parent.transform.localPosition = new Vector3(-670 + (colorCount[0] * 160), 0, 0);
+                    card.GetComponent<PlayerCardScript>().TargetPosition = new Vector3(-670 + (colorCount[0] * 160), 0, -1);
+                    card.GetComponent<PlayerCardScript>().MoveToTarget();
+                    //parent.transform.localPosition = new Vector3(-670 + (colorCount[0] * 160), 0, 0);
                     playerInfo.UpdatePlayerCard(colorCount[0], name, "blue");
                     colorCount[0]++;
                     break;
 
                 case CityColor.CITY_COLOR_YELLOW:
-                    parent.transform.localPosition = new Vector3(-670 + ((colorCount[1] + PlayerHandCount[CityColor.CITY_COLOR_BLUE]) * 160), 0, 0);
+                    card.GetComponent<PlayerCardScript>().TargetPosition = new Vector3(-670 + ((colorCount[1] + PlayerHandCount[CityColor.CITY_COLOR_BLUE]) * 160), 0, -1);
+                    card.GetComponent<PlayerCardScript>().MoveToTarget();
                     playerInfo.UpdatePlayerCard(colorCount[1] + PlayerHandCount[CityColor.CITY_COLOR_BLUE], name, "yellow");
                     colorCount[1]++;
                     break;
 
                 case CityColor.CITY_COLOR_BLACK:
-                    parent.transform.localPosition = new Vector3(-670 + ((colorCount[2] + PlayerHandCount[CityColor.CITY_COLOR_BLUE] + PlayerHandCount[CityColor.CITY_COLOR_YELLOW]) * 160), 0, 0);
+                    card.GetComponent<PlayerCardScript>().TargetPosition = new Vector3(-670 + ((colorCount[2] + PlayerHandCount[CityColor.CITY_COLOR_BLUE] + PlayerHandCount[CityColor.CITY_COLOR_YELLOW]) * 160), 0, -1);
+                    card.GetComponent<PlayerCardScript>().MoveToTarget();
                     playerInfo.UpdatePlayerCard(colorCount[2] + PlayerHandCount[CityColor.CITY_COLOR_BLUE] + PlayerHandCount[CityColor.CITY_COLOR_YELLOW], name, "black");
                     colorCount[2]++;
                     break;
 
                 case CityColor.CITY_COLOR_RED:
-                    parent.transform.localPosition = new Vector3(-670 + ((colorCount[3] + PlayerHandCount[CityColor.CITY_COLOR_BLUE] + PlayerHandCount[CityColor.CITY_COLOR_YELLOW] + PlayerHandCount[CityColor.CITY_COLOR_BLACK]) * 160), 0, 0);
+                    card.GetComponent<PlayerCardScript>().TargetPosition = new Vector3(-670 + ((colorCount[3] + PlayerHandCount[CityColor.CITY_COLOR_BLUE] + PlayerHandCount[CityColor.CITY_COLOR_YELLOW] + PlayerHandCount[CityColor.CITY_COLOR_BLACK]) * 160), 0, -1);
+                    card.GetComponent<PlayerCardScript>().MoveToTarget();
                     playerInfo.UpdatePlayerCard(colorCount[3] + PlayerHandCount[CityColor.CITY_COLOR_BLUE] + PlayerHandCount[CityColor.CITY_COLOR_YELLOW] + PlayerHandCount[CityColor.CITY_COLOR_BLACK], name, "red");
                     colorCount[3]++;
                     break;
