@@ -11,33 +11,50 @@ public class TileData
     public string _name;
     [HideInInspector]
     public int[] _neighbourIds;
+    [HideInInspector]
+    public CityColor _cityColor;
 
-    public TileData(int id, string name, int[] neighbourIds)
+    public TileData(int id, string name, CityColor cityColor, int[] neighbourIds)
     {
         _id = id;
         _name = name;
+        _cityColor = cityColor;
         _neighbourIds = neighbourIds;
     }
 }
 
 public class Tile : MonoBehaviour
 {
-    public string Color;
+    public string Color; 
+    public PlayerCard PlayerCard;
     public Tile[] Neighbours;
     public bool Highlight;
 
     [HideInInspector]
     public TileData TileData;
 
+    [HideInInspector]
+    public CityColor CityColor;
+
     private int _id;
     [HideInInspector]
-    public string _name;
+    public string Name;
 
     private SpriteRenderer _spriteRenderer;
+
+    private Dictionary<string, CityColor> CityColorDict = new Dictionary<string, CityColor>()
+    {
+        { "Blue", CityColor.CITY_COLOR_BLUE },
+        { "Yellow", CityColor.CITY_COLOR_YELLOW },
+        { "Black", CityColor.CITY_COLOR_BLACK },
+        { "Red", CityColor.CITY_COLOR_RED }
+    };
+
     // Start is called before the first frame update
     void Start()
     {
-        _name = new string(gameObject.name);
+        Name = new string(gameObject.name);
+        CityColor = CityColorDict[Color];
         Highlight = false;
         _spriteRenderer = GetComponent<SpriteRenderer>();
     }
@@ -45,11 +62,11 @@ public class Tile : MonoBehaviour
     public void CreateTileData()
     {
         int[] neighbourIds = new int[Neighbours.Length];
-        for(int i = 0; i < neighbourIds.Length;i++)
+        for(int i = 0; i < neighbourIds.Length; i++)
         {
             neighbourIds[i] = Neighbours[i].GetId();
         }
-        TileData = new TileData(_id, _name, neighbourIds);
+        TileData = new TileData(_id, Name, CityColor, neighbourIds);
     }
 
     public int GetId()

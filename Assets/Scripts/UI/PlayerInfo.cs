@@ -18,12 +18,11 @@ public class PlayerInfo : MonoBehaviour
     [SerializeField]
     private TMP_Text[] _playerCards;
 
+    private int _numberOfPlayerCards = 0;
+
     private void Start()
     {
-        foreach (TMP_Text card in _playerCards)
-        {
-            card.text = String.Empty;
-        }
+
     }
 
     public void SetPlayerName(string playerName)
@@ -49,14 +48,16 @@ public class PlayerInfo : MonoBehaviour
 
     }
 
-    public void AddPlayerCard(int cardNumber, string cardName)
+    public void AddPlayerCard(string cardName)
     {
-        _playerCards[cardNumber].text = cardName;
+        _playerCards[_numberOfPlayerCards].text = cardName;
+        _numberOfPlayerCards++;
     }
 
     public void RemovePlayerCard(int cardNumber)
     {
         _playerCards[cardNumber].text = String.Empty;
+        _numberOfPlayerCards--;
     }
 
     public void ReorderPlayerCards(string[] names)

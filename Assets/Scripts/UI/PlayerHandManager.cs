@@ -8,11 +8,13 @@ using UnityEngine.Windows;
 
 public class PlayerHandManager : MonoBehaviour
 {
-    [SerializeField]
     private List<GameObject> _playerCards = new List<GameObject>();
 
     [SerializeField]
     private Sprite[] _cardPics;
+
+    [SerializeField]
+    private GameObject _playerCardPrefab;
 
     [SerializeField]
     private GameObject _playerInfoManager;
@@ -22,21 +24,16 @@ public class PlayerHandManager : MonoBehaviour
 
     private GameController _gameController;
 
-    private int _numOfCards = 0;
+    private Dictionary<CityColor, int> PlayerHandCount = new Dictionary<CityColor, int>();
 
     void Start()
     {
-        foreach (GameObject card in _playerCards)
-        {
-            card.name = String.Empty;
-            card.SetActive(false);
-        }
-
         _gameController =_gameControllerObject.GetComponent<GameController>();
 
-        //AddPlayerCard(0, PlayerCard.CCARD_ATLANTA);
-        //AddPlayerCard(0, PlayerCard.CCARD_BANGKOK);
-        //AddPlayerCard(0, PlayerCard.CCARD_LAGOS);
+        PlayerHandCount[CityColor.CITY_COLOR_BLUE] = 0;
+        PlayerHandCount[CityColor.CITY_COLOR_YELLOW] = 0;
+        PlayerHandCount[CityColor.CITY_COLOR_BLACK] = 0;
+        PlayerHandCount[CityColor.CITY_COLOR_RED] = 0;
     }
 
     void Update()
@@ -62,15 +59,19 @@ public class PlayerHandManager : MonoBehaviour
             }
         }
 
-        if (UnityEngine.Input.GetKeyDown(KeyCode.A))
+        if (UnityEngine.Input.GetKeyDown(KeyCode.B))
         {
             AddPlayerCard(0, PlayerCard.CCARD_ATLANTA);
+        }
+        if (UnityEngine.Input.GetKeyDown(KeyCode.Y))
+        {
+            AddPlayerCard(0, PlayerCard.CCARD_SAO_PAULO);
         }
 
         if (UnityEngine.Input.GetKeyDown(KeyCode.R))
         {
-            //RemovePlayerCard(0, PlayerCard.CCARD_ATLANTA);
-            RemoveTest(0);
+            var playerHand = GameObject.FindGameObjectsWithTag("PlayerCard");
+            RemovePlayerCard(0, playerHand[0].GetComponent<PlayerCardScript>().GetPlayerCard());
         }
     }
 
@@ -84,61 +85,123 @@ public class PlayerHandManager : MonoBehaviour
         return CultureInfo.CurrentCulture.TextInfo.ToTitleCase(cardName.ToLower());
     }
 
+
+
     public void AddPlayerCard(int id, PlayerCard playerCard)
     {
         var playerId = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().GetId();
+        int playerHandSize = GameObject.FindGameObjectsWithTag("PlayerCard").Length;
+
+        var cityTiles = GameObject.FindGameObjectsWithTag("Tile");
+        CityColor playerCardColor = new CityColor();
+        foreach (var tile in cityTiles)
+        {
+            Tile tileScript= tile.GetComponent<Tile>();
+            if (tileScript.PlayerCard == playerCard)
+            {
+                playerCardColor = tileScript.CityColor;
+                break;
+            }
+        }
 
         string playerCardName = EnumToString(playerCard);
-        _playerCards[_numOfCards].name = playerCardName;
-        _playerInfoManager.GetComponent<PlayerInfoManager>()._playerInfos[id].GetComponent<PlayerInfo>().AddPlayerCard(_numOfCards, playerCardName);
 
+        _playerInfoManager.GetComponent<PlayerInfoManager>()._playerInfos[id].GetComponent<PlayerInfo>().AddPlayerCard(playerCardName);
+                
         if (playerId == id)
         {
+            var newCard = Instantiate(_playerCardPrefab, new Vector3(-670 + (playerHandSize * 160), 0, 0), Quaternion.identity);
+            newCard.transform.SetParent(gameObject.transform, false);
+            newCard = newCard.transform.GetChild(0).gameObject;     
+            newCard.GetComponent<PlayerCardScript>().SetPlayerCard(playerCard);
+            newCard.GetComponent<PlayerCardScript>().SetCityColor(playerCardColor);
+            PlayerHandCount[playerCardColor]++;
             foreach (Sprite cardPic in _cardPics)
             {
                 if (cardPic.name == playerCardName)
                 {
-                    _playerCards[_numOfCards].GetComponent<SpriteRenderer>().sprite = cardPic;
+                    newCard.GetComponent<SpriteRenderer>().sprite = cardPic;
                 }
             }
-
-            _playerCards[_numOfCards].SetActive(true);
-            _numOfCards++;
+            ReorderPlayerHand();
         }
     }
 
     public void RemovePlayerCard(int id, PlayerCard playerCard)
     {
         var playerId = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().GetId();
+        var playerHand = GameObject.FindGameObjectsWithTag("PlayerCard");
 
-        string playerCardName = EnumToString(playerCard);
-
-        var i = 0;
-        foreach (GameObject card in _playerCards)
-        {
-            if (card.name == playerCardName)
+        var cardPosition = 0;
+        if (playerId == id) { 
+            foreach (GameObject card in playerHand)
             {
-                card.name = String.Empty;
-                card.SetActive(false);
-
-                _playerInfoManager.GetComponent<PlayerInfoManager>()._playerInfos[id].GetComponent<PlayerInfo>().RemovePlayerCard(i);
-            } 
-            i++;
+                if (card.GetComponent<PlayerCardScript>().GetPlayerCard() == playerCard)
+                {
+                    PlayerHandCount[card.GetComponent<PlayerCardScript>().GetCityColor()]--;
+                    DestroyImmediate(card.transform.parent.gameObject);
+                    break;
+                }
+                cardPosition++;
+            }
+            ReorderPlayerHand();
         }
-        _numOfCards--;
-        ReorderCards(id);
+        _playerInfoManager.GetComponent<PlayerInfoManager>()._playerInfos[id].GetComponent<PlayerInfo>().RemovePlayerCard(cardPosition);
+
+        
     }
 
-    public void RemoveTest(int id)
+    public void ReorderPlayerHand()
     {
-        _numOfCards--;
-        _playerCards[0].name = String.Empty;
-        _playerCards[0].SetActive(false);
+        var playerHand = GameObject.FindGameObjectsWithTag("PlayerCard");
+        var colorCount = new int[4]; // blue, yellow, black, red 
 
-        ReorderCards(0);
+        foreach(var card in playerHand)
+        {
+            Debug.Log("CARD NAME: " + card.GetComponent<PlayerCardScript>().GetPlayerCard());
+        }
+        
+        foreach(var count in PlayerHandCount)
+        {
+            Debug.Log("PlayerHandCount: " + count);
+        }
+
+        foreach (var card in playerHand)
+        {
+            var color = card.GetComponent<PlayerCardScript>().GetCityColor();
+            var parent = card.transform.parent.gameObject;
+
+            switch (color) 
+            {
+                case CityColor.CITY_COLOR_BLUE:
+                    parent.transform.localPosition = new Vector3(-670 + (colorCount[0] * 160), 0, 0);
+                    colorCount[0]++;
+                    break;
+
+                case CityColor.CITY_COLOR_YELLOW:
+                    parent.transform.localPosition = new Vector3(-670 + ((colorCount[1] + PlayerHandCount[CityColor.CITY_COLOR_BLUE]) * 160), 0, 0);
+                    colorCount[1]++;
+                    break;
+
+                case CityColor.CITY_COLOR_BLACK:
+                    parent.transform.localPosition = new Vector3(-670 + ((colorCount[2] + PlayerHandCount[CityColor.CITY_COLOR_BLUE] + PlayerHandCount[CityColor.CITY_COLOR_YELLOW]) * 160), 0, 0);
+                    colorCount[2]++;
+                    break;
+
+                case CityColor.CITY_COLOR_RED:
+                    parent.transform.localPosition = new Vector3(-670 + ((colorCount[3] + PlayerHandCount[CityColor.CITY_COLOR_BLUE] + PlayerHandCount[CityColor.CITY_COLOR_YELLOW] + PlayerHandCount[CityColor.CITY_COLOR_BLACK]) * 160), 0, 0);
+                    colorCount[3]++;
+                    break;
+
+                default:
+                    Debug.Log("Error with reordering player cards (City color error).");
+                    break;
+            }
+        }
     }
 
-    public void ReorderCards(int id)
+
+    /*public void ReorderCards(int id)
     {
         string[] names = new string[_playerCards.Count];
         for (int i = 0; i < _playerCards.Count; i++)
@@ -173,5 +236,5 @@ public class PlayerHandManager : MonoBehaviour
         }
 
     }
-
+    */
 }
