@@ -105,9 +105,7 @@ public class PlayerHandManager : MonoBehaviour
         }
 
         string playerCardName = EnumToString(playerCard);
-
-        _playerInfoManager.GetComponent<PlayerInfoManager>()._playerInfos[id].GetComponent<PlayerInfo>().AddPlayerCard(playerCardName);
-                
+             
         if (playerId == id)
         {
             var newCard = Instantiate(_playerCardPrefab, new Vector3(-670 + (playerHandSize * 160), 0, 0), Quaternion.identity);
@@ -123,8 +121,9 @@ public class PlayerHandManager : MonoBehaviour
                     newCard.GetComponent<SpriteRenderer>().sprite = cardPic;
                 }
             }
-            ReorderPlayerHand();
         }
+
+        ReorderPlayerHand(id);
     }
 
     public void RemovePlayerCard(int id, PlayerCard playerCard)
@@ -144,52 +143,45 @@ public class PlayerHandManager : MonoBehaviour
                 }
                 cardPosition++;
             }
-            ReorderPlayerHand();
         }
-        _playerInfoManager.GetComponent<PlayerInfoManager>()._playerInfos[id].GetComponent<PlayerInfo>().RemovePlayerCard(cardPosition);
-
-        
+        ReorderPlayerHand(id);
     }
 
-    public void ReorderPlayerHand()
+    public void ReorderPlayerHand(int id)
     {
         var playerHand = GameObject.FindGameObjectsWithTag("PlayerCard");
         var colorCount = new int[4]; // blue, yellow, black, red 
-
-        foreach(var card in playerHand)
-        {
-            Debug.Log("CARD NAME: " + card.GetComponent<PlayerCardScript>().GetPlayerCard());
-        }
-        
-        foreach(var count in PlayerHandCount)
-        {
-            Debug.Log("PlayerHandCount: " + count);
-        }
+        var playerInfo = _playerInfoManager.GetComponent<PlayerInfoManager>()._playerInfos[id].GetComponent<PlayerInfo>();
 
         foreach (var card in playerHand)
         {
             var color = card.GetComponent<PlayerCardScript>().GetCityColor();
+            var name = EnumToString(card.GetComponent<PlayerCardScript>().GetPlayerCard());
             var parent = card.transform.parent.gameObject;
 
             switch (color) 
             {
                 case CityColor.CITY_COLOR_BLUE:
                     parent.transform.localPosition = new Vector3(-670 + (colorCount[0] * 160), 0, 0);
+                    playerInfo.UpdatePlayerCard(colorCount[0], name, "blue");
                     colorCount[0]++;
                     break;
 
                 case CityColor.CITY_COLOR_YELLOW:
                     parent.transform.localPosition = new Vector3(-670 + ((colorCount[1] + PlayerHandCount[CityColor.CITY_COLOR_BLUE]) * 160), 0, 0);
+                    playerInfo.UpdatePlayerCard(colorCount[1] + PlayerHandCount[CityColor.CITY_COLOR_BLUE], name, "yellow");
                     colorCount[1]++;
                     break;
 
                 case CityColor.CITY_COLOR_BLACK:
                     parent.transform.localPosition = new Vector3(-670 + ((colorCount[2] + PlayerHandCount[CityColor.CITY_COLOR_BLUE] + PlayerHandCount[CityColor.CITY_COLOR_YELLOW]) * 160), 0, 0);
+                    playerInfo.UpdatePlayerCard(colorCount[2] + PlayerHandCount[CityColor.CITY_COLOR_BLUE] + PlayerHandCount[CityColor.CITY_COLOR_YELLOW], name, "black");
                     colorCount[2]++;
                     break;
 
                 case CityColor.CITY_COLOR_RED:
                     parent.transform.localPosition = new Vector3(-670 + ((colorCount[3] + PlayerHandCount[CityColor.CITY_COLOR_BLUE] + PlayerHandCount[CityColor.CITY_COLOR_YELLOW] + PlayerHandCount[CityColor.CITY_COLOR_BLACK]) * 160), 0, 0);
+                    playerInfo.UpdatePlayerCard(colorCount[3] + PlayerHandCount[CityColor.CITY_COLOR_BLUE] + PlayerHandCount[CityColor.CITY_COLOR_YELLOW] + PlayerHandCount[CityColor.CITY_COLOR_BLACK], name, "red");
                     colorCount[3]++;
                     break;
 
@@ -198,43 +190,10 @@ public class PlayerHandManager : MonoBehaviour
                     break;
             }
         }
-    }
 
-
-    /*public void ReorderCards(int id)
-    {
-        string[] names = new string[_playerCards.Count];
-        for (int i = 0; i < _playerCards.Count; i++)
+        for(int i = playerHand.Length; i < 7;  i++)
         {
-            names[i] = _playerCards[i].name;
+            playerInfo.UpdatePlayerCard(i, String.Empty, String.Empty);
         }
-
-        Array.Sort(names);
-        Array.Reverse(names);
-
-        _playerInfoManager.GetComponent<PlayerInfoManager>()._playerInfos[id].GetComponent<PlayerInfo>().ReorderPlayerCards(names);
-
-        for (int i = 0; i < _playerCards.Count; i++)
-        {
-            _playerCards[i].name = names[i];
-
-            if (_playerCards[i].name == String.Empty)
-            {
-                _playerCards[i].SetActive(false);
-            }
-            else
-            {
-                foreach (Sprite cardPic in _cardPics)
-                {
-                    if (cardPic.name == _playerCards[i].name)
-                    {
-                        _playerCards[i].GetComponent<SpriteRenderer>().sprite = cardPic;
-                    }
-                }
-                _playerCards[i].SetActive(true);
-            }
-        }
-
     }
-    */
 }

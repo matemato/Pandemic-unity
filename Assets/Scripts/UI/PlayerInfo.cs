@@ -43,28 +43,17 @@ public class PlayerInfo : MonoBehaviour
                 playerRolePic.sprite = rolePic;
             }
         }
-
-        //_playerRolePic.sprite = 
-
     }
 
-    public void AddPlayerCard(string cardName)
+    public void UpdatePlayerCard(int position, string name, string color)
     {
-        _playerCards[_numberOfPlayerCards].text = cardName;
-        _numberOfPlayerCards++;
-    }
-
-    public void RemovePlayerCard(int cardNumber)
-    {
-        _playerCards[cardNumber].text = String.Empty;
-        _numberOfPlayerCards--;
-    }
-
-    public void ReorderPlayerCards(string[] names)
-    {
-        for (int i = 0; i < names.Length; i++)
+        if (name == String.Empty)
         {
-            _playerCards[i].text = names[i];
+            _playerCards[position].text = String.Empty;
+        }
+        else
+        {
+            _playerCards[position].text = "<color=" + color + ">" + name + "</color>";
         }
     }
 }
