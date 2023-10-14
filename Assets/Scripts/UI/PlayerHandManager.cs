@@ -8,8 +8,6 @@ using UnityEngine.Windows;
 
 public class PlayerHandManager : MonoBehaviour
 {
-    private List<GameObject> _playerCards = new List<GameObject>();
-
     [SerializeField]
     private Sprite[] _cardPics;
 

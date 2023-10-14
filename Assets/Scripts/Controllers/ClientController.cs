@@ -47,6 +47,7 @@ public class ClientController : MonoBehaviour
         _opcodeManager = new OpcodeManager(_msgManager, _serverInput);
         SetCState(ClientState.CSTATE_UNCONNECTED);
         _mainMenuController.GetComponent<MainMenuController>();
+        _mainMenuController.ServerInput = _serverInput;
         _console = _mainMenuController.Console.GetComponent<Console>();
     }
 
@@ -160,15 +161,6 @@ public class ClientController : MonoBehaviour
 
         _opcodeManager.ReceiveAll();
 
-        var serverText = _serverInput.MessageHolder.GetNext();
-        if (serverText != null)
-        {
-            if (serverText.Item1 == ServerMessageType.SMESSAGE_CHAT || serverText.Item1 == ServerMessageType.SMESSAGE_INFO)
-            {
-                _console.AddText(serverText.Item1, serverText.Item2, "yellow");
-            }
-        }
-
         if (Input.GetKeyDown(KeyCode.Return))
         {
             SendChatMessage();
@@ -243,15 +235,6 @@ public class ClientController : MonoBehaviour
     {
         const float idleSendPeriod = 1.0f;
         _opcodeManager.ReceiveAll();
-
-        var serverText = _serverInput.MessageHolder.GetNext();
-        if (serverText != null && _mainMenuController != null)
-        {
-            if (serverText.Item1 == ServerMessageType.SMESSAGE_CHAT || serverText.Item1 == ServerMessageType.SMESSAGE_INFO)
-                _mainMenuController.Console.GetComponent<Console>().AddText(serverText.Item1, serverText.Item2, "yellow");
-            else
-                _mainMenuController.SetLobbyText(serverText.Item2);
-        }
 
         if (Input.GetKeyDown(KeyCode.Return))
         {

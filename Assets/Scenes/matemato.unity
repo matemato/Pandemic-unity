@@ -1304,9 +1304,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2088004244}
     - target: {fileID: 5279162524975354339, guid: 265d574a3930d6848b4870ed87dbd22e, type: 3}
+      propertyPath: _controller
+      value: 
+      objectReference: {fileID: 1525714547}
+    - target: {fileID: 5279162524975354339, guid: 265d574a3930d6848b4870ed87dbd22e, type: 3}
       propertyPath: _sendingText
       value: 
       objectReference: {fileID: 7936546421256019714}
+    - target: {fileID: 5279162524975354339, guid: 265d574a3930d6848b4870ed87dbd22e, type: 3}
+      propertyPath: _gameController
+      value: 
+      objectReference: {fileID: 1525714548}
     - target: {fileID: 5480750427862981018, guid: 265d574a3930d6848b4870ed87dbd22e, type: 3}
       propertyPath: m_Name
       value: Console

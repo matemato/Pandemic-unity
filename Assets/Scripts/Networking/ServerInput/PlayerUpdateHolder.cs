@@ -6,6 +6,7 @@ public class PlayerUpdateHolder
 {
     private bool _changed;
     private byte[] _positions;
+
     public PlayerUpdateHolder()
     {
         _changed = false;

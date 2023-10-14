@@ -21,6 +21,8 @@ public class MainMenuController : MonoBehaviour
     [SerializeField]
     public GameObject Console;
 
+    public ServerInput ServerInput;
+
     public bool IsConnectButtonClicked()
     {
         var connectButton = _connectButton.GetComponent<ConnectButtonClicked>();
@@ -38,7 +40,14 @@ public class MainMenuController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (ServerInput != null)
+        {
+            var serverText = ServerInput.MessageHolder.GetNextLobbyText();
+            if (serverText != null)
+            {
+                SetLobbyText(serverText);
+            }
+        }
     }
 
     public string GetName()
@@ -67,6 +76,8 @@ public class MainMenuController : MonoBehaviour
         _usernameInput.SetActive(v);
         _dropdownLobby.SetActive(v);
     }
+
+
 
     public void ShowConnect(bool v)
     {

@@ -19,8 +19,47 @@ public class Console : MonoBehaviour
     public GameObject Container;
     public GameObject Input;
 
-    public void Start()
+    [SerializeField]
+    private GameObject _controller;
+
+    private MainMenuController _mainMenuController;
+    private GameController _gameController;
+
+    void Start()
     {
+        if(_controller.GetComponent<GameController>() != null)
+        {
+            _gameController = _controller.GetComponent<GameController>();
+        }
+        else
+        {
+            _mainMenuController = _controller.GetComponent<MainMenuController>();
+        }
+    }
+
+    void Update()
+    {
+        ServerInput serverInput = null;
+        if(_mainMenuController != null)
+        {
+            serverInput = _mainMenuController.ServerInput;
+        }
+        else if(_gameController != null)
+        {
+            serverInput = _gameController.ServerInput;
+        }
+
+        if(serverInput != null)
+        {
+            var serverText = serverInput.MessageHolder.GetNextConsoleMessage();
+            if (serverText != null)
+            {
+                if (serverText.Item1 == ServerMessageType.SMESSAGE_CHAT || serverText.Item1 == ServerMessageType.SMESSAGE_INFO)
+                {
+                    AddText(serverText.Item1, serverText.Item2, "yellow");
+                }
+            }
+        }
     }
 
     public void AddText(ServerMessageType serverMessageType, string newText, string color) 
