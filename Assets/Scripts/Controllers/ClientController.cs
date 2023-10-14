@@ -26,8 +26,6 @@ public class ClientController : MonoBehaviour
     private GameController _gameController;
 
     private GameObject _player;
-    private GameObject[] _otherPlayers;
-    private GameObject[] _tiles;
 
     private GameObject _playerInfoManager;
 
@@ -56,7 +54,7 @@ public class ClientController : MonoBehaviour
         _clickManager = GameObject.Find("ClickController").GetComponent<ClickManager>();
         _console = GameObject.Find("Console").GetComponent<Console>();
         _playerInfoManager = GameObject.Find("PlayerInfoManager");
-        _gameController = GameObject.Find("GameController").GetComponent<GameController>();
+        _gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
         _gameController.ServerInput = _serverInput;
     }
     void Awake()
@@ -131,30 +129,6 @@ public class ClientController : MonoBehaviour
         }
     }
 
-    private void UpdatePlayerPositions()
-    {
-        byte[] positions = _serverInput.PlayerUpdateHolder.Get();
-        if (positions != null)
-        {
-            foreach (GameObject city in _tiles)
-            {
-                if (city.GetComponent<Tile>().GetId() == positions[_id])
-                {
-                    _player.GetComponent<Player>().City = city.GetComponent<Tile>();
-                }
-
-                foreach (GameObject otherPlayer in _otherPlayers)
-                {
-                    if (city.GetComponent<Tile>().GetId() == positions[otherPlayer.GetComponent<OtherPlayer>().GetId()])
-                    {
-                        otherPlayer.GetComponent<OtherPlayer>().City = city.GetComponent<Tile>();
-                    }
-                }
-
-            }
-        }
-    }
-
     private void UpdateIngame()
     {
         const float idleSendPeriod = 1.0f;
@@ -165,8 +139,6 @@ public class ClientController : MonoBehaviour
         {
             SendChatMessage();
         }
-
-        UpdatePlayerPositions();
 
         if(_clickManager.MovePending())
         {
@@ -209,9 +181,7 @@ public class ClientController : MonoBehaviour
             playerInfoManager.SetPlayerRole(i, _serverInput.BeginGameHolder.PlayerRoles[i]);
         }
 
-        _otherPlayers = GameObject.FindGameObjectsWithTag("OtherPlayer");
         _player = GameObject.FindGameObjectWithTag("Player");
-        _tiles = GameObject.FindGameObjectsWithTag("Tile");
     }
 
     private void SendChatMessage()

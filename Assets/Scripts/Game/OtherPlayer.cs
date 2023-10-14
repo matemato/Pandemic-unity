@@ -9,9 +9,15 @@ public class OtherPlayer : MonoBehaviour
     private int _id = 255;
     bool _lockId = false;
 
+    private GameController _gameController;
+
+    private GameObject[] _tiles;
+
     // Start is called before the first frame update
     void Start()
     {
+        _tiles = GameObject.FindGameObjectsWithTag("Tile");
+        _gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
     }
 
     public void SetId(int newId)
@@ -35,9 +41,25 @@ public class OtherPlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (City != null)
+        if (_gameController.ServerInput != null)
         {
-            transform.position = City.transform.position;
+            int newPosition = _gameController.ServerInput.PlayerUpdateHolder.Get(GetId());
+            if (newPosition != -1)
+            {
+                foreach (GameObject city in _tiles)
+                {
+                    if (city.GetComponent<Tile>().GetId() == newPosition)
+                    {
+                        City = city.GetComponent<Tile>();
+                    }
+                }
+
+                if (City != null)
+                {
+                  
+                    transform.position = City.transform.position;
+                }
+            }
         }
     }
 }

@@ -4,30 +4,31 @@ using UnityEngine;
 
 public class PlayerUpdateHolder 
 {
-    private bool _changed;
+    private bool[] _changed;
     private byte[] _positions;
 
     public PlayerUpdateHolder()
     {
-        _changed = false;
+        _changed = new bool[4];
+        _positions = new byte[4];
     }
 
-    public void Set(byte[] positions)
+    public void Set(int id, byte position)
     {
-        _positions = positions;
-        _changed = true;
+        _positions[id] = position;
+        _changed[id] = true;
     }
 
-    public byte[] Get()
+    public int Get(int id)
     {
-        if(!_changed || _positions == null)
+        if(!_changed[id])
         {
-            return null;
+            return -1;
         }
         else
         {
-            _changed = false;
-            return _positions;
+            _changed[id] = false;
+            return _positions[id];
         }
     }
 }

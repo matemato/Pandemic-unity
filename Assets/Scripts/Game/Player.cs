@@ -11,9 +11,16 @@ public class Player : MonoBehaviour
     private int _id;
     bool _lockId = false;
 
+    private GameObject[] _tiles;
+
+    [SerializeField]
+    private GameController _gameController;
+
     // Start is called before the first frame update
     void Start()
     {
+        _tiles = GameObject.FindGameObjectsWithTag("Tile");
+        _gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
     }
 
     public void SetId(int newId)
@@ -37,16 +44,30 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        foreach (GameObject city in GameObject.FindGameObjectsWithTag("Tile")) {
-            city.GetComponent<Tile>().Highlight = false;
-        }
-
-        if (City != null)
+        if(_gameController.ServerInput != null)
         {
-            foreach (Tile city in City.Neighbours) {
-                city.Highlight = true;
+            int newPosition = _gameController.ServerInput.PlayerUpdateHolder.Get(GetId());
+            if (newPosition != -1)
+            {
+                foreach (GameObject city in _tiles)
+                {
+                    city.GetComponent<Tile>().Highlight = false;
+                    if (city.GetComponent<Tile>().GetId() == newPosition)
+                    {
+                        City = city.GetComponent<Tile>();
+                    }
+                }
+
+                if (City != null)
+                {
+                    foreach (Tile city in City.Neighbours)
+                    {
+                        city.Highlight = true;
+                    }
+                    transform.position = City.transform.position;
+                }
             }
-            transform.position = City.transform.position;
         }
+        
     }
 }

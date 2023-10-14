@@ -12,11 +12,11 @@ public class InUpdatePlayers : OpcodeIn
     public override void Receive(MsgManager msgManager, ServerInput serverInput)
     {
         byte numPlayers = msgManager.ReadByte();
-        byte[] positions = new byte[numPlayers];
         for(int i = 0; i < numPlayers; i++)
         {
-            positions[i] = msgManager.ReadByte();
+            var position = msgManager.ReadByte();
+            serverInput.PlayerUpdateHolder.Set(i, position);
         }
-        serverInput.PlayerUpdateHolder.Set(positions);
+        
     }
 }
