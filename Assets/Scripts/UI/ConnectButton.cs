@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ConnectButtonClicked : MonoBehaviour
+public class ConnectButton : MonoBehaviour
 {
     // Start is called before the first frame update
     [HideInInspector]
@@ -12,6 +12,7 @@ public class ConnectButtonClicked : MonoBehaviour
     public GameObject JoinLobby;
     public GameObject Dropdown;
     public GameObject InputField;
+    public GameObject Toggle;
     void Start()
     {
         gameObject.GetComponent<Button>().onClick.AddListener(ConnectButtonClickedListener);

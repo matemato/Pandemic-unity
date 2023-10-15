@@ -25,10 +25,23 @@ public class MainMenuController : MonoBehaviour
 
     public bool IsConnectButtonClicked()
     {
-        var connectButton = _connectButton.GetComponent<ConnectButtonClicked>();
+        var connectButton = _connectButton.GetComponent<ConnectButton>();
         bool isClicked = connectButton.IsConnectButtonClicked;
         connectButton.IsConnectButtonClicked = false;
         return isClicked;
+    }
+
+    public string GetIp()
+    {
+        var connectButton = _connectButton.GetComponent<ConnectButton>();
+        if (connectButton.Toggle.GetComponent<Toggle>().isOn)
+        {
+            return "localhost";
+        }
+        else
+        {
+            return "93.103.52.248";
+        }
     }
 
     // Start is called before the first frame update
@@ -82,6 +95,7 @@ public class MainMenuController : MonoBehaviour
     public void ShowConnect(bool v)
     {
         _connectButton.SetActive(v);
+        _connectButton.GetComponent<ConnectButton>().Toggle.SetActive(v);
     }
 
     public void SetConnectInteractable(bool v)
