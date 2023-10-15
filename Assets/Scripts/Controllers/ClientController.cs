@@ -29,9 +29,6 @@ public class ClientController : MonoBehaviour
 
     private GameObject _playerInfoManager;
 
-    [SerializeField]
-    private string _ip = "localhost";
-
     private float nextIdleTime = 0.0f;
 
     private Console _console;
@@ -115,7 +112,7 @@ public class ClientController : MonoBehaviour
         if (_clientState == ClientState.CSTATE_UNCONNECTED && _mainMenuController.IsConnectButtonClicked())
         {
             _mainMenuController.SetConnectInteractable(false);
-            if (_tcpClient.ConnectToTcpServer(_ip))
+            if (_tcpClient.ConnectToTcpServer(_mainMenuController.GetIp()))
             {
                 _mainMenuController.ShowLobbyJoin(true);
                 _mainMenuController.ShowConnect(false);
