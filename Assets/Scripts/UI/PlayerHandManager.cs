@@ -59,17 +59,17 @@ public class PlayerHandManager : MonoBehaviour
 
         if (UnityEngine.Input.GetKeyDown(KeyCode.B))
         {
-            AddPlayerCard(0, PlayerCard.CCARD_ATLANTA);
+            AddPlayerCard(GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().GetId(), PlayerCard.CCARD_ATLANTA);
         }
         if (UnityEngine.Input.GetKeyDown(KeyCode.Y))
         {
-            AddPlayerCard(0, PlayerCard.CCARD_SAO_PAULO);
+            AddPlayerCard(GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().GetId(), PlayerCard.CCARD_SAO_PAULO);
         }
 
         if (UnityEngine.Input.GetKeyDown(KeyCode.R))
         {
             var playerHand = GameObject.FindGameObjectsWithTag("PlayerCard");
-            RemovePlayerCard(0, playerHand[0].GetComponent<PlayerCardScript>().GetPlayerCard());
+            RemovePlayerCard(GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().GetId(), playerHand[0].GetComponent<PlayerCardScript>().GetPlayerCard());
         }
     }
 
