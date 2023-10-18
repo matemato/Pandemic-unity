@@ -658,6 +658,50 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerPrefab: {fileID: 6873669547504386286, guid: 527de2988e23dcf458920367f47bef7d, type: 3}
   OtherPlayerPrefab: {fileID: 3670819745853704171, guid: 8cdcce0960eae164a9e769e299d822a8, type: 3}
+--- !u!1 &1835718410
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1835718412}
+  - component: {fileID: 1835718411}
+  m_Layer: 0
+  m_Name: AnimationController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1835718411
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1835718410}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 162f2ad109aa30842a02a2a277063773, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1835718412
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1835718410}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.8037193, y: 0.75785315, z: -0.9507908}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1906085545 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3130329736791992904, guid: 6aca16c5484fe1241bc509816cf30d6c, type: 3}
@@ -830,6 +874,10 @@ PrefabInstance:
       propertyPath: _gameControllerObject
       value: 
       objectReference: {fileID: 1525714547}
+    - target: {fileID: 364170328343564076, guid: 6aca16c5484fe1241bc509816cf30d6c, type: 3}
+      propertyPath: _animationControllerObject
+      value: 
+      objectReference: {fileID: 1835718410}
     - target: {fileID: 1489617365488683345, guid: 6aca16c5484fe1241bc509816cf30d6c, type: 3}
       propertyPath: m_Name
       value: PlayerHand
@@ -1341,3 +1389,4 @@ SceneRoots:
   - {fileID: 1786713128836350150}
   - {fileID: 1967274325}
   - {fileID: 1525714546}
+  - {fileID: 1835718412}
