@@ -26,8 +26,6 @@ public class PlayerInfo : MonoBehaviour
             { CityColor.CITY_COLOR_RED, 0 }
         };
 
-    //private int _numberOfPlayerCards = 0;
-
     private void Start()
     {
 

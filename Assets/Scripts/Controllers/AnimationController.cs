@@ -7,7 +7,7 @@ public class AnimationController : MonoBehaviour
 {
     public void MoveToTarget(GameObject gObject, Vector3? startPosition, Vector3 targetPosition, float duration)
     {
-        StartCoroutine(LerpPosition(gObject, startPosition, targetPosition, 0.5f));
+        StartCoroutine(LerpPosition(gObject, startPosition, targetPosition, duration));
     }
 
     IEnumerator LerpPosition(GameObject gObject, Vector3? startPosition, Vector3 targetPosition, float duration)

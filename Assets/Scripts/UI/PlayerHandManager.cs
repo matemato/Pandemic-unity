@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Windows;
 
@@ -111,7 +112,7 @@ public class PlayerHandManager : MonoBehaviour
              
         if (playerId == id)
         {
-            var newCard = Instantiate(_playerCardPrefab, new Vector3(-740, 300, -1), Quaternion.identity);
+            var newCard = Instantiate(_playerCardPrefab, new Vector3(-740, 250, -1), Quaternion.identity);
             newCard.transform.SetParent(gameObject.transform, false);
             newCard = newCard.transform.GetChild(0).gameObject;     
             newCard.GetComponent<PlayerCardScript>().SetPlayerCard(playerCard);
@@ -145,7 +146,10 @@ public class PlayerHandManager : MonoBehaviour
                     cityColor = card.GetComponent<PlayerCardScript>().GetCityColor();
                     cityName = EnumToString(playerCard);
                     _playerHandCount[cityColor]--;
-                    DestroyImmediate(card.transform.parent.gameObject);
+                    card.tag = "Untagged";
+                    var targetPosition = new Vector3(-740, 500, 0);
+                    _animationController.MoveToTarget(card.transform.parent.gameObject, null, targetPosition, 0.5f);
+                    //DestroyImmediate(card.transform.parent.gameObject);
                     break;
                 }
                 cardPosition++;
