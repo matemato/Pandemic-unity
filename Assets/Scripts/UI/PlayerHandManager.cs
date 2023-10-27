@@ -26,6 +26,7 @@ public class PlayerHandManager : MonoBehaviour
 
     private GameController _gameController;
     private AnimationController _animationController;
+    private int discardCardOnTop = 0;
 
     private Dictionary<CityColor, int> _playerHandCount = new Dictionary<CityColor, int>
         {
@@ -146,9 +147,10 @@ public class PlayerHandManager : MonoBehaviour
                     cityColor = card.GetComponent<PlayerCardScript>().GetCityColor();
                     cityName = EnumToString(playerCard);
                     _playerHandCount[cityColor]--;
-                    card.tag = "Untagged";
-                    var targetPosition = new Vector3(-740, 500, 0);
+                    card.tag = "DiscardedPlayerCard";
+                    var targetPosition = new Vector3(-740, 500, discardCardOnTop);
                     _animationController.MoveToTarget(card.transform.parent.gameObject, null, targetPosition, 0.5f);
+                    discardCardOnTop--;
                     //DestroyImmediate(card.transform.parent.gameObject);
                     break;
                 }

@@ -9,6 +9,7 @@ TagManager:
   - PlayerCard
   - ClientController
   - DebugLayer
+  - DiscardedPlayerCard
   layers:
   - Default
   - TransparentFX
