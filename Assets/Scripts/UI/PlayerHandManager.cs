@@ -124,6 +124,7 @@ public class PlayerHandManager : MonoBehaviour
                 if (cardPic.name == playerCardName)
                 {
                     newCard.GetComponent<SpriteRenderer>().sprite = cardPic;
+                    break;
                 }
             }
             ReorderPlayerHand();

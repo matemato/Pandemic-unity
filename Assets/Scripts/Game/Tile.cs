@@ -13,7 +13,7 @@ public class TileData
     public int[] _neighbourIds;
     [HideInInspector]
     public CityColor _cityColor;
-
+    
     public TileData(int id, string name, CityColor cityColor, int[] neighbourIds)
     {
         _id = id;
@@ -50,6 +50,14 @@ public class Tile : MonoBehaviour
         { "Red", CityColor.CITY_COLOR_RED }
     };
 
+    public Dictionary<InfectionType, int> _infectionCount = new Dictionary<InfectionType, int>()
+    {
+        { InfectionType.VIRUS_BLUE, 0 },
+        { InfectionType.VIRUS_RED, 0 },
+        { InfectionType.VIRUS_YELLOW, 0 },
+        { InfectionType.VIRUS_BLACK, 0 }
+    };
+
     // Start is called before the first frame update
     void Start()
     {
@@ -77,6 +85,15 @@ public class Tile : MonoBehaviour
     public void SetId(int id)
     {
         _id = id;
+    }
+
+    public int GetInfectionCount(InfectionType infectionType)
+    {
+        return _infectionCount[infectionType];
+    }
+    public void SetInfectionCount(InfectionType infectionType, int infectionCount)
+    {
+        _infectionCount[infectionType] = infectionCount;
     }
 
     // Update is called once per frame
