@@ -36,7 +36,7 @@ public class InfectionManager : MonoBehaviour
     public void Infect(InfectionCard infectionCard, InfectionType infectionType, PlayerCard playerCard, int infectCount)
     {
         string infectionCardName = EnumToString(infectionCard);
-        drawCard(infectionCardName);
+        drawCard(infectionCard, infectionType, infectionCardName);
 
         var tile = GameObject.Find(infectionCardName);
         Tile tileScript = tile.GetComponent<Tile>();
@@ -46,11 +46,13 @@ public class InfectionManager : MonoBehaviour
         Debug.Log(tileScript.GetInfectionCount(infectionType));
     }
 
-    public void drawCard(string infectionCardName)
+    public void drawCard(InfectionCard infectionCard, InfectionType infectionType, string infectionCardName)
     {
         var newInfectionCard = Instantiate(_infectionCardPrefab, new Vector3(-100, 15, discardCardOnTop), Quaternion.identity);
         newInfectionCard.transform.SetParent(gameObject.transform, false);
         var newCard = newInfectionCard.transform.GetChild(0).gameObject;
+        newCard.GetComponent<InfectionCardScript>().SetInfectionCard(infectionCard);
+        newCard.GetComponent<InfectionCardScript>().SetInfectionType(infectionType);
 
         foreach (Sprite cardPic in _cardPics)
         {
