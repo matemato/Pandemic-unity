@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1072977878568577602}
   m_Layer: 0
   m_Name: VirusCube
-  m_TagString: Untagged
+  m_TagString: VirusCube
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -45,7 +45,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4381568c6f21dda4199456070c0df7ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tile: {fileID: 0}
 --- !u!1 &8613927972522684856
 GameObject:
   m_ObjectHideFlags: 0

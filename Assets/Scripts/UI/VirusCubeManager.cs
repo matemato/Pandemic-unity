@@ -4,29 +4,45 @@ using UnityEngine;
 
 public class VirusCubeManager : MonoBehaviour
 {
-    public Tile tile;
-    private float radius = 0.6f; // The radius of the circle
-    private float angularSpeed = 1.5f; // The speed of rotation
+    private Tile _tile = null;
+    private float _radius = 0.6f; // The radius of the circle
+    private float _angularSpeed = 1.5f; // The speed of rotation
 
-    private float angle = 0f;
+    private float _angle = 0f;
 
     // Update is called once per frame
     void Update()
     {
-        RotateAroundTile();
-        transform.Rotate(Vector3.up, 50f * Time.deltaTime);
-        transform.Rotate(Vector3.left, 50f * Time.deltaTime);
+        if (_tile != null)
+        {
+            RotateAroundTile();
+            transform.Rotate(Vector3.up, 50f * Time.deltaTime);
+            transform.Rotate(Vector3.left, 50f * Time.deltaTime);
+        }
     }
 
     public void RotateAroundTile() 
     {
-        float x = tile.transform.localPosition.x + radius * Mathf.Cos(angle);
-        float y = tile.transform.localPosition.y + radius * Mathf.Sin(angle);
+        float x = _tile.transform.localPosition.x + _radius * Mathf.Cos(_angle);
+        float y = _tile.transform.localPosition.y + _radius * Mathf.Sin(_angle);
 
-        transform.localPosition = new Vector3(x, y, transform.localPosition.z);
+        transform.localPosition = new Vector3(x, y, -1);
 
-        angle += angularSpeed * Time.deltaTime;
+        _angle += _angularSpeed * Time.deltaTime;
 
-        angle = Mathf.Repeat(angle, 360f);
+        _angle = Mathf.Repeat(_angle, 2*Mathf.PI);
     }
+
+    public void SetStartingAngle(float startAngle)
+    {
+        _angle = startAngle;
+    }
+
+    public void SetTile(Tile tile)
+    {
+        _tile = tile;
+    }
+
+    public Tile GetTile() { return _tile; }
+
 }

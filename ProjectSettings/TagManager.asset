@@ -10,6 +10,7 @@ TagManager:
   - ClientController
   - DebugLayer
   - DiscardedPlayerCard
+  - VirusCube
   layers:
   - Default
   - TransparentFX

@@ -9,27 +9,64 @@ public class InfectionManager : MonoBehaviour
     [SerializeField]
     private GameObject _infectionCardPrefab;
     [SerializeField]
+    private GameObject _virusCubePrefab;
+    [SerializeField]
     private Sprite[] _cardPics;
     [SerializeField]
     private GameObject _animationControllerObject;
-
+    [SerializeField]
+    private GameObject _gameControllerObject;
+    [SerializeField]
+    private Texture[] _virusTextures; // black, blue, yellow, red
 
     private AnimationController _animationController;
+    private GameController _gameController;
     private int discardCardOnTop = 0;
+
+    private Dictionary<InfectionType, Texture> _virusTexturesDict = new Dictionary<InfectionType, Texture>();
+
     // Start is called before the first frame update
     void Start()
     {
+        _virusTexturesDict[InfectionType.VIRUS_BLACK] = _virusTextures[0];
+        _virusTexturesDict[InfectionType.VIRUS_BLUE] = _virusTextures[1];
+        _virusTexturesDict[InfectionType.VIRUS_YELLOW] = _virusTextures[2];
+        _virusTexturesDict[InfectionType.VIRUS_RED] = _virusTextures[3];
+
         _animationController = _animationControllerObject.GetComponent<AnimationController>();
+        _gameController = _gameControllerObject.GetComponent<GameController>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.I))
+        /*if (_gameController.ServerInput != null)
         {
-            Debug.Log("yoyoyo");
+            var request = _gameController.ServerInput.
+
+            if (request != null)
+            {
+
+            }
+        }*/
+
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            //Debug.Log("yoyoyo");
             //drawCard(InfectionCard.ICARD_KOLKATA, "Kolkata");
             Infect(InfectionCard.ICARD_KOLKATA, InfectionType.VIRUS_BLACK, PlayerCard.CCARD_KOLKATA, 3);
+        }
+        else if (Input.GetKeyDown(KeyCode.L))
+        {
+            Infect(InfectionCard.ICARD_LAGOS, InfectionType.VIRUS_YELLOW, PlayerCard.CCARD_LAGOS, 2);
+        }
+        else if (Input.GetKeyDown(KeyCode.J))
+        {
+            Infect(InfectionCard.ICARD_JAKARTA, InfectionType.VIRUS_RED, PlayerCard.CCARD_JAKARTA, 1);
+        }
+        else if (Input.GetKeyDown(KeyCode.P))
+        {
+            Infect(InfectionCard.ICARD_PARIS, InfectionType.VIRUS_BLUE, PlayerCard.CCARD_PARIS, 1);
         }
     }
 
@@ -43,7 +80,25 @@ public class InfectionManager : MonoBehaviour
 
         tileScript.SetInfectionCount(infectionType, infectCount);
 
-        Debug.Log(tileScript.GetInfectionCount(infectionType));
+        for (int i = 0; i < infectCount; i++)
+        {
+            var virusCube = Instantiate(_virusCubePrefab, gameObject.transform.position, Quaternion.identity);
+            virusCube.transform.SetParent(tile.transform.parent, false);
+
+            virusCube.GetComponentInChildren<MeshRenderer>().material.mainTexture = _virusTexturesDict[infectionType];
+            tileScript.AddVirusCube(virusCube);
+        }
+
+        var virusCubes = tileScript.GetVirusCubes();
+
+        for (int i = 0; i < virusCubes.Count; i++) 
+        {
+            virusCubes[i].GetComponent<VirusCubeManager>().SetStartingAngle(i * 2 * Mathf.PI / virusCubes.Count);
+            virusCubes[i].GetComponent<VirusCubeManager>().SetTile(tileScript);
+        }
+
+
+        //Debug.Log(tileScript.GetInfectionCount(infectionType));
     }
 
     public void drawCard(InfectionCard infectionCard, InfectionType infectionType, string infectionCardName)

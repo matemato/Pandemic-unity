@@ -42,6 +42,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3574568607451248660}
   - component: {fileID: 2640470472348903660}
+  - component: {fileID: 1982302205855136030}
   m_Layer: 0
   m_Name: Algiers
   m_TagString: Untagged
@@ -116,3 +117,15 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1982302205855136030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5559742716540564101}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bcec07f77703c1c40872cd05cfbe05cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -42,6 +42,8 @@ public class Tile : MonoBehaviour
 
     private SpriteRenderer _spriteRenderer;
 
+    private List<GameObject> _virusCubes = new List<GameObject>();
+
     private Dictionary<string, CityColor> CityColorDict = new Dictionary<string, CityColor>()
     {
         { "Blue", CityColor.CITY_COLOR_BLUE },
@@ -65,6 +67,21 @@ public class Tile : MonoBehaviour
         CityColor = CityColorDict[Color];
         Highlight = false;
         _spriteRenderer = GetComponent<SpriteRenderer>();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        Color currentColor = _spriteRenderer.color;
+        if (Highlight)
+        {
+            currentColor.a = 1f;
+        }
+        else
+        {
+            currentColor.a = 0f;
+        }
+        _spriteRenderer.color = currentColor;
     }
 
     public void CreateTileData()
@@ -96,16 +113,10 @@ public class Tile : MonoBehaviour
         _infectionCount[infectionType] = infectionCount;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void AddVirusCube(GameObject virusCube)
     {
-        Color currentColor = _spriteRenderer.color;
-        if (Highlight) {    
-            currentColor.a = 1f;
-        }
-        else {
-            currentColor.a = 0f;
-        }
-        _spriteRenderer.color = currentColor;
+        _virusCubes.Add(virusCube);
     }
+
+    public List<GameObject> GetVirusCubes() { return  _virusCubes; }
 }
