@@ -9,6 +9,7 @@ public class ServerInput
     public PlayerUpdateHolder PlayerUpdateHolder;
     public BeginGameHolder BeginGameHolder;
     public PlayerCardUpdateHolder PlayerCardUpdateHolder;
+    public InfectionHolder InfectionHolder;
     public bool InvalidOpcode;
 
     public ServerInput()
@@ -18,5 +19,6 @@ public class ServerInput
         PlayerUpdateHolder = new PlayerUpdateHolder();
         BeginGameHolder = new BeginGameHolder();
         PlayerCardUpdateHolder = new PlayerCardUpdateHolder();
+        InfectionHolder = new InfectionHolder();
     }
 }

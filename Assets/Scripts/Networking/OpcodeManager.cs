@@ -21,14 +21,15 @@ public class OpcodeManager
     private OpcodeIn GetOpcode(byte opcodeId)
     {
         var opcode = (ServerOpcode)opcodeId;
-        switch(opcode)
+        return opcode switch
         {
-            case ServerOpcode.SERVER_MESSAGE: return new InServerMessage();
-            case ServerOpcode.UPDATE_PLAYERS: return new InUpdatePlayers();
-            case ServerOpcode.BEGIN_GAME: return new InBeginGame();
-            case ServerOpcode.UPDATE_PLAYER_CARD: return new InUpdatePlayerCard();
-            default: return new InError();
-        }
+            ServerOpcode.SERVER_MESSAGE => new InServerMessage(),
+            ServerOpcode.UPDATE_PLAYERS => new InUpdatePlayers(),
+            ServerOpcode.BEGIN_GAME => new InBeginGame(),
+            ServerOpcode.UPDATE_PLAYER_CARD => new InUpdatePlayerCard(),
+            ServerOpcode.TRIGGER_INFECTION => new InTriggerInfection(),
+            _ => new InError(),
+        };
     }
 
     public void ReceiveAll()
