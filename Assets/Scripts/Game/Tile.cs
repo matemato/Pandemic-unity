@@ -13,13 +13,19 @@ public class TileData
     public int[] _neighbourIds;
     [HideInInspector]
     public CityColor _cityColor;
-    
-    public TileData(int id, string name, CityColor cityColor, int[] neighbourIds)
+    [HideInInspector]
+    public PlayerCard _playerCard;
+    [HideInInspector]
+    public InfectionCard _infectionCard;
+
+    public TileData(int id, string name, CityColor cityColor, int[] neighbourIds, PlayerCard playerCard, InfectionCard infectionCard)
     {
         _id = id;
         _name = name;
         _cityColor = cityColor;
         _neighbourIds = neighbourIds;
+        _playerCard = playerCard;
+        _infectionCard = infectionCard;
     }
 }
 
@@ -27,6 +33,7 @@ public class Tile : MonoBehaviour
 {
     public string Color; 
     public PlayerCard PlayerCard;
+    public InfectionCard InfectionCard;
     public Tile[] Neighbours;
     public bool Highlight;
 
@@ -91,7 +98,7 @@ public class Tile : MonoBehaviour
         {
             neighbourIds[i] = Neighbours[i].GetId();
         }
-        TileData = new TileData(_id, Name, CityColor, neighbourIds);
+        TileData = new TileData(_id, Name, CityColor, neighbourIds, PlayerCard, InfectionCard);
     }
 
     public int GetId()

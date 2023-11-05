@@ -1,48 +1,48 @@
-{"_id":20,"_name":"Kolkata","_neighbourIds":[3,8,10,13],"_cityColor":2}
-{"_id":8,"_name":"Chennai","_neighbourIds":[32,20,3,15],"_cityColor":2}
-{"_id":32,"_name":"Mumbai","_neighbourIds":[10,17,8],"_cityColor":2}
-{"_id":10,"_name":"Delhi","_neighbourIds":[20,8,32,17,45],"_cityColor":2}
-{"_id":17,"_name":"Karachi","_neighbourIds":[36,45,10,32,2],"_cityColor":2}
-{"_id":36,"_name":"Riyadh","_neighbourIds":[7,2,17],"_cityColor":2}
-{"_id":45,"_name":"Tehran","_neighbourIds":[31,2,17,10],"_cityColor":2}
-{"_id":31,"_name":"Moscow","_neighbourIds":[42,14,45],"_cityColor":2}
-{"_id":2,"_name":"Baghdad","_neighbourIds":[45,17,36,7,14],"_cityColor":2}
-{"_id":14,"_name":"Istanbul","_neighbourIds":[31,42,0,7,29,2],"_cityColor":2}
-{"_id":7,"_name":"Cairo","_neighbourIds":[36,2,14,0,18],"_cityColor":2}
-{"_id":0,"_name":"Algiers","_neighbourIds":[25,35,14,7],"_cityColor":2}
-{"_id":28,"_name":"Miami","_neighbourIds":[47,5,27],"_cityColor":1}
-{"_id":27,"_name":"Mexico City","_neighbourIds":[5,28,9,24,22],"_cityColor":1}
-{"_id":24,"_name":"Los Angeles","_neighbourIds":[37,27,43,9],"_cityColor":1}
-{"_id":38,"_name":"Santiago","_neighbourIds":[22],"_cityColor":1}
-{"_id":22,"_name":"Lima","_neighbourIds":[27,5,38],"_cityColor":1}
-{"_id":5,"_name":"Bogota","_neighbourIds":[22,27,28,39,6],"_cityColor":1}
-{"_id":6,"_name":"Buenos Aires","_neighbourIds":[39,5],"_cityColor":1}
-{"_id":19,"_name":"Kinshasa","_neighbourIds":[21,16],"_cityColor":1}
-{"_id":16,"_name":"Johanesburg","_neighbourIds":[18,19],"_cityColor":1}
-{"_id":18,"_name":"Khartoum","_neighbourIds":[21,19,16,7],"_cityColor":1}
-{"_id":21,"_name":"Lagos","_neighbourIds":[18,19,39],"_cityColor":1}
-{"_id":39,"_name":"Sao Paulo","_neighbourIds":[25,5,6,21],"_cityColor":1}
-{"_id":37,"_name":"San Francisco","_neighbourIds":[24,9,26,46],"_cityColor":0}
-{"_id":9,"_name":"Chicago","_neighbourIds":[1,30,37,24,27],"_cityColor":0}
-{"_id":25,"_name":"Madrid","_neighbourIds":[33,23,35,0,39],"_cityColor":0}
-{"_id":47,"_name":"Washington","_neighbourIds":[33,30,28,1],"_cityColor":0}
-{"_id":1,"_name":"Atlanta","_neighbourIds":[28,47,9],"_cityColor":0}
-{"_id":30,"_name":"Montreal","_neighbourIds":[33,47,9],"_cityColor":0}
-{"_id":33,"_name":"New York","_neighbourIds":[23,25,47,30],"_cityColor":0}
-{"_id":23,"_name":"London","_neighbourIds":[25,33,11,35],"_cityColor":0}
-{"_id":35,"_name":"Paris","_neighbourIds":[11,29,0,23,25],"_cityColor":0}
-{"_id":11,"_name":"Essen","_neighbourIds":[42,29,35,23],"_cityColor":0}
-{"_id":42,"_name":"St. Petersburg","_neighbourIds":[31,14,11],"_cityColor":0}
-{"_id":29,"_name":"Milan","_neighbourIds":[14,11,35],"_cityColor":0}
-{"_id":43,"_name":"Sydney","_neighbourIds":[26,15,24],"_cityColor":3}
-{"_id":15,"_name":"Jakarta","_neighbourIds":[3,12,43,8],"_cityColor":3}
-{"_id":12,"_name":"Ho Chi Minh City","_neighbourIds":[13,26,3,15],"_cityColor":3}
-{"_id":3,"_name":"Bangkok","_neighbourIds":[13,12,15,20,8],"_cityColor":3}
-{"_id":26,"_name":"Manila","_neighbourIds":[44,13,12,43,37],"_cityColor":3}
-{"_id":13,"_name":"Hong Kong","_neighbourIds":[41,44,26,12,3,20],"_cityColor":3}
-{"_id":44,"_name":"Taipei","_neighbourIds":[34,41,13,26],"_cityColor":3}
-{"_id":41,"_name":"Shanghai","_neighbourIds":[4,40,46,44],"_cityColor":3}
-{"_id":4,"_name":"Beijing","_neighbourIds":[40,41],"_cityColor":3}
-{"_id":34,"_name":"Osaka","_neighbourIds":[44,46],"_cityColor":3}
-{"_id":46,"_name":"Tokyo","_neighbourIds":[40,34,41,37],"_cityColor":3}
-{"_id":40,"_name":"Seoul","_neighbourIds":[46,4,41],"_cityColor":3}
+{"_id":20,"_name":"Kolkata","_neighbourIds":[3,8,10,13],"_cityColor":2,"_playerCard":20,"_infectionCard":20}
+{"_id":8,"_name":"Chennai","_neighbourIds":[31,20,3,15],"_cityColor":2,"_playerCard":8,"_infectionCard":8}
+{"_id":31,"_name":"Mumbai","_neighbourIds":[10,17,8],"_cityColor":2,"_playerCard":31,"_infectionCard":31}
+{"_id":10,"_name":"Delhi","_neighbourIds":[20,8,31,17,44],"_cityColor":2,"_playerCard":10,"_infectionCard":10}
+{"_id":17,"_name":"Karachi","_neighbourIds":[35,44,10,31,2],"_cityColor":2,"_playerCard":17,"_infectionCard":17}
+{"_id":35,"_name":"Riyadh","_neighbourIds":[7,2,17],"_cityColor":2,"_playerCard":35,"_infectionCard":35}
+{"_id":44,"_name":"Tehran","_neighbourIds":[30,2,17,10],"_cityColor":2,"_playerCard":44,"_infectionCard":44}
+{"_id":30,"_name":"Moscow","_neighbourIds":[41,14,44],"_cityColor":2,"_playerCard":30,"_infectionCard":30}
+{"_id":2,"_name":"Baghdad","_neighbourIds":[44,17,35,7,14],"_cityColor":2,"_playerCard":2,"_infectionCard":2}
+{"_id":14,"_name":"Istanbul","_neighbourIds":[30,41,0,7,29,2],"_cityColor":2,"_playerCard":14,"_infectionCard":14}
+{"_id":7,"_name":"Cairo","_neighbourIds":[35,2,14,0,18],"_cityColor":2,"_playerCard":7,"_infectionCard":7}
+{"_id":0,"_name":"Algiers","_neighbourIds":[25,34,14,7],"_cityColor":2,"_playerCard":0,"_infectionCard":0}
+{"_id":28,"_name":"Miami","_neighbourIds":[47,5,27],"_cityColor":1,"_playerCard":28,"_infectionCard":28}
+{"_id":27,"_name":"Mexico City","_neighbourIds":[5,28,9,24,22],"_cityColor":1,"_playerCard":27,"_infectionCard":27}
+{"_id":24,"_name":"Los Angeles","_neighbourIds":[36,27,42,9],"_cityColor":1,"_playerCard":24,"_infectionCard":24}
+{"_id":37,"_name":"Santiago","_neighbourIds":[22],"_cityColor":1,"_playerCard":36,"_infectionCard":36}
+{"_id":22,"_name":"Lima","_neighbourIds":[27,5,37],"_cityColor":1,"_playerCard":22,"_infectionCard":22}
+{"_id":5,"_name":"Bogota","_neighbourIds":[22,27,28,38,6],"_cityColor":1,"_playerCard":5,"_infectionCard":5}
+{"_id":6,"_name":"Buenos Aires","_neighbourIds":[38,5],"_cityColor":1,"_playerCard":6,"_infectionCard":6}
+{"_id":19,"_name":"Kinshasa","_neighbourIds":[21,16],"_cityColor":1,"_playerCard":19,"_infectionCard":19}
+{"_id":16,"_name":"Johanesburg","_neighbourIds":[18,19],"_cityColor":1,"_playerCard":16,"_infectionCard":16}
+{"_id":18,"_name":"Khartoum","_neighbourIds":[21,19,16,7],"_cityColor":1,"_playerCard":18,"_infectionCard":18}
+{"_id":21,"_name":"Lagos","_neighbourIds":[18,19,38],"_cityColor":1,"_playerCard":21,"_infectionCard":21}
+{"_id":38,"_name":"Sao Paulo","_neighbourIds":[25,5,6,21],"_cityColor":1,"_playerCard":38,"_infectionCard":38}
+{"_id":36,"_name":"San Francisco","_neighbourIds":[24,9,26,45],"_cityColor":0,"_playerCard":37,"_infectionCard":37}
+{"_id":9,"_name":"Chicago","_neighbourIds":[1,46,36,24,27],"_cityColor":0,"_playerCard":9,"_infectionCard":9}
+{"_id":25,"_name":"Madrid","_neighbourIds":[32,23,34,0,38],"_cityColor":0,"_playerCard":25,"_infectionCard":25}
+{"_id":47,"_name":"Washington","_neighbourIds":[32,46,28,1],"_cityColor":0,"_playerCard":47,"_infectionCard":47}
+{"_id":1,"_name":"Atlanta","_neighbourIds":[28,47,9],"_cityColor":0,"_playerCard":1,"_infectionCard":1}
+{"_id":46,"_name":"Toronto","_neighbourIds":[32,47,9],"_cityColor":0,"_playerCard":46,"_infectionCard":46}
+{"_id":32,"_name":"New York","_neighbourIds":[23,25,47,46],"_cityColor":0,"_playerCard":32,"_infectionCard":32}
+{"_id":23,"_name":"London","_neighbourIds":[25,32,11,34],"_cityColor":0,"_playerCard":23,"_infectionCard":23}
+{"_id":34,"_name":"Paris","_neighbourIds":[11,29,0,23,25],"_cityColor":0,"_playerCard":34,"_infectionCard":34}
+{"_id":11,"_name":"Essen","_neighbourIds":[41,29,34,23],"_cityColor":0,"_playerCard":11,"_infectionCard":11}
+{"_id":41,"_name":"St. Petersburg","_neighbourIds":[30,14,11],"_cityColor":0,"_playerCard":41,"_infectionCard":41}
+{"_id":29,"_name":"Milan","_neighbourIds":[14,11,34],"_cityColor":0,"_playerCard":29,"_infectionCard":29}
+{"_id":42,"_name":"Sydney","_neighbourIds":[26,15,24],"_cityColor":3,"_playerCard":42,"_infectionCard":42}
+{"_id":15,"_name":"Jakarta","_neighbourIds":[3,12,42,8],"_cityColor":3,"_playerCard":15,"_infectionCard":15}
+{"_id":12,"_name":"Ho Chi Minh City","_neighbourIds":[13,26,3,15],"_cityColor":3,"_playerCard":13,"_infectionCard":13}
+{"_id":3,"_name":"Bangkok","_neighbourIds":[13,12,15,20,8],"_cityColor":3,"_playerCard":3,"_infectionCard":3}
+{"_id":26,"_name":"Manila","_neighbourIds":[43,13,12,42,36],"_cityColor":3,"_playerCard":29,"_infectionCard":29}
+{"_id":13,"_name":"Hong Kong","_neighbourIds":[40,43,26,12,3,20],"_cityColor":3,"_playerCard":12,"_infectionCard":12}
+{"_id":43,"_name":"Taipei","_neighbourIds":[33,40,13,26],"_cityColor":3,"_playerCard":43,"_infectionCard":43}
+{"_id":40,"_name":"Shanghai","_neighbourIds":[4,39,45,43],"_cityColor":3,"_playerCard":40,"_infectionCard":40}
+{"_id":4,"_name":"Beijing","_neighbourIds":[39,40],"_cityColor":3,"_playerCard":4,"_infectionCard":4}
+{"_id":33,"_name":"Osaka","_neighbourIds":[43,45],"_cityColor":3,"_playerCard":33,"_infectionCard":33}
+{"_id":45,"_name":"Tokyo","_neighbourIds":[39,33,40,36],"_cityColor":3,"_playerCard":45,"_infectionCard":45}
+{"_id":39,"_name":"Seoul","_neighbourIds":[45,4,40],"_cityColor":3,"_playerCard":39,"_infectionCard":39}

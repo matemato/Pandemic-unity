@@ -1230,47 +1230,91 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 154926365008356342, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
       propertyPath: PlayerCard
-      value: 24
+      value: 37
+      objectReference: {fileID: 0}
+    - target: {fileID: 154926365008356342, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
+      propertyPath: InfectionCard
+      value: 37
       objectReference: {fileID: 0}
     - target: {fileID: 186160304008926328, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
       propertyPath: PlayerCard
-      value: 26
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 186160304008926328, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
+      propertyPath: InfectionCard
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 433209789388291401, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
       propertyPath: PlayerCard
-      value: 41
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 433209789388291401, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
+      propertyPath: InfectionCard
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 446191042654763864, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
       propertyPath: PlayerCard
-      value: 2
+      value: 31
+      objectReference: {fileID: 0}
+    - target: {fileID: 446191042654763864, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
+      propertyPath: InfectionCard
+      value: 31
       objectReference: {fileID: 0}
     - target: {fileID: 818806303633008236, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
       propertyPath: PlayerCard
-      value: 40
+      value: 29
+      objectReference: {fileID: 0}
+    - target: {fileID: 818806303633008236, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
+      propertyPath: InfectionCard
+      value: 29
       objectReference: {fileID: 0}
     - target: {fileID: 945388125500216003, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
       propertyPath: PlayerCard
-      value: 3
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 945388125500216003, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
+      propertyPath: InfectionCard
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1067684897360054460, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
       propertyPath: PlayerCard
-      value: 22
+      value: 21
+      objectReference: {fileID: 0}
+    - target: {fileID: 1067684897360054460, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
+      propertyPath: InfectionCard
+      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 1177782869223057532, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
       propertyPath: PlayerCard
-      value: 27
+      value: 47
+      objectReference: {fileID: 0}
+    - target: {fileID: 1177782869223057532, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
+      propertyPath: InfectionCard
+      value: 47
       objectReference: {fileID: 0}
     - target: {fileID: 1191382944521207686, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
       propertyPath: PlayerCard
       value: 19
       objectReference: {fileID: 0}
+    - target: {fileID: 1191382944521207686, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
+      propertyPath: InfectionCard
+      value: 19
+      objectReference: {fileID: 0}
     - target: {fileID: 1225047749689721237, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
       propertyPath: PlayerCard
-      value: 36
+      value: 42
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225047749689721237, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
+      propertyPath: InfectionCard
+      value: 42
       objectReference: {fileID: 0}
     - target: {fileID: 1256734135841413781, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
       propertyPath: PlayerCard
-      value: 16
+      value: 22
+      objectReference: {fileID: 0}
+    - target: {fileID: 1256734135841413781, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
+      propertyPath: InfectionCard
+      value: 22
       objectReference: {fileID: 0}
     - target: {fileID: 1258636215479646104, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
       propertyPath: run
@@ -1278,19 +1322,35 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1384838525850779729, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
       propertyPath: PlayerCard
-      value: 7
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 1384838525850779729, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
+      propertyPath: InfectionCard
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 1489311719817541289, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
       propertyPath: PlayerCard
-      value: 29
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1489311719817541289, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
+      propertyPath: InfectionCard
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1492628877125454351, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
       propertyPath: PlayerCard
-      value: 12
+      value: 28
+      objectReference: {fileID: 0}
+    - target: {fileID: 1492628877125454351, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
+      propertyPath: InfectionCard
+      value: 28
       objectReference: {fileID: 0}
     - target: {fileID: 1528907043875925942, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
       propertyPath: PlayerCard
-      value: 25
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1528907043875925942, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
+      propertyPath: InfectionCard
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 1528907043875925942, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
       propertyPath: Neighbours.Array.data[1]
@@ -1298,35 +1358,67 @@ PrefabInstance:
       objectReference: {fileID: 3175370718046221693}
     - target: {fileID: 1715353625771066130, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
       propertyPath: PlayerCard
-      value: 23
+      value: 38
+      objectReference: {fileID: 0}
+    - target: {fileID: 1715353625771066130, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
+      propertyPath: InfectionCard
+      value: 38
       objectReference: {fileID: 0}
     - target: {fileID: 2364431117543614191, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
       propertyPath: PlayerCard
-      value: 29
+      value: 46
+      objectReference: {fileID: 0}
+    - target: {fileID: 2364431117543614191, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
+      propertyPath: InfectionCard
+      value: 46
       objectReference: {fileID: 0}
     - target: {fileID: 2735384130730235958, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
       propertyPath: PlayerCard
-      value: 18
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2735384130730235958, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
+      propertyPath: InfectionCard
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 2813156122958246759, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
       propertyPath: PlayerCard
-      value: 33
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 2813156122958246759, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
+      propertyPath: InfectionCard
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 2838875481658756947, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
       propertyPath: PlayerCard
-      value: 15
+      value: 36
+      objectReference: {fileID: 0}
+    - target: {fileID: 2838875481658756947, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
+      propertyPath: InfectionCard
+      value: 36
       objectReference: {fileID: 0}
     - target: {fileID: 3458000837211626066, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
       propertyPath: PlayerCard
-      value: 20
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 3458000837211626066, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
+      propertyPath: InfectionCard
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 3580209665395227771, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
       propertyPath: PlayerCard
-      value: 34
+      value: 41
+      objectReference: {fileID: 0}
+    - target: {fileID: 3580209665395227771, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
+      propertyPath: InfectionCard
+      value: 41
       objectReference: {fileID: 0}
     - target: {fileID: 3889566606541227890, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
       propertyPath: PlayerCard
-      value: 35
+      value: 29
+      objectReference: {fileID: 0}
+    - target: {fileID: 3889566606541227890, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
+      propertyPath: InfectionCard
+      value: 29
       objectReference: {fileID: 0}
     - target: {fileID: 3917549591952333271, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
       propertyPath: Highlight
@@ -1334,31 +1426,55 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3917549591952333271, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
       propertyPath: PlayerCard
-      value: 13
+      value: 27
+      objectReference: {fileID: 0}
+    - target: {fileID: 3917549591952333271, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
+      propertyPath: InfectionCard
+      value: 27
       objectReference: {fileID: 0}
     - target: {fileID: 3987597086291359359, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
       propertyPath: PlayerCard
-      value: 5
+      value: 35
+      objectReference: {fileID: 0}
+    - target: {fileID: 3987597086291359359, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
+      propertyPath: InfectionCard
+      value: 35
       objectReference: {fileID: 0}
     - target: {fileID: 4059140829530644491, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
       propertyPath: m_Name
-      value: Montreal
+      value: Toronto
       objectReference: {fileID: 0}
     - target: {fileID: 4158931356706865006, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
       propertyPath: PlayerCard
-      value: 39
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4158931356706865006, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
+      propertyPath: InfectionCard
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4260393378003141251, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
       propertyPath: PlayerCard
-      value: 42
+      value: 43
+      objectReference: {fileID: 0}
+    - target: {fileID: 4260393378003141251, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
+      propertyPath: InfectionCard
+      value: 43
       objectReference: {fileID: 0}
     - target: {fileID: 4366327353612593801, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
       propertyPath: PlayerCard
-      value: 45
+      value: 33
+      objectReference: {fileID: 0}
+    - target: {fileID: 4366327353612593801, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
+      propertyPath: InfectionCard
+      value: 33
       objectReference: {fileID: 0}
     - target: {fileID: 4428972218614906401, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
       propertyPath: PlayerCard
-      value: 10
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4428972218614906401, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
+      propertyPath: InfectionCard
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 4557153844993797929, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
       propertyPath: m_Name
@@ -1366,19 +1482,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4990404320693069938, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
       propertyPath: PlayerCard
-      value: 38
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 4990404320693069938, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
+      propertyPath: InfectionCard
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 5147709609403638567, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
       propertyPath: PlayerCard
-      value: 8
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5147709609403638567, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
+      propertyPath: InfectionCard
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5397580113447677792, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
       propertyPath: PlayerCard
-      value: 32
+      value: 34
+      objectReference: {fileID: 0}
+    - target: {fileID: 5397580113447677792, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
+      propertyPath: InfectionCard
+      value: 34
       objectReference: {fileID: 0}
     - target: {fileID: 5723771705028058974, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
       propertyPath: PlayerCard
-      value: 11
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5794928389519236686, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
       propertyPath: m_LocalScale.z
@@ -1426,43 +1554,91 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6152666984550083801, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
       propertyPath: PlayerCard
-      value: 43
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 6152666984550083801, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
+      propertyPath: InfectionCard
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 6535349418474075396, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
+      propertyPath: PlayerCard
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 6535349418474075396, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
+      propertyPath: InfectionCard
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 6697366605539155393, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
       propertyPath: PlayerCard
-      value: 31
+      value: 23
+      objectReference: {fileID: 0}
+    - target: {fileID: 6697366605539155393, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
+      propertyPath: InfectionCard
+      value: 23
       objectReference: {fileID: 0}
     - target: {fileID: 6709347723260317632, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
       propertyPath: PlayerCard
-      value: 14
+      value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 6709347723260317632, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
+      propertyPath: InfectionCard
+      value: 24
       objectReference: {fileID: 0}
     - target: {fileID: 6909347496653557154, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
       propertyPath: PlayerCard
-      value: 44
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6909347496653557154, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
+      propertyPath: InfectionCard
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7421621920550700948, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
       propertyPath: PlayerCard
-      value: 4
+      value: 17
+      objectReference: {fileID: 0}
+    - target: {fileID: 7421621920550700948, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
+      propertyPath: InfectionCard
+      value: 17
       objectReference: {fileID: 0}
     - target: {fileID: 7624353807916789039, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
       propertyPath: PlayerCard
-      value: 1
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7624353807916789039, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
+      propertyPath: InfectionCard
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 7844727153787688742, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
       propertyPath: PlayerCard
-      value: 9
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 7844727153787688742, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
+      propertyPath: InfectionCard
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 8003647100741522522, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
       propertyPath: PlayerCard
-      value: 30
+      value: 32
+      objectReference: {fileID: 0}
+    - target: {fileID: 8003647100741522522, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
+      propertyPath: InfectionCard
+      value: 32
       objectReference: {fileID: 0}
     - target: {fileID: 8292063356266983826, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
       propertyPath: PlayerCard
-      value: 21
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 8292063356266983826, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
+      propertyPath: InfectionCard
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 8510539823935528024, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
       propertyPath: PlayerCard
-      value: 17
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8510539823935528024, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
+      propertyPath: InfectionCard
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8528957518963743284, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
       propertyPath: CityColor
@@ -1470,15 +1646,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8528957518963743284, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
       propertyPath: PlayerCard
-      value: 47
+      value: 39
+      objectReference: {fileID: 0}
+    - target: {fileID: 8528957518963743284, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
+      propertyPath: InfectionCard
+      value: 39
       objectReference: {fileID: 0}
     - target: {fileID: 8698740824763040345, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
       propertyPath: PlayerCard
-      value: 37
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 8698740824763040345, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
+      propertyPath: InfectionCard
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 8859029125765727623, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
       propertyPath: PlayerCard
-      value: 6
+      value: 44
+      objectReference: {fileID: 0}
+    - target: {fileID: 8859029125765727623, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
+      propertyPath: InfectionCard
+      value: 44
       objectReference: {fileID: 0}
     - target: {fileID: 9126902272028911005, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
       propertyPath: CityColor
@@ -1486,7 +1674,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9126902272028911005, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
       propertyPath: PlayerCard
-      value: 46
+      value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 9126902272028911005, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
+      propertyPath: InfectionCard
+      value: 45
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
