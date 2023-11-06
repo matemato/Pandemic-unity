@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Globalization;
 using TMPro;
 using UnityEngine;
@@ -13,12 +15,15 @@ public class InfectionManager : MonoBehaviour
     [SerializeField]
     private Sprite[] _cardPics;
     [SerializeField]
+    private GameObject _consoleObject;
+    [SerializeField]
     private GameObject _animationControllerObject;
     [SerializeField]
     private GameObject _gameControllerObject;
     [SerializeField]
     private Texture[] _virusTextures; // black, blue, yellow, red
 
+    private Console _console;
     private AnimationController _animationController;
     private GameController _gameController;
     private int discardCardOnTop = 0;
@@ -35,48 +40,78 @@ public class InfectionManager : MonoBehaviour
 
         _animationController = _animationControllerObject.GetComponent<AnimationController>();
         _gameController = _gameControllerObject.GetComponent<GameController>();
+        _console = _consoleObject.GetComponent<Console>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        /*if (_gameController.ServerInput != null)
+        if (_gameController.ServerInput != null)
         {
-            var request = _gameController.ServerInput.
+            var request = _gameController.ServerInput.InfectionHolder.GetNext();
 
             if (request != null)
             {
+                var infectionCard = request.Item1;
+                var infectionInfo = request.Item2;
 
+                while (infectionInfo.Count > 0)
+                {
+                    var infection = infectionInfo.Dequeue();
+                    if (infection.Item1 == InfectionType.EXPLOSION)
+                    {
+                        // play animation
+                        _console.AddText(ServerMessageType.SMESSAGE_INFO, "Explosion");
+                    }
+                    //< color = green > green </ color >
+                    else
+                    {
+                        var virusColor = VirusTypeToColor(infection.Item1);
+                        Infect(infection.Item2, infection.Item1, 1);
+                        _console.AddText(ServerMessageType.SMESSAGE_INFO, "Infected <color=" + virusColor + ">" +  EnumToString(infectionCard) + "</color> for city: " + infection.Item2);
+                    }
+                }
             }
-        }*/
+        }
 
-        if (Input.GetKeyDown(KeyCode.K))
+        /*if (Input.GetKeyDown(KeyCode.K))
         {
             //Debug.Log("yoyoyo");
             //drawCard(InfectionCard.ICARD_KOLKATA, "Kolkata");
-            Infect(InfectionCard.ICARD_KOLKATA, InfectionType.VIRUS_BLACK, PlayerCard.CCARD_KOLKATA, 3);
+            Infect(InfectionCard.ICARD_KOLKATA, InfectionType.VIRUS_BLACK, 3);
         }
         else if (Input.GetKeyDown(KeyCode.L))
         {
-            Infect(InfectionCard.ICARD_LAGOS, InfectionType.VIRUS_YELLOW, PlayerCard.CCARD_LAGOS, 2);
+            Infect(InfectionCard.ICARD_LAGOS, InfectionType.VIRUS_YELLOW, 2);
         }
         else if (Input.GetKeyDown(KeyCode.J))
         {
-            Infect(InfectionCard.ICARD_JAKARTA, InfectionType.VIRUS_RED, PlayerCard.CCARD_JAKARTA, 1);
+            Infect(InfectionCard.ICARD_JAKARTA, InfectionType.VIRUS_RED, 1);
         }
         else if (Input.GetKeyDown(KeyCode.P))
         {
-            Infect(InfectionCard.ICARD_PARIS, InfectionType.VIRUS_BLUE, PlayerCard.CCARD_PARIS, 1);
-        }
+            Infect(InfectionCard.ICARD_PARIS, InfectionType.VIRUS_BLUE, 1);
+        }*/
     }
 
-    public void Infect(InfectionCard infectionCard, InfectionType infectionType, PlayerCard playerCard, int infectCount)
+    public void Infect(int cityId, InfectionType infectionType, int infectCount)
     {
-        string infectionCardName = EnumToString(infectionCard);
-        drawCard(infectionCard, infectionType, infectionCardName);
+        
+        //drawCard(infectionCard, infectionType);
 
-        var tile = GameObject.Find(infectionCardName);
-        Tile tileScript = tile.GetComponent<Tile>();
+        var tiles = GameObject.FindGameObjectsWithTag("Tile");
+        GameObject tile = null;
+        Tile tileScript = null;
+
+        foreach(GameObject t in tiles)
+        {
+            if (t.GetComponent<Tile>().GetId() == cityId)
+            {
+                tile = t;
+                tileScript = tile.GetComponent<Tile>();
+                break;
+            }
+        }
 
         tileScript.SetInfectionCount(infectionType, infectCount);
 
@@ -96,13 +131,12 @@ public class InfectionManager : MonoBehaviour
             virusCubes[i].GetComponent<VirusCubeManager>().SetStartingAngle(i * 2 * Mathf.PI / virusCubes.Count);
             virusCubes[i].GetComponent<VirusCubeManager>().SetTile(tileScript);
         }
-
-
-        //Debug.Log(tileScript.GetInfectionCount(infectionType));
     }
 
-    public void drawCard(InfectionCard infectionCard, InfectionType infectionType, string infectionCardName)
+    public void drawCard(InfectionCard infectionCard, InfectionType infectionType)
     {
+        string infectionCardName = EnumToString(infectionCard);
+
         var newInfectionCard = Instantiate(_infectionCardPrefab, new Vector3(-100, 15, discardCardOnTop), Quaternion.identity);
         newInfectionCard.transform.SetParent(gameObject.transform, false);
         var newCard = newInfectionCard.transform.GetChild(0).gameObject;
@@ -130,5 +164,22 @@ public class InfectionManager : MonoBehaviour
         cardName = cardName.Replace("_", " ").ToLower();
 
         return CultureInfo.CurrentCulture.TextInfo.ToTitleCase(cardName.ToLower());
+    }
+
+    public string VirusTypeToColor(InfectionType infectionType)
+    {
+        switch (infectionType)
+        {
+            case InfectionType.VIRUS_BLUE:
+                return "blue";
+            case InfectionType.VIRUS_RED:
+                return "red";
+            case InfectionType.VIRUS_BLACK:
+                return "#7F7F7F";
+            case InfectionType.VIRUS_YELLOW:
+                return "yellow";
+            default:
+                return "";
+        }
     }
 }

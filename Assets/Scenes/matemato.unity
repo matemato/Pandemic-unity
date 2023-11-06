@@ -391,6 +391,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5775401216952728849, guid: 13e8791d098cf994399cb0fc231ca56f, type: 3}
   m_PrefabInstance: {fileID: 92226159}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &543642382 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5480750427862981018, guid: 265d574a3930d6848b4870ed87dbd22e, type: 3}
+  m_PrefabInstance: {fileID: 8935838614672049942}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &605024631 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5794928389519236686, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
@@ -421,6 +426,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7971045}
     m_Modifications:
+    - target: {fileID: 116624459240157390, guid: 83566486a0521894f9d66acc68e98d26, type: 3}
+      propertyPath: _consoleObject
+      value: 
+      objectReference: {fileID: 543642382}
     - target: {fileID: 116624459240157390, guid: 83566486a0521894f9d66acc68e98d26, type: 3}
       propertyPath: _virusCubePrefab
       value: 

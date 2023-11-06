@@ -62,7 +62,7 @@ public class Console : MonoBehaviour
         }
     }
 
-    public void AddText(ServerMessageType serverMessageType, string newText, string color) 
+    public void AddText(ServerMessageType serverMessageType, string newText, string color = "") 
     {
         newText = newText + '\n';
 
@@ -72,7 +72,6 @@ public class Console : MonoBehaviour
         {
             newText = "<color=" + color + ">" + newText;
             int indexOfColon = newText.IndexOf(":");
-            //Debug.Log(indexOfColon);
             if (indexOfColon >= 0)
             {
                 newText = newText.Insert(indexOfColon, "</color>");

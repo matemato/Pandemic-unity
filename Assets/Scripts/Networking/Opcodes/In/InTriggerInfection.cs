@@ -18,7 +18,9 @@ public class InTriggerInfection : OpcodeIn
 
         for(int i = 0; i < length; i++)
         {
-            infectionData.Enqueue(new Tuple<InfectionType, int>((InfectionType)msgManager.ReadByte(), msgManager.ReadByte()));
+            InfectionType infectionType = (InfectionType)msgManager.ReadByte();
+            int cityId = msgManager.ReadByte();
+            infectionData.Enqueue(new Tuple<InfectionType, int>(infectionType, cityId));
         }
 
         serverInput.InfectionHolder.Add((InfectionCard)cardId, infectionData);
