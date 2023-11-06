@@ -27,6 +27,8 @@ public class InfectionManager : MonoBehaviour
     private AnimationController _animationController;
     private GameController _gameController;
     private int discardCardOnTop = 0;
+    private float nextInfection = 0f;
+    private float infectionTime = 1f;
 
     private Dictionary<InfectionType, Texture> _virusTexturesDict = new Dictionary<InfectionType, Texture>();
 
@@ -48,29 +50,34 @@ public class InfectionManager : MonoBehaviour
     {
         if (_gameController.ServerInput != null)
         {
-            var request = _gameController.ServerInput.InfectionHolder.GetNext();
+            if (Time.time > nextInfection)
+            { 
+                var request = _gameController.ServerInput.InfectionHolder.GetNext();
 
-            if (request != null)
-            {
-                var infectionCard = request.Item1;
-                var infectionInfo = request.Item2;
-
-                while (infectionInfo.Count > 0)
+                if (request != null)
                 {
-                    var infection = infectionInfo.Dequeue();
-                    if (infection.Item1 == InfectionType.EXPLOSION)
+                    var infectionCard = request.Item1;
+                    var infectionInfo = request.Item2;
+                    drawCard(infectionCard);
+
+                    while (infectionInfo.Count > 0)
                     {
-                        // play animation
-                        _console.AddText(ServerMessageType.SMESSAGE_INFO, "Explosion");
-                    }
-                    //< color = green > green </ color >
-                    else
-                    {
-                        var virusColor = VirusTypeToColor(infection.Item1);
-                        Infect(infection.Item2, infection.Item1, 1);
-                        _console.AddText(ServerMessageType.SMESSAGE_INFO, "Infected <color=" + virusColor + ">" +  EnumToString(infectionCard) + "</color> for city: " + infection.Item2);
+                        var infection = infectionInfo.Dequeue();
+                        if (infection.Item1 == InfectionType.EXPLOSION)
+                        {
+                            // play animation
+                            _console.AddText(ServerMessageType.SMESSAGE_INFO, "Explosion");
+                        }
+                        //< color = green > green </ color >
+                        else
+                        {
+                            var virusColor = VirusTypeToColor(infection.Item1);
+                            Infect(infection.Item2, infection.Item1, 1);
+                            _console.AddText(ServerMessageType.SMESSAGE_INFO, "Infected <color=" + virusColor + ">" + EnumToString(infectionCard) + "</color> for city: " + infection.Item2);
+                        }
                     }
                 }
+                nextInfection = Time.time + infectionTime;
             }
         }
 
@@ -133,7 +140,7 @@ public class InfectionManager : MonoBehaviour
         }
     }
 
-    public void drawCard(InfectionCard infectionCard, InfectionType infectionType)
+    public void drawCard(InfectionCard infectionCard)
     {
         string infectionCardName = EnumToString(infectionCard);
 
@@ -141,7 +148,7 @@ public class InfectionManager : MonoBehaviour
         newInfectionCard.transform.SetParent(gameObject.transform, false);
         var newCard = newInfectionCard.transform.GetChild(0).gameObject;
         newCard.GetComponent<InfectionCardScript>().SetInfectionCard(infectionCard);
-        newCard.GetComponent<InfectionCardScript>().SetInfectionType(infectionType);
+        //newCard.GetComponent<InfectionCardScript>().SetInfectionType(infectionType);
 
         foreach (Sprite cardPic in _cardPics)
         {
