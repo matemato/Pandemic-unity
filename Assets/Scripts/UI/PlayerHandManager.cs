@@ -149,7 +149,7 @@ public class PlayerHandManager : MonoBehaviour
                     cityName = EnumToString(playerCard);
                     _playerHandCount[cityColor]--;
                     card.tag = "DiscardedPlayerCard";
-                    var targetPosition = new Vector3(-740, 500, discardCardOnTop);
+                    var targetPosition = new Vector3(-740, 520, discardCardOnTop);
                     _animationController.MoveToTarget(card.transform.parent.gameObject, null, targetPosition, 0.5f);
                     discardCardOnTop--;
                     //DestroyImmediate(card.transform.parent.gameObject);

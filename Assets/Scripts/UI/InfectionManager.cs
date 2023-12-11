@@ -81,13 +81,13 @@ public class InfectionManager : MonoBehaviour
             }
         }
 
-        /*if (Input.GetKeyDown(KeyCode.K))
+        if (Input.GetKeyDown(KeyCode.K))
         {
             //Debug.Log("yoyoyo");
             //drawCard(InfectionCard.ICARD_KOLKATA, "Kolkata");
-            Infect(InfectionCard.ICARD_KOLKATA, InfectionType.VIRUS_BLACK, 3);
+            Infect(0, InfectionType.VIRUS_BLACK, 1);
         }
-        else if (Input.GetKeyDown(KeyCode.L))
+        /*else if (Input.GetKeyDown(KeyCode.L))
         {
             Infect(InfectionCard.ICARD_LAGOS, InfectionType.VIRUS_YELLOW, 2);
         }
@@ -144,7 +144,7 @@ public class InfectionManager : MonoBehaviour
     {
         string infectionCardName = EnumToString(infectionCard);
 
-        var newInfectionCard = Instantiate(_infectionCardPrefab, new Vector3(-100, 15, discardCardOnTop), Quaternion.identity);
+        var newInfectionCard = Instantiate(_infectionCardPrefab, new Vector3(-100, 20, discardCardOnTop), Quaternion.identity);
         newInfectionCard.transform.SetParent(gameObject.transform, false);
         var newCard = newInfectionCard.transform.GetChild(0).gameObject;
         newCard.GetComponent<InfectionCardScript>().SetInfectionCard(infectionCard);
@@ -158,7 +158,7 @@ public class InfectionManager : MonoBehaviour
                 break;
             }
         }
-        var targetPosition = new Vector3(165, 15, discardCardOnTop);
+        var targetPosition = new Vector3(165, 20, discardCardOnTop);
         _animationController.MoveToTarget(newInfectionCard, null, targetPosition, 0.5f);
         discardCardOnTop--;
     }
