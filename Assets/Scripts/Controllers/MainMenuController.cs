@@ -22,6 +22,7 @@ public class MainMenuController : MonoBehaviour
     public GameObject Console;
 
     public ServerInput ServerInput;
+    public OpcodeManager OpcodeManager;
 
     public bool IsConnectButtonClicked()
     {

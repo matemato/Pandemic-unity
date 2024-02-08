@@ -6,7 +6,6 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public Tile City;
-    public Click Click;
 
     private int _id;
     bool _lockId = false;

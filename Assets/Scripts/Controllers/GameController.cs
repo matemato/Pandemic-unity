@@ -12,6 +12,7 @@ public class GameController : MonoBehaviour
     public GameObject OtherPlayerPrefab;
 
     public ServerInput ServerInput;
+    public OpcodeManager OpcodeManager;
 
     void Start()
     {

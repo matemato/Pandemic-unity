@@ -17,7 +17,7 @@ public class Console : MonoBehaviour
 
     public TMP_InputField SendingText;
     public GameObject Container;
-    public GameObject Input;
+    public GameObject InputField;
 
     [SerializeField]
     private GameObject _controller;
@@ -60,6 +60,34 @@ public class Console : MonoBehaviour
                 }
             }
         }
+
+        if (UnityEngine.Input.GetKeyDown(KeyCode.Return))
+        {
+            SendChatMessage();
+        }
+        
+
+    }
+
+    private void SendChatMessage()
+    {
+        if (SendingText.text.Length > 0)
+        {
+            OpcodeManager opcodeManager;
+
+            if (_mainMenuController != null)
+            {
+                opcodeManager = _mainMenuController.OpcodeManager;
+            }
+            else
+            {
+                opcodeManager = _gameController.OpcodeManager;
+            }
+
+            OutClientMessage msg = new OutClientMessage(ClientMessageType.CMESSAGE_CHAT, GetSendingMessage());
+            opcodeManager.Send(msg);
+            ClearSendingMessage();
+        }
     }
 
     public void AddText(ServerMessageType serverMessageType, string newText, string color = "") 
@@ -85,8 +113,6 @@ public class Console : MonoBehaviour
 
         _allText.text += newText;
         Container.GetComponent<ScrollRect>().velocity = new Vector2(0f, 1000f);
-
-     
     }
 
     public string GetSendingMessage()
@@ -98,8 +124,8 @@ public class Console : MonoBehaviour
     {
         SendingText.Select();
         SendingText.text = "";
-        Input.GetComponent<TMP_InputField>().ActivateInputField();
-        Input.GetComponent<TMP_InputField>().Select();
+        InputField.GetComponent<TMP_InputField>().ActivateInputField();
+        InputField.GetComponent<TMP_InputField>().Select();
     }
 
 }

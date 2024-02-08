@@ -14,8 +14,6 @@ public class ClientController : MonoBehaviour
     private MsgManager _msgManager;
     private OpcodeManager _opcodeManager;
 
-    private ClickManager _clickManager;
-
     private ClientState _clientState = ClientState.CSTATE_UNCONNECTED;
     private int _awaitingSubstate = 0;
     private int _id;
@@ -31,8 +29,6 @@ public class ClientController : MonoBehaviour
 
     private float nextIdleTime = 0.0f;
 
-    private Console _console;
-
     private int _loaded = 0;    
     void Start()
     {
@@ -43,16 +39,15 @@ public class ClientController : MonoBehaviour
         SetCState(ClientState.CSTATE_UNCONNECTED);
         _mainMenuController.GetComponent<MainMenuController>();
         _mainMenuController.ServerInput = _serverInput;
-        _console = _mainMenuController.Console.GetComponent<Console>();
+        _mainMenuController.OpcodeManager = _opcodeManager;
     }
 
     void InitializeGameObjects() 
     {
-        _clickManager = GameObject.Find("ClickController").GetComponent<ClickManager>();
-        _console = GameObject.Find("Console").GetComponent<Console>();
         _playerInfoManager = GameObject.Find("PlayerInfoManager");
         _gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
         _gameController.ServerInput = _serverInput;
+        _gameController.OpcodeManager = _opcodeManager;
     }
     void Awake()
     {
@@ -70,7 +65,7 @@ public class ClientController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
         if (_clientState != ClientState.CSTATE_UNCONNECTED)
             _tcpClient.ReadInput();
@@ -132,19 +127,6 @@ public class ClientController : MonoBehaviour
 
         _opcodeManager.ReceiveAll();
 
-        if (Input.GetKeyDown(KeyCode.Return))
-        {
-            SendChatMessage();
-        }
-
-        if(_clickManager.MovePending())
-        {
-            ClickMove clickMove = (ClickMove)_clickManager.Handle();
-            OutMove move = new OutMove((byte)clickMove.CityDest);
-            _opcodeManager.Send(move);
-            _player.GetComponent<Player>().Click = null;
-        }
-
         if (Time.time > nextIdleTime)
         {
             nextIdleTime += idleSendPeriod;
@@ -181,32 +163,10 @@ public class ClientController : MonoBehaviour
         _player = GameObject.FindGameObjectWithTag("Player");
     }
 
-    private void SendChatMessage()
-    {
-        if(_console != null)
-        {
-            if (_console.SendingText.text.Length > 0)
-            {
-                OutClientMessage msg = new OutClientMessage(ClientMessageType.CMESSAGE_CHAT, _console.GetSendingMessage());
-                _opcodeManager.Send(msg);
-                _console.ClearSendingMessage();
-            }
-        }
-        else
-        {
-            Debug.Log("SendChatMessage(): console not initialized");
-        }
-    }
-
     private void UpdateLobby()
     {
         const float idleSendPeriod = 1.0f;
         _opcodeManager.ReceiveAll();
-
-        if (Input.GetKeyDown(KeyCode.Return))
-        {
-            SendChatMessage();
-        }
 
         if (Time.time > nextIdleTime)
         {

@@ -6,16 +6,7 @@ using UnityEngine;
 
 public class TileClickHandler : MonoBehaviour
 {
-    private ClickManager _clickManager;
-
-    void Start()
-    {
-        _clickManager = GameObject.Find("ClickController").GetComponent<ClickManager>();
-        if (_clickManager == null)
-        {
-            Debug.LogError("ClickManager is null");
-        }
-    }
+    public GameController GameController;
 
     private void OnMouseDown()
     {
@@ -25,7 +16,7 @@ public class TileClickHandler : MonoBehaviour
         if (neighbouringCity) 
         {
             var tileId = gameObject.GetComponent<Tile>().GetId();
-            _clickManager.Create(new ClickMove(tileId));
+            GameController.OpcodeManager.Send(new OutMove((byte)tileId));
         }
 
         
