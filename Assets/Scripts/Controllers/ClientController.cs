@@ -1,10 +1,6 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class ClientController : MonoBehaviour
 {
@@ -144,20 +140,23 @@ public class ClientController : MonoBehaviour
 
         for (int i = 0; i < _numPlayers; i++)
         {
+            playerInfoManager.InstantiatePlayerInfo();
+            playerInfoManager.SetPlayerName(i, _serverInput.BeginGameHolder.PlayerNames[i]);
+            playerInfoManager.SetPlayerRole(i, _serverInput.BeginGameHolder.PlayerRoles[i]);
+			
             if (i == _id)
             {
                 var player = Instantiate(_gameController.PlayerPrefab, new Vector3(0, 0, 0), Quaternion.identity);
                 player.GetComponent<Player>().SetId(i);
-            }
+				player.GetComponent<Player>().SetColor(playerInfoManager.GetPlayerColor(i));
+			}
             else
             {
                 var otherPlayer = Instantiate(_gameController.OtherPlayerPrefab, new Vector3(0, 0, 0), Quaternion.identity);
                 otherPlayer.GetComponent<OtherPlayer>().SetId(i);
-            }
-
-            playerInfoManager.InstantiatePlayerInfo();
-            playerInfoManager.SetPlayerName(i, _serverInput.BeginGameHolder.PlayerNames[i]);
-            playerInfoManager.SetPlayerRole(i, _serverInput.BeginGameHolder.PlayerRoles[i]);
+				otherPlayer.GetComponent<Player>().SetColor(playerInfoManager.GetPlayerColor(i));
+			}
+			
         }
 
         _player = GameObject.FindGameObjectWithTag("Player");

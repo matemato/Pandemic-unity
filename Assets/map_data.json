@@ -38,7 +38,7 @@
 {"_id":15,"_name":"Jakarta","_neighbourIds":[3,12,42,8],"_cityColor":3,"_playerCard":15,"_infectionCard":15}
 {"_id":12,"_name":"Ho Chi Minh City","_neighbourIds":[13,26,3,15],"_cityColor":3,"_playerCard":13,"_infectionCard":13}
 {"_id":3,"_name":"Bangkok","_neighbourIds":[13,12,15,20,8],"_cityColor":3,"_playerCard":3,"_infectionCard":3}
-{"_id":26,"_name":"Manila","_neighbourIds":[43,13,12,42,36],"_cityColor":3,"_playerCard":29,"_infectionCard":29}
+{"_id":26,"_name":"Manila","_neighbourIds":[43,13,12,42,36],"_cityColor":3,"_playerCard":26,"_infectionCard":26}
 {"_id":13,"_name":"Hong Kong","_neighbourIds":[40,43,26,12,3,20],"_cityColor":3,"_playerCard":12,"_infectionCard":12}
 {"_id":43,"_name":"Taipei","_neighbourIds":[33,40,13,26],"_cityColor":3,"_playerCard":43,"_infectionCard":43}
 {"_id":40,"_name":"Shanghai","_neighbourIds":[4,39,45,43],"_cityColor":3,"_playerCard":40,"_infectionCard":40}

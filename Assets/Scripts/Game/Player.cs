@@ -22,6 +22,11 @@ public class Player : MonoBehaviour
         _gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
     }
 
+	public void SetColor(Color color)
+	{
+		gameObject.GetComponent<SpriteRenderer>().color = color;
+	}
+
     public void SetId(int newId)
     {
         if (!_lockId)

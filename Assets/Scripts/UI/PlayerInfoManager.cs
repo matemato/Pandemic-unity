@@ -47,4 +47,9 @@ public class PlayerInfoManager : MonoBehaviour
         _playerInfos[id].GetComponent<PlayerInfo>().SetPlayerRole(RoleDict[playerRole]);
     }
 
+	public Color GetPlayerColor(int id)
+	{
+		return _playerInfos[id].GetComponent<PlayerInfo>().GetPlayerColor();
+	}
+
 }
