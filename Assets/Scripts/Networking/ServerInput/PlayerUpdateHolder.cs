@@ -15,8 +15,11 @@ public class PlayerUpdateHolder
 
     public void Set(int id, byte position)
     {
-        _positions[id] = position;
-        _changed[id] = true;
+		if(_positions[id] != position)
+		{
+			_positions[id] = position;
+			_changed[id] = true;
+		}
     }
 
     public int Get(int id)

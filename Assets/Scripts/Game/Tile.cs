@@ -36,6 +36,7 @@ public class Tile : MonoBehaviour
     public InfectionCard InfectionCard;
     public Tile[] Neighbours;
     public bool Highlight;
+	public int NumPlayers;
 
     [HideInInspector]
     public TileData TileData;
@@ -46,6 +47,8 @@ public class Tile : MonoBehaviour
     private int _id;
     [HideInInspector]
     public string Name;
+
+	private int[] PlayerSlots;
 
     private SpriteRenderer _spriteRenderer;
 
@@ -74,7 +77,39 @@ public class Tile : MonoBehaviour
         CityColor = CityColorDict[Color];
         Highlight = false;
         _spriteRenderer = GetComponent<SpriteRenderer>();
+		NumPlayers = 0;
+		PlayerSlots = new int[4];
+		for (int i = 0; i < PlayerSlots.Length; i++)
+			PlayerSlots[i] = -1;
     }
+
+	public int PutPlayer(int id)
+	{
+		int i;
+		for (i = 0; i < PlayerSlots.Length; i++)
+		{
+			if (PlayerSlots[i] == -1)
+			{
+				PlayerSlots[i] = id;
+				break;
+			}
+				
+		}
+		return i;
+	}
+
+	public void RemovePlayer(int id)
+	{
+		for (int i = 0; i < PlayerSlots.Length; i++)
+		{
+			if (PlayerSlots[i] == id)
+			{
+				PlayerSlots[i] = -1;
+				break;
+			}
+				
+		}
+	}
 
     // Update is called once per frame
     void Update()

@@ -148,13 +148,13 @@ public class ClientController : MonoBehaviour
             {
                 var player = Instantiate(_gameController.PlayerPrefab, new Vector3(0, 0, 0), Quaternion.identity);
                 player.GetComponent<Player>().SetId(i);
-				player.GetComponent<Player>().SetColor(playerInfoManager.GetPlayerColor(i));
+				player.GetComponent<Player>().SetColor(i);
 			}
             else
             {
                 var otherPlayer = Instantiate(_gameController.OtherPlayerPrefab, new Vector3(0, 0, 0), Quaternion.identity);
                 otherPlayer.GetComponent<OtherPlayer>().SetId(i);
-				otherPlayer.GetComponent<Player>().SetColor(playerInfoManager.GetPlayerColor(i));
+				otherPlayer.GetComponent<OtherPlayer>().SetColor(i);
 			}
 			
         }

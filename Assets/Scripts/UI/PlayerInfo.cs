@@ -36,53 +36,6 @@ public class PlayerInfo : MonoBehaviour
         _playerName.text = playerName;
     }
 
-	public UnityEngine.Color GetPlayerColor()
-	{
-		/*RoleDict[PlayerRole.ROLE_MEDIC] = "Medic";
-        RoleDict[PlayerRole.ROLE_EXPERT] = "Operations expert";
-        RoleDict[PlayerRole.ROLE_RESEARCHER] = "Researcher";
-        RoleDict[PlayerRole.ROLE_DISPATCHER] = "Dispatcher";
-        RoleDict[PlayerRole.ROLE_SCIENTIST] = "Scientist";
-        RoleDict[PlayerRole.ROLE_SPECIALIST] = "Quarantine specialist";
-        RoleDict[PlayerRole.ROLE_PLANNER] = "Contingency planner";*/
-
-		switch(_playerRole.text)
-		{
-			case "Medic":
-			{
-				return UnityEngine.Color.red;
-			}
-			case "Operations expert":
-			{
-				return UnityEngine.Color.blue;
-			}
-			case "Researcher":
-			{
-				return UnityEngine.Color.green;
-			}
-			case "Dispatcher":
-			{
-				return new UnityEngine.Color(255, 150, 0);
-			}
-			case "Scientist":
-			{
-				return UnityEngine.Color.yellow;
-			}
-			case "Quarantine specialist":
-			{
-				return UnityEngine.Color.magenta;
-			}
-			case "Contingency planner":
-			{
-				return new UnityEngine.Color(138,0,255);
-			}
-			default:
-			{
-				return UnityEngine.Color.black;
-			}
-		}
-	}
-
 	public void SetPlayerRole(string playerRole)
     {
         _playerRole.text = playerRole;

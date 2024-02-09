@@ -22,9 +22,36 @@ public class Player : MonoBehaviour
         _gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
     }
 
-	public void SetColor(Color color)
+	public void SetColor(int id)
 	{
-		gameObject.GetComponent<SpriteRenderer>().color = color;
+		switch(id)
+		{
+			case 3:
+			{
+				var sp = Resources.Load<Sprite>("Meeples/orange");
+				gameObject.GetComponent<SpriteRenderer>().sprite = sp;
+				break;
+			}
+			case 2:
+			{
+				var sp = Resources.Load<Sprite>("Meeples/green");
+				gameObject.GetComponent<SpriteRenderer>().sprite = sp;
+				break;
+			}
+			case 1:
+			{
+				var sp = Resources.Load<Sprite>("Meeples/violet");
+				gameObject.GetComponent<SpriteRenderer>().sprite = sp;
+				break;
+			}
+			case 0:
+			default:
+			{
+				var sp = Resources.Load<Sprite>("Meeples/yellow");
+				gameObject.GetComponent<SpriteRenderer>().sprite = sp;
+				break;
+			}
+		}
 	}
 
     public void SetId(int newId)
@@ -53,12 +80,17 @@ public class Player : MonoBehaviour
             int newPosition = _gameController.ServerInput.PlayerUpdateHolder.Get(GetId());
             if (newPosition != -1)
             {
+				int offset = 0;
+				if (City != null)
+					City.RemovePlayer(GetId());
+
                 foreach (GameObject city in _tiles)
                 {
                     city.GetComponent<Tile>().Highlight = false;
                     if (city.GetComponent<Tile>().GetId() == newPosition)
                     {
                         City = city.GetComponent<Tile>();
+						offset = City.PutPlayer(GetId());
                     }
                 }
 
@@ -68,8 +100,11 @@ public class Player : MonoBehaviour
                     {
                         city.Highlight = true;
                     }
-                    transform.position = City.transform.position;
-                }
+					//transform.position = City.transform.position;
+					//Debug.Log("offset: " + offset);
+					float xOffset = 0.4f - 0.2f * offset;
+					transform.position = new Vector3(City.transform.position.x-xOffset, City.transform.position.y-0.3f, City.transform.position.z);
+				}
             }
         }
         

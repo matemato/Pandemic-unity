@@ -33,33 +33,73 @@ public class OtherPlayer : MonoBehaviour
         }
     }
 
-    public int GetId()
+	public void SetColor(int id)
+	{
+		switch (id)
+		{
+			case 3:
+			{
+				var sp = Resources.Load<Sprite>("Meeples/orange");
+				gameObject.GetComponent<SpriteRenderer>().sprite = sp;
+				break;
+			}
+			case 2:
+			{
+				var sp = Resources.Load<Sprite>("Meeples/green");
+				gameObject.GetComponent<SpriteRenderer>().sprite = sp;
+				break;
+			}
+			case 1:
+			{
+				var sp = Resources.Load<Sprite>("Meeples/violet");
+				gameObject.GetComponent<SpriteRenderer>().sprite = sp;
+				break;
+			}
+			case 0:
+			default:
+			{
+				var sp = Resources.Load<Sprite>("Meeples/yellow");
+				gameObject.GetComponent<SpriteRenderer>().sprite = sp;
+				break;
+			}
+		}
+	}
+
+	public int GetId()
     {
         return _id;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (_gameController.ServerInput != null)
-        {
-            int newPosition = _gameController.ServerInput.PlayerUpdateHolder.Get(GetId());
-            if (newPosition != -1)
-            {
-                foreach (GameObject city in _tiles)
-                {
-                    if (city.GetComponent<Tile>().GetId() == newPosition)
-                    {
-                        City = city.GetComponent<Tile>();
-                    }
-                }
+	// Update is called once per frame
+	void Update()
+	{
+		if (_gameController.ServerInput != null)
+		{
+			int newPosition = _gameController.ServerInput.PlayerUpdateHolder.Get(GetId());
+			if (newPosition != -1)
+			{
+				int offset = 0;
+				if (City != null)
+					City.RemovePlayer(GetId());
 
-                if (City != null)
-                {
-                  
-                    transform.position = City.transform.position;
-                }
-            }
-        }
-    }
+				foreach (GameObject city in _tiles)
+				{
+					if (city.GetComponent<Tile>().GetId() == newPosition)
+					{
+						City = city.GetComponent<Tile>();
+						offset = City.PutPlayer(GetId());
+					}
+				}
+
+				if (City != null)
+				{
+					//transform.position = City.transform.position;
+					//Debug.Log("offset: " + offset);
+					float xOffset = 0.4f - 0.2f * offset;
+					transform.position = new Vector3(City.transform.position.x - xOffset, City.transform.position.y - 0.3f, City.transform.position.z);
+				}
+			}
+		}
+
+	}
 }
