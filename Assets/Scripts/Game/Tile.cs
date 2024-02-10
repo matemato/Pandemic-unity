@@ -36,7 +36,6 @@ public class Tile : MonoBehaviour
     public InfectionCard InfectionCard;
     public Tile[] Neighbours;
     public bool Highlight;
-	public int NumPlayers;
 
     [HideInInspector]
     public TileData TileData;
@@ -77,7 +76,6 @@ public class Tile : MonoBehaviour
         CityColor = CityColorDict[Color];
         Highlight = false;
         _spriteRenderer = GetComponent<SpriteRenderer>();
-		NumPlayers = 0;
 		PlayerSlots = new int[4];
 		for (int i = 0; i < PlayerSlots.Length; i++)
 			PlayerSlots[i] = -1;
@@ -117,7 +115,7 @@ public class Tile : MonoBehaviour
         Color currentColor = _spriteRenderer.color;
         if (Highlight)
         {
-            currentColor.a = 1f;
+            currentColor.a = 0.5f;
         }
         else
         {

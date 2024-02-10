@@ -21,4 +21,16 @@ public class InfectionHolder
 
         return _infectionQueue.Dequeue();
     }
+
+	public bool IsQueueEmpty()
+	{
+		if (_infectionQueue.Count == 0)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
 }

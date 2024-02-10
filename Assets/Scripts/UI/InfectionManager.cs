@@ -76,8 +76,15 @@ public class InfectionManager : MonoBehaviour
                             _console.AddText(ServerMessageType.SMESSAGE_INFO, "Infected <color=" + virusColor + ">" + EnumToString(infectionCard) + "</color> for city: " + infection.Item2);
                         }
                     }
-                }
-                nextInfection = Time.time + infectionTime;
+
+					if (_gameController.ServerInput.InfectionHolder.IsQueueEmpty())
+					{
+						//we have processed all of the stuff, send ready packet to server
+						_gameController.OpcodeManager.Send(new OutReady());
+					}
+
+					nextInfection = Time.time + infectionTime;
+				}
             }
         }
 

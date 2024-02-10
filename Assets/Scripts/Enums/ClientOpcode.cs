@@ -7,4 +7,5 @@ public enum ClientOpcode
     IDLE,
     MOVE,
     CLIENT_MESSAGE,
+	READY,
 }
