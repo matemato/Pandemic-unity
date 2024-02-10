@@ -28,7 +28,8 @@ public class OpcodeManager
             ServerOpcode.BEGIN_GAME => new InBeginGame(),
             ServerOpcode.UPDATE_PLAYER_CARD => new InUpdatePlayerCard(),
             ServerOpcode.TRIGGER_INFECTION => new InTriggerInfection(),
-            _ => new InError(),
+			ServerOpcode.UPDATE_TURN => new InUpdateTurn(),
+			_ => new InError(),
         };
     }
 
