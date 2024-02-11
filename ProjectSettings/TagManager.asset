@@ -11,6 +11,7 @@ TagManager:
   - DebugLayer
   - DiscardedPlayerCard
   - VirusCube
+  - Console
   layers:
   - Default
   - TransparentFX

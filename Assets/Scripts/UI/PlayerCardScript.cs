@@ -7,6 +7,9 @@ public class PlayerCardScript : MonoBehaviour
     private PlayerCard _playerCard;
     private CityColor _cityColor;
 
+	public GameController GameController;
+	public PlayerHandManager PlayerHandManager;
+
     public void SetCityColor(CityColor cityColor)
     {
         _cityColor = cityColor;
@@ -25,4 +28,17 @@ public class PlayerCardScript : MonoBehaviour
     { 
         return _playerCard;
     }
+
+	void OnMouseDown()
+	{
+		Debug.Log("ABC");
+		if(GameController != null && PlayerHandManager != null)
+		{
+			Debug.Log("DEF");
+			if (PlayerHandManager.TotalCardCount > 7)
+			{
+				GameController.OpcodeManager.Send(new OutDiscard((byte)GetPlayerCard()));
+			}
+		}
+	}
 }

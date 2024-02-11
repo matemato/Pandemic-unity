@@ -8,4 +8,5 @@ public enum ClientOpcode
     MOVE,
     CLIENT_MESSAGE,
 	READY,
+	DISCARD,
 }

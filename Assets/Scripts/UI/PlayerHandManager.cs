@@ -27,6 +27,7 @@ public class PlayerHandManager : MonoBehaviour
     private GameController _gameController;
     private AnimationController _animationController;
     private int discardCardOnTop = 0;
+	public int TotalCardCount = 0;
 
     private Dictionary<CityColor, int> _playerHandCount = new Dictionary<CityColor, int>
         {
@@ -66,6 +67,7 @@ public class PlayerHandManager : MonoBehaviour
             }
         }
 
+		/*
         if (UnityEngine.Input.GetKeyDown(KeyCode.B))
         {
             AddPlayerCard(GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().GetId(), PlayerCard.CCARD_ATLANTA);
@@ -80,6 +82,9 @@ public class PlayerHandManager : MonoBehaviour
             var playerHand = GameObject.FindGameObjectsWithTag("PlayerCard");
             RemovePlayerCard(GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().GetId(), playerHand[0].GetComponent<PlayerCardScript>().GetPlayerCard());
         }
+		*/
+
+
     }
 
     public string EnumToString(PlayerCard playerCard)
@@ -118,8 +123,11 @@ public class PlayerHandManager : MonoBehaviour
             newCard = newCard.transform.GetChild(0).gameObject;     
             newCard.GetComponent<PlayerCardScript>().SetPlayerCard(playerCard);
             newCard.GetComponent<PlayerCardScript>().SetCityColor(playerCardColor);
-            _playerHandCount[playerCardColor]++;
-            foreach (Sprite cardPic in _cardPics)
+			newCard.GetComponent<PlayerCardScript>().GameController = _gameControllerObject.GetComponent<GameController>();
+			newCard.GetComponent<PlayerCardScript>().PlayerHandManager = this;
+			_playerHandCount[playerCardColor]++;
+			TotalCardCount++;
+			foreach (Sprite cardPic in _cardPics)
             {
                 if (cardPic.name == playerCardName)
                 {
@@ -128,6 +136,11 @@ public class PlayerHandManager : MonoBehaviour
                 }
             }
             ReorderPlayerHand();
+			if(TotalCardCount > 7)
+			{
+				var console = GameObject.FindGameObjectWithTag("Console").GetComponent<Console>();
+				console.AddText(ServerMessageType.SMESSAGE_INFO, "You have over 7 cards. Discard a card to proceed.");
+			}
         }
         _playerInfoManager.GetComponent<PlayerInfoManager>()._playerInfos[id].GetComponent<PlayerInfo>().AddPlayerText(playerCardColor, playerCardName);
     }
@@ -148,6 +161,7 @@ public class PlayerHandManager : MonoBehaviour
                     cityColor = card.GetComponent<PlayerCardScript>().GetCityColor();
                     cityName = EnumToString(playerCard);
                     _playerHandCount[cityColor]--;
+					TotalCardCount--;
                     card.tag = "DiscardedPlayerCard";
                     var targetPosition = new Vector3(-740, 520, discardCardOnTop);
                     _animationController.MoveToTarget(card.transform.parent.gameObject, null, targetPosition, 0.5f);
@@ -174,22 +188,22 @@ public class PlayerHandManager : MonoBehaviour
             switch (color) 
             {
                 case CityColor.CITY_COLOR_BLUE:
-                    targetPosition = new Vector3(-670 + (colorCount[0] * 160), 0, -1);       
+                    targetPosition = new Vector3(-770 + (colorCount[0] * 160), 0, -1);       
                     colorCount[0]++;
                     break;
 
                 case CityColor.CITY_COLOR_YELLOW:
-                    targetPosition = new Vector3(-670 + ((colorCount[1] + _playerHandCount[CityColor.CITY_COLOR_BLUE]) * 160), 0, -1);
+                    targetPosition = new Vector3(-770 + ((colorCount[1] + _playerHandCount[CityColor.CITY_COLOR_BLUE]) * 160), 0, -1);
                     colorCount[1]++;
                     break;
 
                 case CityColor.CITY_COLOR_BLACK:
-                    targetPosition = new Vector3(-670 + ((colorCount[2] + _playerHandCount[CityColor.CITY_COLOR_BLUE] + _playerHandCount[CityColor.CITY_COLOR_YELLOW]) * 160), 0, -1);
+                    targetPosition = new Vector3(-770 + ((colorCount[2] + _playerHandCount[CityColor.CITY_COLOR_BLUE] + _playerHandCount[CityColor.CITY_COLOR_YELLOW]) * 160), 0, -1);
                     colorCount[2]++;
                     break;
 
                 case CityColor.CITY_COLOR_RED:
-                    targetPosition = new Vector3(-670 + ((colorCount[3] + _playerHandCount[CityColor.CITY_COLOR_BLUE] + _playerHandCount[CityColor.CITY_COLOR_YELLOW] + _playerHandCount[CityColor.CITY_COLOR_BLACK]) * 160), 0, -1);
+                    targetPosition = new Vector3(-770 + ((colorCount[3] + _playerHandCount[CityColor.CITY_COLOR_BLUE] + _playerHandCount[CityColor.CITY_COLOR_YELLOW] + _playerHandCount[CityColor.CITY_COLOR_BLACK]) * 160), 0, -1);
                     colorCount[3]++;
                     break;
 

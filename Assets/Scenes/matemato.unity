@@ -2504,6 +2504,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Console
       objectReference: {fileID: 0}
+    - target: {fileID: 5480750427862981018, guid: 265d574a3930d6848b4870ed87dbd22e, type: 3}
+      propertyPath: m_TagString
+      value: Console
+      objectReference: {fileID: 0}
     - target: {fileID: 8220647312252842717, guid: 265d574a3930d6848b4870ed87dbd22e, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
