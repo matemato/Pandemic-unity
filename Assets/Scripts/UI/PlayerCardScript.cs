@@ -31,10 +31,8 @@ public class PlayerCardScript : MonoBehaviour
 
 	void OnMouseDown()
 	{
-		Debug.Log("ABC");
 		if(GameController != null && PlayerHandManager != null)
 		{
-			Debug.Log("DEF");
 			if (PlayerHandManager.TotalCardCount > 7)
 			{
 				GameController.OpcodeManager.Send(new OutDiscard((byte)GetPlayerCard()));
