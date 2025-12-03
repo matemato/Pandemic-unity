@@ -41,7 +41,7 @@ public class MainMenuController : MonoBehaviour
         }
         else
         {
-            return "93.103.52.248";
+            return "77.111.57.96";
         }
     }
 
@@ -81,7 +81,8 @@ public class MainMenuController : MonoBehaviour
 
     public int GetLobbyChoice()
     {
-        return _joinLobbyButton.GetComponent<JoinLobbyClicked>().GetLobbyChoice();
+        int choice = _joinLobbyButton.GetComponent<JoinLobbyClicked>().GetLobbyChoice();
+		return choice;
     }
 
     public void ShowLobbyJoin(bool v)

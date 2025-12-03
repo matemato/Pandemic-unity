@@ -30,6 +30,7 @@ public class OpcodeManager
             ServerOpcode.TRIGGER_INFECTION => new InTriggerInfection(),
 			ServerOpcode.UPDATE_TURN => new InUpdateTurn(),
 			ServerOpcode.TRIGGER_EPIDEMIC => new InTriggerEpidemic(),
+			ServerOpcode.JOIN_LOBBY => new InJoinLobby(),
 			_ => new InError(),
         };
     }

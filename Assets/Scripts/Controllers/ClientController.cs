@@ -11,7 +11,6 @@ public class ClientController : MonoBehaviour
     private OpcodeManager _opcodeManager;
 
     private ClientState _clientState = ClientState.CSTATE_UNCONNECTED;
-    private int _awaitingSubstate = 0;
     private int _id;
     private int _numPlayers;
 
@@ -203,68 +202,49 @@ public class ClientController : MonoBehaviour
 
     private void UpdateAwaiting()
     {
-        if (_awaitingSubstate == 0)
-        {
-            Debug.Log("waiting for 11");
-            if (_msgManager.PendingInput())
-            {
-                if (_msgManager.ReadByte() == 11)
-                {
-                    Debug.Log("got 11 - setting substate to 1");
-                    _awaitingSubstate = 1;
-                }
-            }
-        }
-        else if (_awaitingSubstate == 1)
-        {
-            var lobbyChoice = _mainMenuController.GetLobbyChoice();
-            
-            if (lobbyChoice != -1)
-            {
-                var name = _mainMenuController.GetName();
-                _msgManager.WriteByte(12); //join lobby
-                _msgManager.WriteByte((byte)lobbyChoice); //lobby id
-                _msgManager.WriteByte((byte)name.Length);
-                _msgManager.WriteString(name);
-                _awaitingSubstate = 2;
-                _mainMenuController.ClearLobbyChoice();
-            }
-        }
-        else if (_awaitingSubstate == 2)
-        {
-            if (_msgManager.PendingInput())
-            {
-                var ret = _msgManager.ReadByte();
+		const float idleSendPeriod = 1.0f;
+		_opcodeManager.ReceiveAll();
 
-                switch(ret)
-                {
-                    case 0: //joined lobby
-                    {
-                        _clientState = ClientState.CSTATE_LOBBY;
-                        _mainMenuController.Console.SetActive(true);
-                        _mainMenuController.SetLobbyText("Lobby joined.");
-                        _mainMenuController.ShowLobbyJoin(false);
-                        break;
-                    }
-                    case 1: //game is full
-                    {
-                        _awaitingSubstate = 1;
-                        _mainMenuController.SetLobbyText("Game is already full.");
-                        break;
-                    }
-                    case 2: //game does not exist
-                    {
-                        _awaitingSubstate = 1;
-                        _mainMenuController.SetLobbyText("Game does not exist.");
-                        break;
-                    }
-                    default:
-                    {
-                        Debug.LogError("Invalid byte received from server during handshake");
-                        break;
-                    }
-                }
-            }
-        }
-    }
+		if (Time.time > nextIdleTime)
+		{
+			nextIdleTime += idleSendPeriod;
+			OutIdle idle = new OutIdle();
+			_opcodeManager.Send(idle);
+		}
+
+		var lobbyChoice = _mainMenuController.GetLobbyChoice();
+		if (lobbyChoice != -1)
+		{
+			OutJoinLobby joinLobby = new OutJoinLobby(lobbyChoice, _mainMenuController.GetName());
+			_opcodeManager.Send(joinLobby);
+			_mainMenuController.ClearLobbyChoice();
+		}
+
+		var rsp = _serverInput.JoinLobbyHolder.GetResponse();
+		if (rsp != JoinLobbyResponse.LOBBY_PENDING)
+		{
+			switch (rsp)
+			{
+				case JoinLobbyResponse.LOBBY_OK:
+				{
+					_clientState = ClientState.CSTATE_LOBBY;
+					_mainMenuController.Console.SetActive(true);
+					_mainMenuController.SetLobbyText("Lobby joined.");
+					_mainMenuController.ShowLobbyJoin(false);
+					break;
+				}
+				case JoinLobbyResponse.LOBBY_FULL:
+				{
+					_mainMenuController.SetLobbyText("Game is already full.");
+					break;
+				}
+				case JoinLobbyResponse.LOBBY_NOEXIST:
+				{
+					_mainMenuController.SetLobbyText("Game does not exist.");
+					break;
+				}
+			}
+
+		}
+	}
 }

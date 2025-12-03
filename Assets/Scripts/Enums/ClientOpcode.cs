@@ -9,4 +9,5 @@ public enum ClientOpcode
     CLIENT_MESSAGE,
 	READY,
 	DISCARD,
+	JOIN_LOBBY
 }

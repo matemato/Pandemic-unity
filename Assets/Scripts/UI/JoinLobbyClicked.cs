@@ -48,7 +48,8 @@ public class JoinLobbyClicked : MonoBehaviour
 
     public int GetLobbyChoice() 
     {
-        return _lobbyChoice;
+		int choice = _lobbyChoice;
+		return choice;
     }
 
     public void ClearLobbyChoice()
