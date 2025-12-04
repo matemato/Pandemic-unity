@@ -10,9 +10,8 @@ public class OutDiscard : OpcodeOut
 		_cardId = cardId;
 	}
 
-	public override void Send(MsgManager msgManager)
+	public override void WriteBody(MsgManager msgManager)
 	{
-		base.Send(msgManager);
 		msgManager.WriteByte(_cardId);
 	}
 }

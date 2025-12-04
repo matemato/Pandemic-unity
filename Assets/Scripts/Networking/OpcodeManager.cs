@@ -39,11 +39,28 @@ public class OpcodeManager
     {
         while (_msgManager.PendingInput())
         {
+			var startSize = _msgManager.GetInputSize();
+			var peekSize = _msgManager.PeekPacketSize();
+
+			if(peekSize > startSize)
+			{
+				Debug.LogWarningFormat("Did not get a full packet, waiting for full packet...");
+				break;
+			}
+
             var opcodeId = _msgManager.ReadOpcode();
+			var packetSize = _msgManager.ReadShort();
             var opcode = GetOpcode(opcodeId);
             opcode.Receive(_msgManager, _serverInput);
+			var totalSize = startSize - _msgManager.GetInputSize();
             Debug.LogFormat("server: opcode {0}", opcodeId);
-            if (_serverInput.InvalidOpcode)
+
+			if(totalSize != packetSize || packetSize != peekSize)
+			{
+				Debug.LogErrorFormat("opcode {0} has unexpected size {1} {2} {3}", opcodeId, totalSize, packetSize, peekSize);
+			}
+
+			if (_serverInput.InvalidOpcode)
             {
                 Debug.LogErrorFormat("opcode {0} was invalid/unimplemented", opcodeId);
             }

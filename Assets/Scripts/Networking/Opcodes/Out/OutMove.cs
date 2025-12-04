@@ -10,9 +10,8 @@ public class OutMove : OpcodeOut
         _targetCity = target_city;
     }
 
-    public override void Send(MsgManager msgManager)
+    public override void WriteBody(MsgManager msgManager)
     {
-        base.Send(msgManager);
         msgManager.WriteByte(_targetCity);
     }
 }

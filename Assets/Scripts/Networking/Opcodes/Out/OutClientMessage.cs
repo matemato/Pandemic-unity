@@ -13,9 +13,8 @@ public class OutClientMessage : OpcodeOut
         _chatMessage = chat_message;
     }
 
-    public override void Send(MsgManager msgManager)
+    public override void WriteBody(MsgManager msgManager)
     {
-        base.Send(msgManager);
         msgManager.WriteByte((byte)_messageType);
         msgManager.WriteShort((ushort) _chatMessage.Length);
         msgManager.WriteString(_chatMessage);

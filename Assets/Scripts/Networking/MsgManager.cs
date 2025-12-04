@@ -1,16 +1,37 @@
+using Nito.Collections;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class MsgManager
 {
-    // Start is called before the first frame update
     private TCPClient _tcpClient;
+	private Deque<byte> _tempOutput;
 
     public MsgManager(TCPClient tcpClient)
     {
         _tcpClient = tcpClient;
+		_tempOutput = new Deque<byte>();
     }
+
+	public void MergeOutput()
+	{
+		while (_tempOutput.Count > 0)
+		{
+			_tcpClient.output.Enqueue(_tempOutput.RemoveFromFront());
+		}
+	}
+
+	public void ClearOutput()
+	{
+		_tempOutput.Clear();
+	}
+
+	public int GetInputSize()
+	{
+		return _tcpClient.input.Count;
+	}
 
     public byte ReadByte()
     {
@@ -78,13 +99,20 @@ public class MsgManager
 
     public void WriteByte(byte value)
     {
-        _tcpClient.output.Enqueue(value);
+		_tempOutput.AddToBack(value);
     }
 
     public void WriteOpcode(byte op)
     {
-        WriteByte((byte)((op) & 0xFF));
-    }
+		_tempOutput.AddToFront(op);
+	}
+
+	public void WriteSize(int headerSize)
+	{
+		int num = _tempOutput.Count + headerSize;
+		_tempOutput.AddToFront((byte)(num & 0xFF));
+		_tempOutput.AddToFront((byte)((num >> 8) & 0xFF));
+	}
 
     public void WriteNull(int len)
     {
@@ -127,8 +155,16 @@ public class MsgManager
         }
     }
 
+	public ushort PeekPacketSize()
+	{
+		ushort a = (ushort)_tcpClient.input.ElementAt(1);
+		ushort b = (ushort)_tcpClient.input.ElementAt(2);
+
+		return (ushort)((a << 8) + b);
+	}
+
     public bool PendingInput()
     {
-        return _tcpClient.input.Count != 0;
+        return _tcpClient.input.Count >= OpcodeOut.HEADER_SIZE;
     }
 }

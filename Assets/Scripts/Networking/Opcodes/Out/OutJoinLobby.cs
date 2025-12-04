@@ -13,9 +13,8 @@ public class OutJoinLobby : OpcodeOut
 		_name = name;
 	}
 
-	public override void Send(MsgManager msgManager)
+	public override void WriteBody(MsgManager msgManager)
 	{
-		base.Send(msgManager);
 		msgManager.WriteInt((byte)_lobbyId);
 		msgManager.WriteShort((ushort)_name.Length);
 		msgManager.WriteString(_name);
