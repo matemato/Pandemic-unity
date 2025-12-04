@@ -58,22 +58,35 @@ public class InfectionManager : MonoBehaviour
                 {
                     var infectionCard = request.Item1;
                     var infectionInfo = request.Item2;
+					CityColor cardColor = CityColor.CITY_COLOR_BLACK;
                     drawCard(infectionCard);
 
-                    while (infectionInfo.Count > 0)
+					var cityTiles = GameObject.FindGameObjectsWithTag("Tile");
+					foreach (var tile in cityTiles)
+					{
+						Tile tileScript = tile.GetComponent<Tile>();
+						if (tileScript.InfectionCard == infectionCard)
+						{
+							cardColor = tileScript.CityColor;
+							break;
+						}
+					}
+
+					while (infectionInfo.Count > 0)
                     {
                         var infection = infectionInfo.Dequeue();
                         if (infection.Item1 == InfectionType.EXPLOSION)
                         {
-                            // play animation
-                            _console.AddText(ServerMessageType.SMESSAGE_INFO, "Explosion");
-                        }
-                        //< color = green > green </ color >
+							// play animation
+							var extraColor = VirusTypeToColor(infection.Item1);
+
+							_console.AddText(ServerMessageType.SMESSAGE_INFO, "Card <color=" + CityColorToColor(cardColor) + ">" + EnumToString(infectionCard) + " (" + (int)infectionCard + ")</color> caused <color=" + extraColor + ">Explosion</color> at: " + FindCityNameById(infection.Item2) + " (" + infection.Item2 + ")");
+						}
                         else
                         {
-                            var virusColor = VirusTypeToColor(infection.Item1);
-                            Infect(infection.Item2, infection.Item1, 1);
-                            _console.AddText(ServerMessageType.SMESSAGE_INFO, "Infected <color=" + virusColor + ">" + EnumToString(infectionCard) + "</color> for city: " + infection.Item2);
+							//var extraColor = VirusTypeToColor(infection.Item1);
+							Infect(infection.Item2, infection.Item1, 1);
+                            _console.AddText(ServerMessageType.SMESSAGE_INFO, "Card <color=" + CityColorToColor(cardColor) + ">" + EnumToString(infectionCard) + " (" + (int)infectionCard + ")</color> caused Infection at: " + FindCityNameById(infection.Item2) + " (" + infection.Item2 + ")");
                         }
                     }
 
@@ -147,6 +160,20 @@ public class InfectionManager : MonoBehaviour
         }
     }
 
+	public string FindCityNameById(int id)
+	{
+		var cityTiles = GameObject.FindGameObjectsWithTag("Tile");
+		foreach (var tile in cityTiles)
+		{
+			Tile tileScript = tile.GetComponent<Tile>();
+			if (tileScript.GetId() == id)
+			{
+				return tileScript.Name;
+			}
+		}
+		return "";
+	}
+
     public void drawCard(InfectionCard infectionCard)
     {
         string infectionCardName = EnumToString(infectionCard);
@@ -192,8 +219,27 @@ public class InfectionManager : MonoBehaviour
                 return "#7F7F7F";
             case InfectionType.VIRUS_YELLOW:
                 return "yellow";
-            default:
+			case InfectionType.EXPLOSION:
+				return "orange";
+			default:
                 return "";
         }
     }
+
+	public string CityColorToColor(CityColor cityColor)
+	{
+		switch (cityColor)
+		{
+			case CityColor.CITY_COLOR_BLUE:
+				return "blue";
+			case CityColor.CITY_COLOR_RED:
+				return "red";
+			case CityColor.CITY_COLOR_BLACK:
+				return "#7F7F7F";
+			case CityColor.CITY_COLOR_YELLOW:
+				return "yellow";
+			default:
+				return "";
+		}
+	}
 }
