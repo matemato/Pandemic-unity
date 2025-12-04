@@ -41,6 +41,7 @@ public class MainMenuController : MonoBehaviour
         }
         else
         {
+            //return "89.212.37.73";
             return "77.111.57.96";
         }
     }
