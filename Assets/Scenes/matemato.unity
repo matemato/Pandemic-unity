@@ -1830,7 +1830,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1258636215479646104, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
       propertyPath: run
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1384838525850779729, guid: 58786ded0b3fb9d45bd2fb325c88dcc1, type: 3}
       propertyPath: PlayerCard

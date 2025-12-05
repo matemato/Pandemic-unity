@@ -123,7 +123,7 @@ public class PlayerHandManager : MonoBehaviour
              
         if (playerId == id)
         {
-            var newCard = Instantiate(_playerCardPrefab, new Vector3(-770 + (160 * TotalCardCount), 0, -1), Quaternion.identity);
+            var newCard = Instantiate(_playerCardPrefab, new Vector3(-740, 250, -1), Quaternion.identity);
             newCard.transform.SetParent(gameObject.transform, false);
             newCard = newCard.transform.GetChild(0).gameObject;     
             newCard.GetComponent<PlayerCardScript>().SetPlayerCard(playerCard);
@@ -140,7 +140,7 @@ public class PlayerHandManager : MonoBehaviour
                     break;
                 }
             }
-            // ReorderPlayerHand();
+            ReorderPlayerHand();
 			if(TotalCardCount > 7)
 			{
 				var console = GameObject.FindGameObjectWithTag("Console").GetComponent<Console>();
