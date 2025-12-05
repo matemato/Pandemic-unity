@@ -50,7 +50,7 @@ public enum InfectionCard
     ICARD_TAIPEI,
     ICARD_TEHRAN,
     ICARD_TOKYO,
-    ICARD_TORONTO,
+    ICARD_MONTREAL,
     ICARD_WASHINGTON,
     NUM_PLAYER_CARDS
 };

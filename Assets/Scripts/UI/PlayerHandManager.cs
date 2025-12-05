@@ -76,13 +76,18 @@ public class PlayerHandManager : MonoBehaviour
         {
             AddPlayerCard(GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().GetId(), PlayerCard.CCARD_SAO_PAULO);
         }
+        if (UnityEngine.Input.GetKeyDown(KeyCode.T))
+        {
+            AddPlayerCard(GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().GetId(), PlayerCard.CCARD_BEIJING);
+        }
 
         if (UnityEngine.Input.GetKeyDown(KeyCode.R))
         {
             var playerHand = GameObject.FindGameObjectsWithTag("PlayerCard");
             RemovePlayerCard(GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().GetId(), playerHand[0].GetComponent<PlayerCardScript>().GetPlayerCard());
         }
-		*/
+        */
+		
 
 
     }
@@ -118,7 +123,7 @@ public class PlayerHandManager : MonoBehaviour
              
         if (playerId == id)
         {
-            var newCard = Instantiate(_playerCardPrefab, new Vector3(-740, 250, -1), Quaternion.identity);
+            var newCard = Instantiate(_playerCardPrefab, new Vector3(-770 + (160 * TotalCardCount), 0, -1), Quaternion.identity);
             newCard.transform.SetParent(gameObject.transform, false);
             newCard = newCard.transform.GetChild(0).gameObject;     
             newCard.GetComponent<PlayerCardScript>().SetPlayerCard(playerCard);
@@ -135,7 +140,7 @@ public class PlayerHandManager : MonoBehaviour
                     break;
                 }
             }
-            ReorderPlayerHand();
+            // ReorderPlayerHand();
 			if(TotalCardCount > 7)
 			{
 				var console = GameObject.FindGameObjectWithTag("Console").GetComponent<Console>();
@@ -152,12 +157,12 @@ public class PlayerHandManager : MonoBehaviour
         var cityColor = new CityColor();
         var cityName = "";
 
-        var cardPosition = 0;
         if (playerId == id) { 
             foreach (GameObject card in playerHand)
             {
                 if (card.GetComponent<PlayerCardScript>().GetPlayerCard() == playerCard)
                 {
+                    
                     cityColor = card.GetComponent<PlayerCardScript>().GetCityColor();
                     cityName = EnumToString(playerCard);
                     _playerHandCount[cityColor]--;
@@ -166,10 +171,10 @@ public class PlayerHandManager : MonoBehaviour
                     var targetPosition = new Vector3(-740, 520, discardCardOnTop);
                     _animationController.MoveToTarget(card.transform.parent.gameObject, null, targetPosition, 0.5f);
                     discardCardOnTop--;
-                    //DestroyImmediate(card.transform.parent.gameObject);
+                    // remove box collider for inspecting discard pile
+                    card.GetComponent<BoxCollider2D>().enabled = false;
                     break;
                 }
-                cardPosition++;
             }
             ReorderPlayerHand();
         }
@@ -185,24 +190,30 @@ public class PlayerHandManager : MonoBehaviour
         {
             var color = card.GetComponent<PlayerCardScript>().GetCityColor();
             var targetPosition = new Vector3();
+            Debug.Log("Logging _playerHandCount: "  + _playerHandCount[CityColor.CITY_COLOR_BLUE] + " " + _playerHandCount[CityColor.CITY_COLOR_YELLOW] + " " + _playerHandCount[CityColor.CITY_COLOR_BLACK] + " " + _playerHandCount[CityColor.CITY_COLOR_RED]);
+            Debug.Log("colorCount: " + colorCount[0] + " " + colorCount[1] + " " + colorCount[2] + " " + colorCount[3]);
             switch (color) 
             {
                 case CityColor.CITY_COLOR_BLUE:
+                    Debug.Log("DRAWING BLUE: " + colorCount[0]);
                     targetPosition = new Vector3(-770 + (colorCount[0] * 160), 0, -1);       
                     colorCount[0]++;
                     break;
 
                 case CityColor.CITY_COLOR_YELLOW:
+                    Debug.Log("DRAWING YELLOW: " + colorCount[1] + " " + _playerHandCount[CityColor.CITY_COLOR_BLUE]);
                     targetPosition = new Vector3(-770 + ((colorCount[1] + _playerHandCount[CityColor.CITY_COLOR_BLUE]) * 160), 0, -1);
                     colorCount[1]++;
                     break;
 
                 case CityColor.CITY_COLOR_BLACK:
+                    Debug.Log("DRAWING BLACK: " + colorCount[2] + " " + _playerHandCount[CityColor.CITY_COLOR_BLUE] + " " + _playerHandCount[CityColor.CITY_COLOR_YELLOW]);
                     targetPosition = new Vector3(-770 + ((colorCount[2] + _playerHandCount[CityColor.CITY_COLOR_BLUE] + _playerHandCount[CityColor.CITY_COLOR_YELLOW]) * 160), 0, -1);
                     colorCount[2]++;
                     break;
 
                 case CityColor.CITY_COLOR_RED:
+                    Debug.Log("DRAWING RED: " + colorCount[3] + " " + _playerHandCount[CityColor.CITY_COLOR_BLUE] + " " + _playerHandCount[CityColor.CITY_COLOR_YELLOW] + " " + _playerHandCount[CityColor.CITY_COLOR_BLACK]);
                     targetPosition = new Vector3(-770 + ((colorCount[3] + _playerHandCount[CityColor.CITY_COLOR_BLUE] + _playerHandCount[CityColor.CITY_COLOR_YELLOW] + _playerHandCount[CityColor.CITY_COLOR_BLACK]) * 160), 0, -1);
                     colorCount[3]++;
                     break;
