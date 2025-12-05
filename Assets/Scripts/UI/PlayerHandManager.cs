@@ -102,24 +102,32 @@ public class PlayerHandManager : MonoBehaviour
         return CultureInfo.CurrentCulture.TextInfo.ToTitleCase(cardName.ToLower());
     }
 
+    public CityColor? GetCityColor(PlayerCard playerCard) 
+    {
+        var cityTiles = GameObject.FindGameObjectsWithTag("Tile");
+        foreach (var tile in cityTiles)
+        {
+            Tile tileScript = tile.GetComponent<Tile>();
+            if (tileScript.PlayerCard == playerCard)
+            {
+                return tileScript.CityColor;
+            }
+        }
+        return null;
+    }
+
 
 
     public void AddPlayerCard(int id, PlayerCard playerCard)
     {
         var playerId = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().GetId();
-        var cityTiles = GameObject.FindGameObjectsWithTag("Tile");
-        CityColor playerCardColor = new();
-        foreach (var tile in cityTiles)
+        CityColor? cityColor = GetCityColor(playerCard);
+        if (cityColor == null)
         {
-            Tile tileScript= tile.GetComponent<Tile>();
-            if (tileScript.PlayerCard == playerCard)
-            {
-                playerCardColor = tileScript.CityColor;
-                break;
-            }
+            Debug.Log("No cityColor found.");
+            return;
         }
-
-        string playerCardName = EnumToString(playerCard);
+        string cityName = EnumToString(playerCard);
              
         if (playerId == id)
         {
@@ -127,14 +135,14 @@ public class PlayerHandManager : MonoBehaviour
             newCard.transform.SetParent(gameObject.transform, false);
             newCard = newCard.transform.GetChild(0).gameObject;     
             newCard.GetComponent<PlayerCardScript>().SetPlayerCard(playerCard);
-            newCard.GetComponent<PlayerCardScript>().SetCityColor(playerCardColor);
+            newCard.GetComponent<PlayerCardScript>().SetCityColor((CityColor)cityColor);
 			newCard.GetComponent<PlayerCardScript>().GameController = _gameControllerObject.GetComponent<GameController>();
 			newCard.GetComponent<PlayerCardScript>().PlayerHandManager = this;
-			_playerHandCount[playerCardColor]++;
+			_playerHandCount[(CityColor)cityColor]++;
 			TotalCardCount++;
 			foreach (Sprite cardPic in _cardPics)
             {
-                if (cardPic.name == playerCardName)
+                if (cardPic.name == cityName)
                 {
                     newCard.GetComponent<SpriteRenderer>().sprite = cardPic;
                     break;
@@ -147,25 +155,27 @@ public class PlayerHandManager : MonoBehaviour
 				console.AddText(ServerMessageType.SMESSAGE_INFO, "You have over 7 cards. Discard a card to proceed.");
 			}
         }
-        _playerInfoManager.GetComponent<PlayerInfoManager>()._playerInfos[id].GetComponent<PlayerInfo>().AddPlayerText(playerCardColor, playerCardName);
+        _playerInfoManager.GetComponent<PlayerInfoManager>()._playerInfos[id].GetComponent<PlayerInfo>().AddPlayerText((CityColor)cityColor, cityName);
     }
 
     public void RemovePlayerCard(int id, PlayerCard playerCard)
     {
         var playerId = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().GetId();
         var playerHand = GameObject.FindGameObjectsWithTag("PlayerCard");
-        var cityColor = new CityColor();
-        var cityName = "";
+        CityColor? cityColor = GetCityColor(playerCard);
+        if (cityColor == null)
+        {
+            Debug.Log("No cityColor found.");
+            return;
+        }
+        string cityName = EnumToString(playerCard);
 
         if (playerId == id) { 
             foreach (GameObject card in playerHand)
             {
                 if (card.GetComponent<PlayerCardScript>().GetPlayerCard() == playerCard)
                 {
-                    
-                    cityColor = card.GetComponent<PlayerCardScript>().GetCityColor();
-                    cityName = EnumToString(playerCard);
-                    _playerHandCount[cityColor]--;
+                    _playerHandCount[(CityColor)cityColor]--;
 					TotalCardCount--;
                     card.tag = "DiscardedPlayerCard";
                     var targetPosition = new Vector3(-740, 520, discardCardOnTop);
@@ -178,7 +188,7 @@ public class PlayerHandManager : MonoBehaviour
             }
             ReorderPlayerHand();
         }
-        _playerInfoManager.GetComponent<PlayerInfoManager>()._playerInfos[id].GetComponent<PlayerInfo>().RemovePlayerText(cityColor, cityName);
+        _playerInfoManager.GetComponent<PlayerInfoManager>()._playerInfos[id].GetComponent<PlayerInfo>().RemovePlayerText((CityColor)cityColor, cityName);
     }
 
     public void ReorderPlayerHand()
