@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Globalization;
 using TMPro;
 using UnityEngine;
+using static BoardComponentPositions;
 
 public class InfectionManager : MonoBehaviour
 {
@@ -178,7 +179,7 @@ public class InfectionManager : MonoBehaviour
     {
         string infectionCardName = EnumToString(infectionCard);
 
-        var newInfectionCard = Instantiate(_infectionCardPrefab, new Vector3(-100, 20, discardCardOnTop), Quaternion.identity);
+        var newInfectionCard = Instantiate(_infectionCardPrefab, new Vector3(InfectionCardDeckPosition.x, InfectionCardDeckPosition.y, discardCardOnTop), Quaternion.identity);
         newInfectionCard.transform.SetParent(gameObject.transform, false);
         var newCard = newInfectionCard.transform.GetChild(0).gameObject;
         newCard.GetComponent<InfectionCardScript>().SetInfectionCard(infectionCard);
@@ -192,7 +193,7 @@ public class InfectionManager : MonoBehaviour
                 break;
             }
         }
-        var targetPosition = new Vector3(165, 20, discardCardOnTop);
+        var targetPosition = new Vector3(InfectionCardDiscardPilePosition.x, InfectionCardDiscardPilePosition.y, discardCardOnTop);
         _animationController.MoveToTarget(newInfectionCard, null, targetPosition, 0.5f);
         discardCardOnTop--;
     }

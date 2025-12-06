@@ -5,10 +5,12 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public Tile City;
+    public Tile CurrentCity;
 
     private int _id;
     bool _lockId = false;
+
+    private List<GameObject> _playerHand = new List<GameObject>();
 
     private GameObject[] _tiles;
 
@@ -72,6 +74,21 @@ public class Player : MonoBehaviour
         return _id;
     }
 
+    public void AddCardToHand(GameObject card)
+    {
+        _playerHand.Add(card);
+    }
+
+    public void RemoveCardFromHand(GameObject card)
+    {
+        _playerHand.Remove(card);
+    }
+
+    public List<GameObject> GetPlayerHand()
+    {
+        return _playerHand;
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -81,29 +98,29 @@ public class Player : MonoBehaviour
             if (newPosition != -1)
             {
 				int offset = 0;
-				if (City != null)
-					City.RemovePlayer(GetId());
+				if (CurrentCity != null)
+					CurrentCity.RemovePlayer(GetId());
 
                 foreach (GameObject city in _tiles)
                 {
                     city.GetComponent<Tile>().Highlight = false;
                     if (city.GetComponent<Tile>().GetId() == newPosition)
                     {
-                        City = city.GetComponent<Tile>();
-						offset = City.PutPlayer(GetId());
+                        CurrentCity = city.GetComponent<Tile>();
+						offset = CurrentCity.PutPlayer(GetId());
                     }
                 }
 
-                if (City != null)
+                if (CurrentCity != null)
                 {
-                    foreach (Tile city in City.Neighbours)
+                    foreach (Tile city in CurrentCity.Neighbours)
                     {
                         city.Highlight = true;
                     }
 					//transform.position = City.transform.position;
 					//Debug.Log("offset: " + offset);
 					float xOffset = 0.4f - 0.2f * offset;
-					transform.position = new Vector3(City.transform.position.x-xOffset, City.transform.position.y-0.3f, City.transform.position.z);
+					transform.position = CurrentCity.transform.position - new Vector3(xOffset, 0.3f, 0);
 				}
             }
         }

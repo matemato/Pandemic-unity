@@ -7,7 +7,7 @@ public class PlayerCardScript : MonoBehaviour
     private PlayerCard _playerCard;
     private CityColor _cityColor;
 
-	public GameController GameController;
+    public GameController GameController;
 	public PlayerHandManager PlayerHandManager;
 
     public void SetCityColor(CityColor cityColor)

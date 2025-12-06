@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class OtherPlayer : MonoBehaviour
 {
-    public Tile City;
+    public Tile CurrentCity;
     private int _id = 255;
     bool _lockId = false;
 
@@ -79,24 +79,24 @@ public class OtherPlayer : MonoBehaviour
 			if (newPosition != -1)
 			{
 				int offset = 0;
-				if (City != null)
-					City.RemovePlayer(GetId());
+				if (CurrentCity != null)
+					CurrentCity.RemovePlayer(GetId());
 
 				foreach (GameObject city in _tiles)
 				{
 					if (city.GetComponent<Tile>().GetId() == newPosition)
 					{
-						City = city.GetComponent<Tile>();
-						offset = City.PutPlayer(GetId());
+						CurrentCity = city.GetComponent<Tile>();
+						offset = CurrentCity.PutPlayer(GetId());
 					}
 				}
 
-				if (City != null)
+				if (CurrentCity != null)
 				{
 					//transform.position = City.transform.position;
 					//Debug.Log("offset: " + offset);
 					float xOffset = 0.4f - 0.2f * offset;
-					transform.position = new Vector3(City.transform.position.x - xOffset, City.transform.position.y - 0.3f, City.transform.position.z);
+					transform.position = new Vector3(CurrentCity.transform.position.x - xOffset, CurrentCity.transform.position.y - 0.3f, CurrentCity.transform.position.z);
 				}
 			}
 		}

@@ -17,6 +17,7 @@ public class PlayerInfo : MonoBehaviour
     private GameObject _cardTextPrefab;
 
     private List<TMP_Text> _cardTexts = new List<TMP_Text>();
+    private List<PlayerCard> _playerCards = new List<PlayerCard>();
 
     private Dictionary<CityColor, int> _playerHandCount = new Dictionary<CityColor, int>
         {
@@ -49,6 +50,16 @@ public class PlayerInfo : MonoBehaviour
                 playerRolePic.sprite = rolePic;
             }
         }
+    }
+
+    public void AddPlayerCard(PlayerCard playerCard)
+    {
+        _playerCards.Add(playerCard);
+    }
+
+    public void RemovePlayerCard(PlayerCard playerCard)
+    {
+        _playerCards.Remove(playerCard);
     }
 
     public void AddPlayerText(CityColor cityColor, string cardName)
