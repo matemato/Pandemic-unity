@@ -52,6 +52,6 @@ public enum InfectionCard
     ICARD_TOKYO,
     ICARD_MONTREAL,
     ICARD_WASHINGTON,
-    NUM_PLAYER_CARDS
+    NUM_INFECTION_CARDS
 };
 
