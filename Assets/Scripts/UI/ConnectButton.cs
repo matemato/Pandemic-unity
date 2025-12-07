@@ -12,7 +12,6 @@ public class ConnectButton : MonoBehaviour
     public GameObject JoinLobby;
     public GameObject Dropdown;
     public GameObject InputField;
-    public GameObject Toggle;
     void Start()
     {
         gameObject.GetComponent<Button>().onClick.AddListener(ConnectButtonClickedListener);
