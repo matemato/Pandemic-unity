@@ -4,10 +4,11 @@ using UnityEngine;
 
 public enum ClientOpcode
 {
-    IDLE,
-    MOVE,
-    CLIENT_MESSAGE,
+	IDLE,
+	MOVE,
+	CLIENT_MESSAGE,
 	READY,
 	DISCARD,
-	JOIN_LOBBY
+	JOIN_LOBBY,
+	TREAT_DISEASE
 }

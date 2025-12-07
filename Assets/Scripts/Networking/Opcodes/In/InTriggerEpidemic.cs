@@ -11,6 +11,7 @@ public class InTriggerEpidemic : OpcodeIn
 
 	public override void Receive(MsgManager msgManager, ServerInput serverInput)
 	{
+		var pid = msgManager.ReadByte(); // who caused the epidemic
 		serverInput.EpidemicHolder.Add();
 	}
 }
