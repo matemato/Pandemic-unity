@@ -29,12 +29,18 @@ public class PlayerHandManager : MonoBehaviour
     [SerializeField]
     private GameObject _playerDiscardPileObject;
 
+    [SerializeField]
+    private GameObject _infectionManagerObject;
+
+
     private GameController _gameController;
     private AnimationController _animationController;
     private PlayerCardDiscardPileController _playerDiscardPileController;
+    private InfectionManager _infectionManager;
     private int discardCardOnTop = 0;
 
     public int TotalCardCount = 0;
+    private Console _console;
 
     private Dictionary<CityColor, int> _playerHandCount = new Dictionary<CityColor, int>
         {
@@ -46,22 +52,25 @@ public class PlayerHandManager : MonoBehaviour
 
     void Start()
     {
+        _console = GameObject.FindGameObjectWithTag("Console").GetComponent<Console>();
         _gameController =_gameControllerObject.GetComponent<GameController>();
         _animationController =_animationControllerObject.GetComponent<AnimationController>();
         _playerDiscardPileController = _playerDiscardPileObject.GetComponent<PlayerCardDiscardPileController>();
+        _infectionManager = _infectionManagerObject.GetComponent<InfectionManager>();
     }
 
     void Update()
     {
         if (_gameController.ServerInput != null)
         {
-            var request = _gameController.ServerInput.PlayerCardUpdateHolder.GetNext();
+            // Process player card updates
+            var cardRequest = _gameController.ServerInput.PlayerCardUpdateHolder.GetNext();
 
-            if (request != null)
+            if (cardRequest != null)
             {
-                int id = (int)request.Item1;
-                bool remove = request.Item2;
-                PlayerCard playerCard = request.Item3;
+                int id = (int)cardRequest.Item1;
+                bool remove = cardRequest.Item2;
+                PlayerCard playerCard = cardRequest.Item3;
 
                 if (remove)
                 {
@@ -72,9 +81,21 @@ public class PlayerHandManager : MonoBehaviour
                     AddPlayerCard(id, playerCard);
                 }
             }
+
+            // Process epidemic draw requests
+            var epidemicRequest = _gameController.ServerInput.EpidemicHolder.PendingEpidemic();
+            if (epidemicRequest)
+            {
+                TriggerEpidemicDraw();
+            }
         }
 
-		/*
+        if (UnityEngine.Input.GetKeyDown(KeyCode.E))
+        {
+            TriggerEpidemicDraw();
+        }
+
+        /*
         if (UnityEngine.Input.GetKeyDown(KeyCode.B))
         {
             AddPlayerCard(GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().GetId(), PlayerCard.CCARD_ATLANTA);
@@ -94,7 +115,7 @@ public class PlayerHandManager : MonoBehaviour
             RemovePlayerCard(GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().GetId(), playerHand[0].GetComponent<PlayerCardScript>().GetPlayerCard());
         }
         */
-		
+
 
 
     }
@@ -123,14 +144,17 @@ public class PlayerHandManager : MonoBehaviour
         return null;
     }
 
-    public GameObject CreatePlayerCard(PlayerCard playerCard, Vector3 position, CityColor cityColor) 
+    public GameObject CreatePlayerCard(PlayerCard playerCard, Vector3 position, CityColor? cityColor) 
     {
         string cityName = EnumToString(playerCard);
         var newCard = Instantiate(_playerCardPrefab, position, Quaternion.identity);
         newCard.transform.SetParent(gameObject.transform, false);
         newCard = newCard.transform.GetChild(0).gameObject;
         newCard.GetComponent<PlayerCardScript>().SetPlayerCard(playerCard);
-        newCard.GetComponent<PlayerCardScript>().SetCityColor(cityColor);
+        if (cityColor != null)
+        {
+            newCard.GetComponent<PlayerCardScript>().SetCityColor((CityColor)cityColor);
+        }
         newCard.GetComponent<PlayerCardScript>().GameController = _gameControllerObject.GetComponent<GameController>();
         newCard.GetComponent<PlayerCardScript>().PlayerHandManager = this;
         foreach (Sprite cardPic in _cardPics)
@@ -142,6 +166,29 @@ public class PlayerHandManager : MonoBehaviour
             }
         }
         return newCard;
+    }
+
+    public void TriggerEpidemicDraw()
+    {
+        StartCoroutine(TriggerEpidemicDrawRoutine());
+        _infectionManager.TriggerEpidemicSequence();
+    }
+
+    public IEnumerator TriggerEpidemicDrawRoutine()
+    {
+        // create epidemic card and add to discard pile
+        var epidemicCard = CreatePlayerCard(PlayerCard.CCARD_EPIDEMIC, PlayerCardDeckPosition, null);
+        epidemicCard.tag = "DiscardedPlayerCard";
+        epidemicCard.GetComponent<BoxCollider2D>().enabled = false;
+        _playerDiscardPileController.AddToDiscardPile(PlayerCard.CCARD_EPIDEMIC);
+        discardCardOnTop--;
+        _console.AddText(ServerMessageType.SMESSAGE_INFO, "Epidemic card has been drawn!");
+
+        // animate epidemic card
+        _animationController.MoveToTarget(epidemicCard.transform.parent.gameObject, null, BoardCenterPosition - PlayerHandPosition, 1f, null, PlayerCardEnlargedScale);
+        yield return new WaitForSeconds(1.5f);
+        _animationController.MoveToTarget(epidemicCard.transform.parent.gameObject, null, new Vector3(PlayerCardDiscardPilePosition.x, PlayerCardDiscardPilePosition.y, discardCardOnTop), 0.5f, PlayerCardEnlargedScale, PlayerCardScale);
+
     }
 
 

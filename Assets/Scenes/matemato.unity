@@ -824,6 +824,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1835718410}
     - target: {fileID: 116624459240157390, guid: 83566486a0521894f9d66acc68e98d26, type: 3}
+      propertyPath: _infectionRateMarkerObject
+      value: 
+      objectReference: {fileID: 1335467673}
+    - target: {fileID: 116624459240157390, guid: 83566486a0521894f9d66acc68e98d26, type: 3}
       propertyPath: '_virusTextures.Array.data[0]'
       value: 
       objectReference: {fileID: 2800000, guid: cb12da65bded3244b88d665ebb93e756, type: 3}
@@ -870,6 +874,14 @@ PrefabInstance:
     - target: {fileID: 3115507914467449667, guid: 83566486a0521894f9d66acc68e98d26, type: 3}
       propertyPath: m_LocalPosition.z
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3945398799478564746, guid: 83566486a0521894f9d66acc68e98d26, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 3945398799478564746, guid: 83566486a0521894f9d66acc68e98d26, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -68.5
       objectReference: {fileID: 0}
     - target: {fileID: 4386898679505027019, guid: 83566486a0521894f9d66acc68e98d26, type: 3}
       propertyPath: m_LocalScale.z
@@ -972,7 +984,47 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2473291960007121303, guid: 83566486a0521894f9d66acc68e98d26, type: 3}
       insertIndex: -1
       addedObject: {fileID: 0}
+    - targetCorrespondingSourceObject: {fileID: 7864790135509575802, guid: 83566486a0521894f9d66acc68e98d26, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1335467675}
+    - targetCorrespondingSourceObject: {fileID: 7864790135509575802, guid: 83566486a0521894f9d66acc68e98d26, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1335467674}
   m_SourcePrefab: {fileID: 100100000, guid: 83566486a0521894f9d66acc68e98d26, type: 3}
+--- !u!1 &1335467673 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7864790135509575802, guid: 83566486a0521894f9d66acc68e98d26, type: 3}
+  m_PrefabInstance: {fileID: 1335467672}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1335467674
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1335467673}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46a4b1d3ba5553642a513177b5e4511b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InfectionRateController
+--- !u!114 &1335467675
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1335467673}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 507f58eab93aa4946be9dc24cfcc185b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InfectionRateManager
+--- !u!1 &1335467676 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 300050468309150391, guid: 83566486a0521894f9d66acc68e98d26, type: 3}
+  m_PrefabInstance: {fileID: 1335467672}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1404026395
 GameObject:
   m_ObjectHideFlags: 0
@@ -1137,6 +1189,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81aa9bbcc2f3cbd48a1634ea92bd5659, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerCardDiscardPileController
+  _discardedCards: 
 --- !u!1 &1440349740
 GameObject:
   m_ObjectHideFlags: 0
@@ -1614,9 +1667,21 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 494189103}
     - target: {fileID: 364170328343564076, guid: 6aca16c5484fe1241bc509816cf30d6c, type: 3}
+      propertyPath: _cardPics.Array.size
+      value: 49
+      objectReference: {fileID: 0}
+    - target: {fileID: 364170328343564076, guid: 6aca16c5484fe1241bc509816cf30d6c, type: 3}
       propertyPath: _gameControllerObject
       value: 
       objectReference: {fileID: 1525714547}
+    - target: {fileID: 364170328343564076, guid: 6aca16c5484fe1241bc509816cf30d6c, type: 3}
+      propertyPath: _infectionManagerObject
+      value: 
+      objectReference: {fileID: 1335467676}
+    - target: {fileID: 364170328343564076, guid: 6aca16c5484fe1241bc509816cf30d6c, type: 3}
+      propertyPath: '_cardPics.Array.data[48]'
+      value: 
+      objectReference: {fileID: 21300000, guid: 2d3f48f1d922fe14d85a12546f6bd333, type: 3}
     - target: {fileID: 364170328343564076, guid: 6aca16c5484fe1241bc509816cf30d6c, type: 3}
       propertyPath: _playerDiscardPileObject
       value: 
@@ -1625,6 +1690,10 @@ PrefabInstance:
       propertyPath: _animationControllerObject
       value: 
       objectReference: {fileID: 1835718410}
+    - target: {fileID: 364170328343564076, guid: 6aca16c5484fe1241bc509816cf30d6c, type: 3}
+      propertyPath: _infectionRateMarkerObject
+      value: 
+      objectReference: {fileID: 1335467673}
     - target: {fileID: 1489617365488683345, guid: 6aca16c5484fe1241bc509816cf30d6c, type: 3}
       propertyPath: m_Name
       value: PlayerHand

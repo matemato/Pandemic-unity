@@ -52,6 +52,7 @@ public enum PlayerCard
     CCARD_TOKYO,
     CCARD_MONTREAL,
     CCARD_WASHINGTON,
-    NUM_PLAYER_CARDS
+    NUM_PLAYER_CARDS,
+    CCARD_EPIDEMIC
 };
 

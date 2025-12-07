@@ -20,13 +20,17 @@ public class InfectionManager : MonoBehaviour
     [SerializeField]
     private GameObject _animationControllerObject;
     [SerializeField]
+    private GameObject _infectionRateMarkerObject;
+    [SerializeField]
     private GameObject _gameControllerObject;
     [SerializeField]
     private Texture[] _virusTextures; // black, blue, yellow, red
 
-    private Console _console;
     private AnimationController _animationController;
+    private InfectionRateController _infectionRateController;
     private GameController _gameController;
+    private Console _console;
+
     private int discardCardOnTop = 0;
     private float nextInfection = 0f;
     private float infectionTime = 1f;
@@ -42,6 +46,7 @@ public class InfectionManager : MonoBehaviour
         _virusTexturesDict[InfectionType.VIRUS_RED] = _virusTextures[3];
 
         _animationController = _animationControllerObject.GetComponent<AnimationController>();
+        _infectionRateController = _infectionRateMarkerObject.GetComponent<InfectionRateController>();
         _gameController = _gameControllerObject.GetComponent<GameController>();
         _console = _consoleObject.GetComponent<Console>();
     }
@@ -60,7 +65,7 @@ public class InfectionManager : MonoBehaviour
                     var infectionCard = request.Item1;
                     var infectionInfo = request.Item2;
 					CityColor cardColor = CityColor.CITY_COLOR_BLACK;
-                    drawCard(infectionCard);
+                    DrawCard(infectionCard);
 
 					var cityTiles = GameObject.FindGameObjectsWithTag("Tile");
 					foreach (var tile in cityTiles)
@@ -122,6 +127,18 @@ public class InfectionManager : MonoBehaviour
         }*/
     }
 
+
+    public void TriggerEpidemicSequence()
+    {
+        // move the marker and increase the infection rate
+        var previousInfectionRate = _infectionRateController.GetCurrentInfectionRate();
+        _infectionRateController.ResolveEpidemicInfectionRate();
+        var currentInfectionRate = _infectionRateController.GetCurrentInfectionRate();
+        if (currentInfectionRate > previousInfectionRate)
+        {
+            _console.AddText(ServerMessageType.SMESSAGE_INFO, $"Infection rate has increased to {currentInfectionRate}!");
+        }
+    }
     public void Infect(int cityId, InfectionType infectionType, int infectCount)
     {
         
@@ -175,7 +192,12 @@ public class InfectionManager : MonoBehaviour
 		return "";
 	}
 
-    public void drawCard(InfectionCard infectionCard)
+    public void DrawCard(InfectionCard infectionCard)
+    {
+        StartCoroutine(DrawCardRoutine(infectionCard));
+    }
+
+    public IEnumerator DrawCardRoutine (InfectionCard infectionCard)
     {
         string infectionCardName = EnumToString(infectionCard);
 
@@ -194,7 +216,9 @@ public class InfectionManager : MonoBehaviour
             }
         }
         var targetPosition = new Vector3(InfectionCardDiscardPilePosition.x, InfectionCardDiscardPilePosition.y, discardCardOnTop);
-        _animationController.MoveToTarget(newInfectionCard, null, targetPosition, 0.5f);
+        _animationController.MoveToTarget(newInfectionCard, null, BoardCenterPosition - InfectionPilePosition, 1f, null, InfectionCardEnlargedScale);
+        yield return new WaitForSeconds(1.5f);
+        _animationController.MoveToTarget(newInfectionCard, null, targetPosition, 0.5f, null, InfectionCardScale);
         discardCardOnTop--;
     }
 

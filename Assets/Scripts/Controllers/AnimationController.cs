@@ -7,7 +7,7 @@ public class AnimationController : MonoBehaviour
     // Map GameObject instance ID -> running Coroutine
     private readonly Dictionary<int, Coroutine> _activeCoroutines = new Dictionary<int, Coroutine>();
 
-    public void MoveToTarget(GameObject gObject, Vector3? startPosition, Vector3 targetPosition, float duration)
+    public void MoveToTarget(GameObject gObject, Vector3? startPosition, Vector3 targetPosition, float duration, Vector3? startScale = null, Vector3? targetScale = null)
     {
         if (gObject == null) return;
 
@@ -21,11 +21,11 @@ public class AnimationController : MonoBehaviour
         }
 
         // Start a new coroutine and keep reference
-        Coroutine c = StartCoroutine(LerpPosition(gObject, startPosition, targetPosition, duration));
+        Coroutine c = StartCoroutine(LerpPosition(gObject, startPosition, targetPosition, duration, startScale, targetScale));
         _activeCoroutines[id] = c;
     }
 
-    private IEnumerator LerpPosition(GameObject gObject, Vector3? startPosition, Vector3 targetPosition, float duration)
+    private IEnumerator LerpPosition(GameObject gObject, Vector3? startPosition, Vector3 targetPosition, float duration, Vector3? startScale, Vector3? targetScale)
     {
         if (gObject == null)
             yield break;
@@ -34,11 +34,14 @@ public class AnimationController : MonoBehaviour
 
         float time = 0f;
         Vector3 actualStartPosition = startPosition ?? gObject.transform.localPosition;
+        Vector3 actualStartScale = startScale ?? gObject.transform.localScale;
+        Vector3 actualTargetScale = targetScale ?? gObject.transform.localScale;
 
         // If duration is zero or negative, snap immediately
         if (duration <= 0f)
         {
             gObject.transform.localPosition = targetPosition;
+            gObject.transform.localScale = actualTargetScale;
             _activeCoroutines.Remove(id);
             yield break;
         }
@@ -49,14 +52,19 @@ public class AnimationController : MonoBehaviour
             if (gObject == null)
                 yield break;
 
-            gObject.transform.localPosition = Vector3.Lerp(actualStartPosition, targetPosition, time / duration);
+            float t = time / duration;
+            gObject.transform.localPosition = Vector3.Lerp(actualStartPosition, targetPosition, t);
+            gObject.transform.localScale = Vector3.Lerp(actualStartScale, actualTargetScale, t);
             time += Time.deltaTime;
             yield return null;
         }
 
         // Final snap to target and cleanup dictionary entry
         if (gObject != null)
+        {
             gObject.transform.localPosition = targetPosition;
+            gObject.transform.localScale = actualTargetScale;
+        }
 
         // Remove dictionary entry if present (may have been replaced already)
         _activeCoroutines.Remove(id);
