@@ -9,6 +9,7 @@ public class VirusCubeManager : MonoBehaviour
     private float _angularSpeed = 1.5f; // The speed of rotation
 
     private float _angle = 0f;
+    private InfectionType _infectionType;
 
     // Update is called once per frame
     void Update()
@@ -38,8 +39,17 @@ public class VirusCubeManager : MonoBehaviour
         _angle = startAngle;
     }
 
-    public void SetTile(Tile tile)
+    public void SetInfectionType(InfectionType infectionType)
     {
+        _infectionType = infectionType;
+    }
+
+    public InfectionType GetInfectionType()
+    {
+        return _infectionType;
+    }
+
+    public void SetTile(Tile tile) { 
         _tile = tile;
     }
 

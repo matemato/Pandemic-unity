@@ -6,6 +6,8 @@ public class GameController : MonoBehaviour
 {
     // Start is called before the first frame update
 
+    public static GameController Instance;
+
     [SerializeField]
     public GameObject PlayerPrefab;
     [SerializeField]
@@ -13,6 +15,11 @@ public class GameController : MonoBehaviour
 
     public ServerInput ServerInput;
     public OpcodeManager OpcodeManager;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     void Start()
     {

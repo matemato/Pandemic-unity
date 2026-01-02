@@ -12,6 +12,7 @@ public class ServerInput
     public InfectionHolder InfectionHolder;
 	public EpidemicHolder EpidemicHolder;
 	public JoinLobbyHolder JoinLobbyHolder;
+    public TreatDiseaseHolder TreatDiseaseHolder;
     public bool InvalidOpcode;
 
     public ServerInput()
@@ -23,7 +24,8 @@ public class ServerInput
         PlayerCardUpdateHolder = new PlayerCardUpdateHolder();
         InfectionHolder = new InfectionHolder();
 		EpidemicHolder = new EpidemicHolder();
-		JoinLobbyHolder = new();
+        TreatDiseaseHolder = new TreatDiseaseHolder();
+        JoinLobbyHolder = new();
 
 	}
 }

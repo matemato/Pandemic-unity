@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerInfoManager : MonoBehaviour
 {
+    public static PlayerInfoManager Instance;
+
     [SerializeField]
     private GameObject _playerInfoPrefab;
 
@@ -12,6 +14,11 @@ public class PlayerInfoManager : MonoBehaviour
     private int _numOfPlayers = 0;
 
     Dictionary<PlayerRole, string> RoleDict = new Dictionary<PlayerRole, string>();
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     // Start is called before the first frame update
     void Start()

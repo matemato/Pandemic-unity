@@ -9,6 +9,8 @@ using static BoardComponentPositions;
 
 public class InfectionManager : MonoBehaviour
 {
+    public static InfectionManager Instance;
+
     [SerializeField]
     private GameObject _infectionCardPrefab;
     [SerializeField]
@@ -37,6 +39,11 @@ public class InfectionManager : MonoBehaviour
 
     private Dictionary<InfectionType, Texture> _virusTexturesDict = new Dictionary<InfectionType, Texture>();
 
+    private void Awake()
+    {
+        Instance = this;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -56,55 +63,8 @@ public class InfectionManager : MonoBehaviour
     {
         if (_gameController.ServerInput != null)
         {
-            if (Time.time > nextInfection)
-            { 
-                var request = _gameController.ServerInput.InfectionHolder.GetNext();
-
-                if (request != null)
-                {
-                    var infectionCard = request.Item1;
-                    var infectionInfo = request.Item2;
-					CityColor cardColor = CityColor.CITY_COLOR_BLACK;
-                    DrawCard(infectionCard);
-
-					var cityTiles = GameObject.FindGameObjectsWithTag("Tile");
-					foreach (var tile in cityTiles)
-					{
-						Tile tileScript = tile.GetComponent<Tile>();
-						if (tileScript.InfectionCard == infectionCard)
-						{
-							cardColor = tileScript.CityColor;
-							break;
-						}
-					}
-
-					while (infectionInfo.Count > 0)
-                    {
-                        var infection = infectionInfo.Dequeue();
-                        if (infection.Item1 == InfectionType.EXPLOSION)
-                        {
-							// play animation
-							var extraColor = VirusTypeToColor(infection.Item1);
-
-							_console.AddText(ServerMessageType.SMESSAGE_INFO, "Card <color=" + CityColorToColor(cardColor) + ">" + EnumToString(infectionCard) + " (" + (int)infectionCard + ")</color> caused <color=" + extraColor + ">Explosion</color> at: " + FindCityNameById(infection.Item2) + " (" + infection.Item2 + ")");
-						}
-                        else
-                        {
-							//var extraColor = VirusTypeToColor(infection.Item1);
-							Infect(infection.Item2, infection.Item1, 1);
-                            _console.AddText(ServerMessageType.SMESSAGE_INFO, "Card <color=" + CityColorToColor(cardColor) + ">" + EnumToString(infectionCard) + " (" + (int)infectionCard + ")</color> caused Infection at: " + FindCityNameById(infection.Item2) + " (" + infection.Item2 + ")");
-                        }
-                    }
-
-					if (_gameController.ServerInput.InfectionHolder.IsQueueEmpty())
-					{
-						//we have processed all of the stuff, send ready packet to server
-						_gameController.OpcodeManager.Send(new OutReady());
-					}
-
-					nextInfection = Time.time + infectionTime;
-				}
-            }
+            CheckInfection();
+            CheckTreatDisease();
         }
 
         if (Input.GetKeyDown(KeyCode.K))
@@ -127,6 +87,90 @@ public class InfectionManager : MonoBehaviour
         }*/
     }
 
+    public void CheckTreatDisease()
+    {
+        var requests = _gameController.ServerInput.TreatDiseaseHolder.GetNext();
+        if (requests != null)
+            // pid, type, new_count, loc
+        {
+            var pid = requests.Item1; // who treated the disease
+            var diseaseType = requests.Item2; // which type of disease was treated
+            var newCount = requests.Item3; // updated count of diseases of that type on tile
+            var loc = requests.Item4; // which tile to update the count on
+
+            var tiles = GameObject.FindGameObjectsWithTag("Tile");
+            var playerName = PlayerInfoManager.Instance._playerInfos[pid].GetComponent<PlayerInfo>().GetPlayerName();
+            
+            foreach (GameObject tile in tiles)
+            {
+                if (tile.GetComponent<Tile>().GetId() == loc)
+                {
+                    var tileScript = tile.GetComponent<Tile>();
+                    var cityVirusCubes = tileScript.GetVirusCubes();
+                    TreatDisease(cityVirusCubes, diseaseType);
+                    tileScript.SetInfectionCount(diseaseType, newCount);
+                    _console.AddText(ServerMessageType.SMESSAGE_INFO, $"Player {playerName} treated 1 virus <color={VirusTypeToColor(diseaseType)}>cube</color> at <color={CityColorToColor(tileScript.CityColor)}>{tileScript.Name} ({loc})</color>");
+                    break;
+                }
+            }
+        }
+
+    }
+
+    public void CheckInfection()
+    {
+        if (Time.time > nextInfection)
+        {
+            var request = _gameController.ServerInput.InfectionHolder.GetNext();
+
+            if (request != null)
+            {
+                var infectionCard = request.Item1;
+                var infectionInfo = request.Item2;
+                CityColor cardColor = CityColor.CITY_COLOR_BLACK;
+                DrawCard(infectionCard);
+
+                var cityTiles = GameObject.FindGameObjectsWithTag("Tile");
+                foreach (var tile in cityTiles)
+                {
+                    Tile tileScript = tile.GetComponent<Tile>();
+                    if (tileScript.InfectionCard == infectionCard)
+                    {
+                        cardColor = tileScript.CityColor;
+                        break;
+                    }
+                }
+
+                while (infectionInfo.Count > 0)
+                {
+                    var infection = infectionInfo.Dequeue();
+                    if (infection.Item1 == InfectionType.EXPLOSION)
+                    {
+                        // play animation
+                        var extraColor = VirusTypeToColor(infection.Item1);
+
+                        _console.AddText(ServerMessageType.SMESSAGE_INFO, "Card <color=" + CityColorToColor(cardColor) + ">" + EnumToString(infectionCard) + " (" + (int)infectionCard + ")</color> caused <color=" + extraColor + ">Explosion</color> at: " + FindCityNameById(infection.Item2) + " (" + infection.Item2 + ")");
+                    }
+                    else
+                    {
+                        //var extraColor = VirusTypeToColor(infection.Item1);
+                        Infect(infection.Item2, infection.Item1, 1);
+                        _console.AddText(ServerMessageType.SMESSAGE_INFO, "Card <color=" + CityColorToColor(cardColor) + ">" + EnumToString(infectionCard) + " (" + (int)infectionCard + ")</color> caused Infection at: " + FindCityNameById(infection.Item2) + " (" + infection.Item2 + ")");
+                    }
+                }
+
+                if (_gameController.ServerInput.InfectionHolder.IsQueueEmpty())
+                {
+                    //we have processed all of the stuff, send ready packet to server
+                    _gameController.OpcodeManager.Send(new OutReady());
+                }
+
+                nextInfection = Time.time + infectionTime;
+            }
+        }
+    }
+
+
 
     public void TriggerEpidemicSequence()
     {
@@ -142,8 +186,6 @@ public class InfectionManager : MonoBehaviour
     public void Infect(int cityId, InfectionType infectionType, int infectCount)
     {
         
-        //drawCard(infectionCard, infectionType);
-
         var tiles = GameObject.FindGameObjectsWithTag("Tile");
         GameObject tile = null;
         Tile tileScript = null;
@@ -166,6 +208,7 @@ public class InfectionManager : MonoBehaviour
             virusCube.transform.SetParent(tile.transform.parent, false);
 
             virusCube.GetComponentInChildren<MeshRenderer>().material.mainTexture = _virusTexturesDict[infectionType];
+            virusCube.GetComponent<VirusCubeManager>().SetInfectionType(infectionType);
             tileScript.AddVirusCube(virusCube);
         }
 
@@ -173,8 +216,22 @@ public class InfectionManager : MonoBehaviour
 
         for (int i = 0; i < virusCubes.Count; i++) 
         {
-            virusCubes[i].GetComponent<VirusCubeManager>().SetStartingAngle(i * 2 * Mathf.PI / virusCubes.Count);
             virusCubes[i].GetComponent<VirusCubeManager>().SetTile(tileScript);
+            virusCubes[i].GetComponent<VirusCubeManager>().SetStartingAngle(i * 2 * Mathf.PI / virusCubes.Count);  
+        }
+    }
+
+    public void TreatDisease(List<GameObject> cityVirusCubes, InfectionType infectionType)
+    {
+        for (int i = 0; i < cityVirusCubes.Count; i++) 
+        {
+            var virusCubeManager = cityVirusCubes[i].GetComponent<VirusCubeManager>();
+            if (virusCubeManager.GetInfectionType() == infectionType) 
+            {
+                cityVirusCubes.RemoveAt(i);
+                Destroy(virusCubeManager.gameObject);
+                break;
+            }
         }
     }
 

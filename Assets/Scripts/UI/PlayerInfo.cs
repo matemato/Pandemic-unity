@@ -37,7 +37,12 @@ public class PlayerInfo : MonoBehaviour
         _playerName.text = playerName;
     }
 
-	public void SetPlayerRole(string playerRole)
+    public string GetPlayerName()
+    {
+        return _playerName.text;
+    }
+
+    public void SetPlayerRole(string playerRole)
     {
         _playerRole.text = playerRole;
         playerRole = playerRole.Replace(" ", "_").ToLower();
