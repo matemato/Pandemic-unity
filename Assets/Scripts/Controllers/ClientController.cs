@@ -1,4 +1,5 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -119,8 +120,9 @@ public class ClientController : MonoBehaviour
     private void UpdateIngame()
     {
         const float idleSendPeriod = 1.0f;
+		var playerInfoManager = _playerInfoManager.GetComponent<PlayerInfoManager>();
 
-        _opcodeManager.ReceiveAll();
+		_opcodeManager.ReceiveAll();
 
         if (Time.time > nextIdleTime)
         {
@@ -128,7 +130,27 @@ public class ClientController : MonoBehaviour
             OutIdle idle = new OutIdle();
             _opcodeManager.Send(idle);
         }
-    }
+
+		var newActivePlayer = _serverInput.TurnInfoHolder.GetActive();
+		if (newActivePlayer.Item1 > -1)
+		{
+			playerInfoManager.SetTurnBegin(newActivePlayer.Item1, newActivePlayer.Item2);
+		}
+
+		var newEndTurn = _serverInput.TurnInfoHolder.GetEndTurnChange();
+		if (newEndTurn > -1)
+		{
+			playerInfoManager.SetTurnEnd(newEndTurn);
+		}
+
+		var changeActions = _serverInput.TurnInfoHolder.GetActionChange();
+		if (changeActions.Item1 > -1)
+		{
+			playerInfoManager.UpdateActions(changeActions.Item1, changeActions.Item2);
+		}
+
+
+	}
 
     private void BeginGame()
     {

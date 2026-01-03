@@ -56,7 +56,7 @@ public class Console : MonoBehaviour
             {
                 if (serverText.Item1 == ServerMessageType.SMESSAGE_CHAT || serverText.Item1 == ServerMessageType.SMESSAGE_INFO)
                 {
-                    AddText(serverText.Item1, serverText.Item2, "yellow");
+                    AddText(serverText.Item1, serverText.Item2, "#27D6F5");
                 }
             }
         }

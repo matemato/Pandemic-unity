@@ -17,14 +17,17 @@ public class Player : MonoBehaviour
     [SerializeField]
     private GameController _gameController;
 
-    // private int _playerTurns = 0;
+	private GameObject _playerInfoManager;
 
-    // Start is called before the first frame update
-    void Start()
+	// private int _playerTurns = 0;
+
+	// Start is called before the first frame update
+	void Start()
     {
         _tiles = GameObject.FindGameObjectsWithTag("Tile");
         _gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
-    }
+		_playerInfoManager = GameObject.Find("PlayerInfoManager");
+	}
 
 	public void SetColor(int id)
 	{
@@ -75,6 +78,12 @@ public class Player : MonoBehaviour
     {
         return _id;
     }
+
+	public int GetActions()
+	{
+		var playerInfoManager = _playerInfoManager.GetComponent<PlayerInfoManager>();
+		return playerInfoManager.GetActions(GetId());
+	}
 
     public void AddCardToHand(GameObject card)
     {

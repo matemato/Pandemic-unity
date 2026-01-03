@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using TMPro;
 using UnityEngine;
+using Color = UnityEngine.Color;
 
 public class PlayerInfo : MonoBehaviour
 {
@@ -15,11 +17,17 @@ public class PlayerInfo : MonoBehaviour
     private Sprite[] _rolePics;
     [SerializeField]
     private GameObject _cardTextPrefab;
+	[SerializeField]
+	private TMP_Text _actionText;
+	[SerializeField]
+	private GameObject _activeTurn;
 
-    private List<TMP_Text> _cardTexts = new List<TMP_Text>();
+	private List<TMP_Text> _cardTexts = new List<TMP_Text>();
     private List<PlayerCard> _playerCards = new List<PlayerCard>();
 
-    private Dictionary<CityColor, int> _playerHandCount = new Dictionary<CityColor, int>
+	public int Actions { get; private set; } = 0;
+
+	private Dictionary<CityColor, int> _playerHandCount = new Dictionary<CityColor, int>
         {
             { CityColor.CITY_COLOR_BLUE, 0 },
             { CityColor.CITY_COLOR_YELLOW, 0 },
@@ -29,13 +37,22 @@ public class PlayerInfo : MonoBehaviour
 
     private void Start()
     {
-
+		_activeTurn.SetActive(false);
+		_actionText.text = "";
     }
 
-    public void SetPlayerName(string playerName)
+    public void SetPlayerName(string playerName, int id)
     {
         _playerName.text = playerName;
-    }
+		if (id == 0)
+			_playerName.color = Color.yellow;
+		else if (id == 1)
+			_playerName.color = Color.violet;
+		else if (id == 2)
+			_playerName.color = Color.green;
+		else if (id == 3)
+			_playerName.color = Color.orange;
+	}
 
     public string GetPlayerName()
     {
@@ -155,4 +172,27 @@ public class PlayerInfo : MonoBehaviour
                 return new UnityEngine.Color();
         }
     }
+
+	internal void BeginTurn(int actions)
+	{
+		UpdateActions(actions);
+		_activeTurn.SetActive(true);
+		_activeTurn.GetComponent<SpriteRenderer>().color = Color.green;
+	}
+	internal void EndTurn()
+	{
+		UpdateActions(0);
+		_activeTurn.SetActive(true);
+		_activeTurn.GetComponent<SpriteRenderer>().color = Color.red;
+	}
+	internal void HideActiveSign()
+	{
+		_activeTurn.SetActive(false);
+		_actionText.text = "";
+	}
+	internal void UpdateActions(int actions)
+	{
+		Actions = actions;
+		_actionText.text = $"Actions: {actions}";
+	}
 }

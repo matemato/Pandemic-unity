@@ -36,6 +36,7 @@ public class Tile : MonoBehaviour
     public InfectionCard InfectionCard;
     public Tile[] Neighbours;
     public bool Highlight;
+	private Player _player;
 
     [HideInInspector]
     public TileData TileData;
@@ -112,15 +113,23 @@ public class Tile : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+		if(_player == null)
+		{
+			_player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+		}
+
         Color currentColor = _spriteRenderer.color;
-        if (Highlight)
-        {
-            currentColor.a = 0.5f;
-        }
-        else
-        {
-            currentColor.a = 0f;
-        }
+		if(_player != null)
+		{
+			if (Highlight && _player.GetActions() > 0)
+			{
+				currentColor.a = 0.5f;
+			}
+			else
+			{
+				currentColor.a = 0f;
+			}
+		}
         _spriteRenderer.color = currentColor;
     }
 

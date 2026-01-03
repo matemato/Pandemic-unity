@@ -47,11 +47,41 @@ public class PlayerInfoManager : MonoBehaviour
 
     public void SetPlayerName(int id, string name)
     {
-        _playerInfos[id].GetComponent<PlayerInfo>().SetPlayerName(name);
+        _playerInfos[id].GetComponent<PlayerInfo>().SetPlayerName(name, id);
     }
     public void SetPlayerRole(int id, PlayerRole playerRole)
     {
         _playerInfos[id].GetComponent<PlayerInfo>().SetPlayerRole(RoleDict[playerRole]);
     }
+
+	public void SetTurnBegin(int id, int actions)
+	{
+		foreach (var playerInfo in _playerInfos)
+		{
+			playerInfo.GetComponent<PlayerInfo>().HideActiveSign();
+		}
+
+		_playerInfos[id].GetComponent<PlayerInfo>().BeginTurn(actions);
+	}
+
+	public void SetTurnEnd(int id)
+	{
+		foreach (var playerInfo in _playerInfos)
+		{
+			playerInfo.GetComponent<PlayerInfo>().HideActiveSign();
+		}
+
+		_playerInfos[id].GetComponent<PlayerInfo>().EndTurn();
+	}
+
+	public void UpdateActions(int id, int actions)
+	{
+		_playerInfos[id].GetComponent<PlayerInfo>().UpdateActions(actions);
+	}
+
+	public int GetActions(int id)
+	{
+		return _playerInfos[id].GetComponent<PlayerInfo>().Actions;
+	}
 
 }

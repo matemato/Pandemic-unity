@@ -13,6 +13,7 @@ public class ServerInput
 	public EpidemicHolder EpidemicHolder;
 	public JoinLobbyHolder JoinLobbyHolder;
     public TreatDiseaseHolder TreatDiseaseHolder;
+	public TurnInfoHolder TurnInfoHolder;
     public bool InvalidOpcode;
 
     public ServerInput()
@@ -25,6 +26,7 @@ public class ServerInput
         InfectionHolder = new InfectionHolder();
 		EpidemicHolder = new EpidemicHolder();
         TreatDiseaseHolder = new TreatDiseaseHolder();
+		TurnInfoHolder = new TurnInfoHolder();
         JoinLobbyHolder = new();
 
 	}
