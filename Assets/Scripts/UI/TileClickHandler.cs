@@ -16,7 +16,7 @@ public class TileClickHandler : MonoBehaviour
         if (neighbouringCity) 
         {
             var tileId = gameObject.GetComponent<Tile>().GetId();
-            GameController.OpcodeManager.Send(new OutMove((byte)tileId));
+            GameController.OpcodeManager.Send(new OutMove((byte)tileId, MovementType.MOVE_NORMAL));
         }
 
         
