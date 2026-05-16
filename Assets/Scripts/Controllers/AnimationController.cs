@@ -11,7 +11,9 @@ public class AnimationController : MonoBehaviour
     {
         if (gObject == null) return;
 
+        #pragma warning disable CS0618
         int id = gObject.GetInstanceID();
+        #pragma warning restore CS0618
 
         // If there's an existing coroutine for this GameObject, stop it
         if (_activeCoroutines.TryGetValue(id, out Coroutine existing) && existing != null)
@@ -30,7 +32,9 @@ public class AnimationController : MonoBehaviour
         if (gObject == null)
             yield break;
 
+        #pragma warning disable CS0618
         int id = gObject.GetInstanceID();
+        #pragma warning restore CS0618
 
         float time = 0f;
         Vector3 actualStartPosition = startPosition ?? gObject.transform.localPosition;

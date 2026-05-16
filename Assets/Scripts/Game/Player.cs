@@ -19,15 +19,18 @@ public class Player : MonoBehaviour
 
 	private GameObject _playerInfoManager;
 
-	// private int _playerTurns = 0;
+    public bool IsMyTurn { get; set; } = false;
 
-	// Start is called before the first frame update
-	void Start()
+    // private int _playerTurns = 0;
+
+    // Start is called before the first frame update
+    void Start()
     {
         _tiles = GameObject.FindGameObjectsWithTag("Tile");
         _gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
 		_playerInfoManager = GameObject.Find("PlayerInfoManager");
 	}
+
 
 	public void SetColor(int id)
 	{

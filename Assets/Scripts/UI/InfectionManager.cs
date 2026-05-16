@@ -26,12 +26,16 @@ public class InfectionManager : MonoBehaviour
     [SerializeField]
     private GameObject _gameControllerObject;
     [SerializeField]
+    private GameObject _infectionCardDiscardPileControllerObject;
+    [SerializeField]
     private Texture[] _virusTextures; // black, blue, yellow, red
+    
 
     private AnimationController _animationController;
     private InfectionRateController _infectionRateController;
     private GameController _gameController;
     private Console _console;
+    private InfectionCardDiscardPileController _infectionCardDiscardPileController;
 
     private int discardCardOnTop = 0;
     private float nextInfection = 0f;
@@ -56,6 +60,7 @@ public class InfectionManager : MonoBehaviour
         _infectionRateController = _infectionRateMarkerObject.GetComponent<InfectionRateController>();
         _gameController = _gameControllerObject.GetComponent<GameController>();
         _console = _consoleObject.GetComponent<Console>();
+        _infectionCardDiscardPileController = _infectionCardDiscardPileControllerObject.GetComponent<InfectionCardDiscardPileController>();
     }
 
     // Update is called once per frame
@@ -129,6 +134,7 @@ public class InfectionManager : MonoBehaviour
                 var infectionInfo = request.Item2;
                 CityColor cardColor = CityColor.CITY_COLOR_BLACK;
                 DrawCard(infectionCard);
+                _infectionCardDiscardPileController.AddToDiscardPile(infectionCard);
 
                 var cityTiles = GameObject.FindGameObjectsWithTag("Tile");
                 foreach (var tile in cityTiles)
@@ -182,6 +188,7 @@ public class InfectionManager : MonoBehaviour
         {
             _console.AddText(ServerMessageType.SMESSAGE_INFO, $"Infection rate has increased to {currentInfectionRate}!");
         }
+        _infectionCardDiscardPileController.ClearDiscardPile();
     }
     public void Infect(int cityId, InfectionType infectionType, int infectCount)
     {
@@ -259,6 +266,7 @@ public class InfectionManager : MonoBehaviour
         string infectionCardName = EnumToString(infectionCard);
 
         var newInfectionCard = Instantiate(_infectionCardPrefab, new Vector3(InfectionCardDeckPosition.x, InfectionCardDeckPosition.y, discardCardOnTop), Quaternion.identity);
+        newInfectionCard.tag = "InfectionCard";
         newInfectionCard.transform.SetParent(gameObject.transform, false);
         var newCard = newInfectionCard.transform.GetChild(0).gameObject;
         newCard.GetComponent<InfectionCardScript>().SetInfectionCard(infectionCard);

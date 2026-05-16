@@ -196,6 +196,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
+  m_UseReflectionProbes: 0
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
@@ -278,7 +279,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7936ff1eb90b67f4f85bf066b6008064, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ActionManager
-  GameController: {fileID: 0}
 --- !u!1001 &92226159
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -501,6 +501,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &904074285
 SpriteRenderer:
+  serializedVersion: 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -546,6 +547,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: 3402d2354a94b2a45be2c786366ee257, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -555,7 +557,6 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &904074286
 MonoBehaviour:
@@ -650,6 +651,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &931856184
 SpriteRenderer:
+  serializedVersion: 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -695,6 +697,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: b8bd7a40c176906468296ed9c563bc95, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -704,7 +707,6 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &949818594
 GameObject:
@@ -843,6 +845,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 949818594}
   m_CullTransparentMesh: 1
+--- !u!1 &969049114 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 656892011067619700, guid: 83566486a0521894f9d66acc68e98d26, type: 3}
+  m_PrefabInstance: {fileID: 1335467672}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &969049115
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 969049114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2db67f248f868a346b53589ab65a30ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InfectionCardDiscardPileController
+  _discardedCards: 
 --- !u!1001 &1335467672
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1031,6 +1051,14 @@ PrefabInstance:
       propertyPath: '_virusTextures.Array.data[3]'
       value: 
       objectReference: {fileID: 2800000, guid: 0d9988fba87e2b746abffc11efe2c407, type: 3}
+    - target: {fileID: 116624459240157390, guid: 83566486a0521894f9d66acc68e98d26, type: 3}
+      propertyPath: _infectionCardControllerObject
+      value: 
+      objectReference: {fileID: 969049114}
+    - target: {fileID: 116624459240157390, guid: 83566486a0521894f9d66acc68e98d26, type: 3}
+      propertyPath: _infectionCardDiscardPileControllerObject
+      value: 
+      objectReference: {fileID: 969049114}
     - target: {fileID: 300050468309150391, guid: 83566486a0521894f9d66acc68e98d26, type: 3}
       propertyPath: m_Name
       value: InfectionInfo
@@ -1203,6 +1231,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7864790135509575802, guid: 83566486a0521894f9d66acc68e98d26, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1335467674}
+    - targetCorrespondingSourceObject: {fileID: 656892011067619700, guid: 83566486a0521894f9d66acc68e98d26, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 969049115}
   m_SourcePrefab: {fileID: 100100000, guid: 83566486a0521894f9d66acc68e98d26, type: 3}
 --- !u!1 &1335467673 stripped
 GameObject:
@@ -1263,6 +1294,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1404026397
 SpriteRenderer:
+  serializedVersion: 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1308,6 +1340,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: 3402d2354a94b2a45be2c786366ee257, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1317,7 +1350,6 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &1404026398
 MonoBehaviour:
@@ -1410,6 +1442,7 @@ GameObject:
   m_IsActive: 1
 --- !u!212 &1440349741
 SpriteRenderer:
+  serializedVersion: 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1455,6 +1488,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: 67b22572c7e58ee489248468de396457, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1464,7 +1498,6 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &1440349742
 Transform:
@@ -1520,6 +1553,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1509157329
 SpriteRenderer:
+  serializedVersion: 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1565,6 +1599,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: b8bd7a40c176906468296ed9c563bc95, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1574,7 +1609,6 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1001 &1525714546
 PrefabInstance:
@@ -2042,6 +2076,10 @@ PrefabInstance:
       propertyPath: _infectionRateMarkerObject
       value: 
       objectReference: {fileID: 1335467673}
+    - target: {fileID: 364170328343564076, guid: 6aca16c5484fe1241bc509816cf30d6c, type: 3}
+      propertyPath: _infectionCardControllerObject
+      value: 
+      objectReference: {fileID: 969049114}
     - target: {fileID: 1489617365488683345, guid: 6aca16c5484fe1241bc509816cf30d6c, type: 3}
       propertyPath: m_Name
       value: PlayerHand
@@ -2853,6 +2891,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
 --- !u!212 &7632819526516926424
 SpriteRenderer:
+  serializedVersion: 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -2898,6 +2937,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: b2e88c35cb34bea40a7b5639fd42dcd0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -2907,7 +2947,6 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &7936546421256019714 stripped
 MonoBehaviour:

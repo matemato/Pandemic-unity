@@ -135,13 +135,23 @@ public class ClientController : MonoBehaviour
 		if (newActivePlayer.Item1 > -1)
 		{
 			playerInfoManager.SetTurnBegin(newActivePlayer.Item1, newActivePlayer.Item2);
-		}
+
+            if (newActivePlayer.Item1 == _player.GetComponent<Player>().GetId())
+            {
+                _player.GetComponent<Player>().IsMyTurn = true;
+            }
+        }
 
 		var newEndTurn = _serverInput.TurnInfoHolder.GetEndTurnChange();
 		if (newEndTurn > -1)
 		{
 			playerInfoManager.SetTurnEnd(newEndTurn);
-		}
+
+            if (newEndTurn == _player.GetComponent<Player>().GetId())
+            {
+                _player.GetComponent<Player>().IsMyTurn = false;
+            }
+        }
 
 		var changeActions = _serverInput.TurnInfoHolder.GetActionChange();
 		if (changeActions.Item1 > -1)
