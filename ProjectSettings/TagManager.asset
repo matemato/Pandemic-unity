@@ -12,9 +12,9 @@ TagManager:
   - DiscardedPlayerCard
   - VirusCube
   - Console
-  - HoverTargets
   - IpText
   - InfectionCard
+  - HoverCube
   layers:
   - Default
   - TransparentFX

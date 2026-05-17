@@ -41,7 +41,7 @@ public class InfectionManager : MonoBehaviour
     private float nextInfection = 0f;
     private float infectionTime = 1f;
 
-    private Dictionary<InfectionType, Texture> _virusTexturesDict = new Dictionary<InfectionType, Texture>();
+    public Dictionary<InfectionType, Texture> VirusTexturesDict = new Dictionary<InfectionType, Texture>();
 
     private void Awake()
     {
@@ -51,10 +51,10 @@ public class InfectionManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _virusTexturesDict[InfectionType.VIRUS_BLACK] = _virusTextures[0];
-        _virusTexturesDict[InfectionType.VIRUS_BLUE] = _virusTextures[1];
-        _virusTexturesDict[InfectionType.VIRUS_YELLOW] = _virusTextures[2];
-        _virusTexturesDict[InfectionType.VIRUS_RED] = _virusTextures[3];
+        VirusTexturesDict[InfectionType.VIRUS_BLACK] = _virusTextures[0];
+        VirusTexturesDict[InfectionType.VIRUS_BLUE] = _virusTextures[1];
+        VirusTexturesDict[InfectionType.VIRUS_YELLOW] = _virusTextures[2];
+        VirusTexturesDict[InfectionType.VIRUS_RED] = _virusTextures[3];
 
         _animationController = _animationControllerObject.GetComponent<AnimationController>();
         _infectionRateController = _infectionRateMarkerObject.GetComponent<InfectionRateController>();
@@ -214,7 +214,7 @@ public class InfectionManager : MonoBehaviour
             var virusCube = Instantiate(_virusCubePrefab, gameObject.transform.position, Quaternion.identity);
             virusCube.transform.SetParent(tile.transform.parent, false);
 
-            virusCube.GetComponentInChildren<MeshRenderer>().material.mainTexture = _virusTexturesDict[infectionType];
+            virusCube.GetComponentInChildren<MeshRenderer>().material.mainTexture = VirusTexturesDict[infectionType];
             virusCube.GetComponent<VirusCubeManager>().SetInfectionType(infectionType);
             tileScript.AddVirusCube(virusCube);
         }
@@ -237,6 +237,8 @@ public class InfectionManager : MonoBehaviour
             {
                 cityVirusCubes.RemoveAt(i);
                 Destroy(virusCubeManager.gameObject);
+                // update cube hover selection
+                ActionManager.Instance.RefreshDiseasePicker();
                 break;
             }
         }
@@ -281,10 +283,10 @@ public class InfectionManager : MonoBehaviour
             }
         }
         var targetPosition = new Vector3(InfectionCardDiscardPilePosition.x, InfectionCardDiscardPilePosition.y, discardCardOnTop);
+        discardCardOnTop--;
         _animationController.MoveToTarget(newInfectionCard, null, BoardCenterPosition - InfectionPilePosition, 1f, null, InfectionCardEnlargedScale);
         yield return new WaitForSeconds(1.5f);
         _animationController.MoveToTarget(newInfectionCard, null, targetPosition, 0.5f, null, InfectionCardScale);
-        discardCardOnTop--;
     }
 
     public string EnumToString(InfectionCard infectionCard)

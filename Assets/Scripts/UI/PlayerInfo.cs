@@ -193,6 +193,6 @@ public class PlayerInfo : MonoBehaviour
 	internal void UpdateActions(int actions)
 	{
 		Actions = actions;
-		_actionText.text = $"Actions: {actions}";
+		_actionText.text = $"Actions: {actions}/4";
 	}
 }

@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public static Player Instance;
+
     public Tile CurrentCity;
 
     private int _id;
@@ -23,7 +25,10 @@ public class Player : MonoBehaviour
 
     // private int _playerTurns = 0;
 
-    // Start is called before the first frame update
+    private void Awake()
+    {
+        Instance = this;
+    }
     void Start()
     {
         _tiles = GameObject.FindGameObjectsWithTag("Tile");
@@ -121,7 +126,9 @@ public class Player : MonoBehaviour
                     if (city.GetComponent<Tile>().GetId() == newPosition)
                     {
                         CurrentCity = city.GetComponent<Tile>();
-						offset = CurrentCity.PutPlayer(GetId());
+                        // refresh disease selection after moving
+                        ActionManager.Instance.RefreshDiseasePicker();
+                        offset = CurrentCity.PutPlayer(GetId());
                     }
                 }
 
@@ -131,11 +138,11 @@ public class Player : MonoBehaviour
                     {
                         city.Highlight = true;
                     }
-					//transform.position = City.transform.position;
-					//Debug.Log("offset: " + offset);
-					float xOffset = 0.4f - 0.2f * offset;
-					transform.position = CurrentCity.transform.position - new Vector3(xOffset, 0.3f, 0);
-				}
+                    //transform.position = City.transform.position;
+                    //Debug.Log("offset: " + offset);
+                    float xOffset = 0.4f - 0.2f * offset;
+                    transform.position = CurrentCity.transform.position - new Vector3(xOffset, 0.3f, 0);
+                }
             }
         }
         
