@@ -116,43 +116,64 @@ public class MainMenuController : MonoBehaviour
 	{
 		using var client = new UdpClient();
 		Debug.Log("Calling QuickPing");
+		_connectButton.GetComponent<Button>().interactable = false;
+		_refreshIpsButton.GetComponent<Button>().interactable = false;
+
 		var ipPanel = _ipSelectorPanel.GetComponent<PopulateScrollView>();
 		var loc = Application.dataPath + "/ip_list.txt";
 		var servers = ReadIpListWithFixedPort(loc);
 		var serversString = new List<string>();
+
 		ipPanel.ClearList();
 
 		foreach (var cts in _lastCts)
 			cts.Cancel();
 
+		// Send all PINGs immediately
 		foreach (var server in servers)
 		{
 			Debug.Log($"Sending PING to {server.Address.ToString()}");
 			await client.SendAsync(Encoding.UTF8.GetBytes("PING"), 4, server);
+		}
+
+		// Listen for replies for 2 seconds
+		var timeout = Task.Delay(TimeSpan.FromSeconds(2));
+
+		while (true)
+		{
+			var receiveTask = client.ReceiveAsync();
+
+			var completed = await Task.WhenAny(receiveTask, timeout);
+
+			if (completed == timeout)
+				break;
 
 			try
 			{
-				var cts = new CancellationTokenSource(TimeSpan.FromSeconds(2));
-				_lastCts.Add(cts);
-				var udpReceive = client.ReceiveAsync();
-				var result = await Task.WhenAny(udpReceive, Task.Delay(Timeout.InfiniteTimeSpan, cts.Token));
-				if(result == udpReceive)
+				var received = await receiveTask;
+				string reply = Encoding.UTF8.GetString(received.Buffer);
+
+				if (reply == "PONG")
 				{
-					string reply = Encoding.UTF8.GetString(udpReceive.Result.Buffer);
-					Debug.Log(reply == "PONG" ? $"Server {server.Address.ToString()} is ONLINE!" : "Wrong reply");
-					serversString.Add(server.Address.ToString());
-					ipPanel.AddToList(server.Address.ToString());
-				}
-				else
-				{
-					Debug.Log($"Server {server.Address.ToString()} is offline or not responding");
+					string address = received.RemoteEndPoint.Address.ToString();
+
+					if (!serversString.Contains(address))
+					{
+						Debug.Log($"Server {address} is ONLINE!");
+						serversString.Add(address);
+						ipPanel.AddToList(address);
+					}
 				}
 			}
-			catch
+			catch (SocketException)
 			{
-				Debug.Log($"Server {server.Address.ToString()} is offline or not responding");
+				continue;
 			}
 		}
+
+		Debug.Log("Server ping scan finished.");
+		_connectButton.GetComponent<Button>().interactable = true;
+		_refreshIpsButton.GetComponent<Button>().interactable = true;
 	}
 
 	// Update is called once per frame
