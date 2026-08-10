@@ -23,7 +23,7 @@ public class ActionManager : MonoBehaviour
     {
         if (Player.Instance == null)
         {
-            Debug.LogWarning("Player instance is null. Cannot check turn status.");
+            //Debug.LogWarning("Player instance is null. Cannot check turn status.");
             return;
         }
         else if (_player == null)
@@ -31,7 +31,7 @@ public class ActionManager : MonoBehaviour
             _player = Player.Instance;
         }
 
-        if (_player &&_player.IsMyTurn && !_wasMyTurn)
+        if (_player && _player.CurrentCity && _player.IsMyTurn && !_wasMyTurn)
         {
             Debug.Log("It's now the player's turn. Showing disease picker if necessary.");
             _wasMyTurn = true;

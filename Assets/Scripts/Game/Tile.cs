@@ -113,7 +113,7 @@ public class Tile : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-		if(_player == null)
+		if(_player == null && GameObject.FindGameObjectWithTag("Player") != null)
 		{
 			_player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
 		}
